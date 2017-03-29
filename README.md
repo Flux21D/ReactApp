@@ -1,154 +1,180 @@
-# Cirrus Web Accelerator v2.0.0
+# AULA Diabetes
 
-**Application Name:** Cirrus Web Accelerator
+# Table of Contents
+1. [Application Summary](#application-summary)
+2. [Blueprints & Code Packages](#blueprint-and-code-packages)
+3. [Installation](#installation)
+4. [Configuration](#configuration)
+	* [Authentication](#authentication)
+	* [Content Management System Configuration](#content-management-system-configuration)
+	* [Heroku App URLs](#heroku-app-urls)
+	* [Cookie Banner Details](#cookie-banner-details)
+	* [Analytics](#analytics)
+	* [Search](#search)
+	* [Active Directory](#active-directory-name)
+	* [Janrain Configuration](#janrain-configuration)
+	* [Folder Structure](#folder-structure)
+5. [Additional Functionality](#additional-functionality)
+6. [Testing](#testing)
+7. [Notes](#notes)
 
-**Application Description:** This is a Node Web Accelerator that allows project teams to get up and running with a Node project quicker then starting from scratch.
+<a name="application-summary"></a>
+## Application Summary
 
-**Prefix:** CIRR_WEB_ACCELERATOR
+**Application Name:** AULA Diabetes
 
-**Author:** Nick Liffen
+**Prefix (short name):** BUIT_EUCAN
 
-**Team:** Cirrus
+**Author:**
 
-**Information Classification:** Green
+	"Needs to be updated by development team"
 
-**Development Language:** Node
+**Support Team:** Osiris TCS Support
 
-**Heroku Add-Ons:** New Relic APM, Papertrail
+**Therapy Area:** Diabetes
 
-**ALM Record URL:** N/A
+**Service Now CI:** CI00000000346062
 
-**WIKI:** This README.md file only goes over high level information on this project, for more detail please see this repository's [Wiki](https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR/wiki).
+**Application Description:** The purpose of this website is to provide the Spanish HCP's with an educational platform.
 
-**Deploy to Heroku:** [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+**Country(s):** Spain
 
+<a name="blueprint-and-code-packages"></a>
+## Blueprint and Code Packages
 
----
+**Blueprint:** Web Application
 
-**Install:**
+	Development Language(s): Node.js
+	Development Framework(s):
+	Development Add-Ons: Redis, PaperTrail, New Relic
+	Development Standards:  esLint
+	Content Management System:
+	Analytics:** Google Analytics
+	Tag Management Tool: Google Tag Manager
+	Customer Authentication: N/A
 
-1. Run `npm install`.
-2. Run `npm install -g eslint`
-3. Copy the `.env-sample` file to `.env` and add values to the empty keys. (Please read on to find out how to find these values)
+**Code Package(s):**
 
----
+	CIRR_WEB_ACCELERATOR
 
-**Running:**
+<a name="installation"></a>
+## Installation:
 
-1. Run `npm run build` in one terminal window.
-2. Run `npm start` in another terminal window.
+1. Clone the repository by command 'git clone https://github.com/EliLillyCo/BUIT_EUCAN_AULA_ES_DIABETES.git'
 
-If you find any bugs or Issues with this web accelerator and you cannot find the answer in this README or the [Wiki](https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR/wiki) please log an [Issue](https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR/issues). If you think there is something important missing please open a Pull Request (See contributing section below).
+2. Install node and npm in your local system, if not already installed. [Please visit Node.js home page to download and install Node.js](http://nodejs.org/download/)
 
----
+3. Rename .env-sample file with .env
 
-**Deploying to Heroku:**
+4. Update .env file with the desired environment variables.
 
-1. Press the Deploy to Heroku button found below. Once you clicked the deploy button you will have to enter some values.
-2. Enter in the application name.
-3. Enter what Region OR Private Space you would like the application to live in.
-4. Enter in your environment variables. If you do not need authentication you only need to enter: NEW_RELIC_APP_NAME & set AUTH_REQUIRED to **false**. If you do need authentication you will need to enter in the following values: NEW_RELIC_APP_NAME, Set AUTH_REQUIRED to **true**, OPENID_NONCE, OPENID_CLIENT_ID & COOKIE_SECRET. Please see the description of each value for where to find this information.
-5. Click the deploy button.
-6. Your application will be in Heroku.
+5. Run npm install from the project root to install required node modules.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+6. Install Gulp's command line interface (CLI) globally. if not already installed. [Please visit gulp home page to download and install Gulp CLI](http://gulpjs.com/). You can also use command npm install -g grunt-cli
 
-For more information about Authentication please see the Authentication section below.
+7. Run the application by command 'npm start'
 
-If you open the `Environment Variables` section within the `Settings` tab. You will notice Heroku has automatically added three variables; two for NEw Relic and one for Papertrail. Please copy these values to your local `.env` file.
+8. The application will be available on localhost:3000
 
----
+<a name="configuration"></a>
+## Configuration
 
-**Heroku Continuous Integration:**
+<a name="authentication"></a>
+#### Authentication:
+[Please see the 'Authentication' section of the Web Accelerator vx.xx ReadMe File](https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR/blob/master/README.md)
 
-This repository comes with all the files needed to run Heroku Continuous Integration (CI), and three CI tests. Please enable Heroku CI in your pipeline. Please then add **two** values to the environment variables found in the `Settings` tab.
+<a name="content-management-system-configuration"></a>
+#### Content Management System Configuration:
+	CMS: Contentful
+	ContentfulDevSpace: OSIRIS_AULA_DIAB_DEV
+	ContentfulPrdSpace: OSIRIS_AULA_DIAB_PRD
 
-Please **remove** the space between the API_TOKEN. Once you remove the space you will have a valid API Token.
+<a name="heroku-app-urls"></a>
+#### Heroku App URLs
+	Heroku App Dev URL: buit-eucan-aula-es-diab-dev.herokuapp.com
+	Heroku App Stage URL: buit-eucan-aula-es-diab-stg.herokuapp.com
+	Heroku App Prod URL: buit-eucan-aula-es-diab-prd.herokuapp.com
+	Heroku App MLR preview app URL: buit-eucan-aula-es-diab-mlr.herokuapp.com
 
+<a name="cookie-banner-details"></a>
+#### Cookie Banner Details
+	"Awaiting Details"
 
-|       Key       | Value                                         |
-|:---------------:|-----------------------------------------------|
-| API_TOKEN       | 4dd6f93457aa6da79d     2be57f291c654b76b2c4f1 |
-| GITHUB_USERNAME | lillyherokuciint                              |
+<a name="analytics"></a>
+#### Analytics
+**Analytics Tool:**  Google Analytics
 
-The tests that this will run is:
+**Tag Management Tool:** Google Tag Manager
 
-1. Security Checks (Static Source Code Analysis)(Checkmark). This will output if you have any low, medium or high security faults in your application.
-2. Coding Standards Checks (AirBnB Style Guide)(ESlint). This will compare your code to the AirBnB Style Guide. Please see the *coding standards* section below for more details.
-3. Unit Testing Checks (Mocha). This will run unit tests against your application. The Development Team will need to add their own Unit Tests.
+**Power Users:**
 
-More information can be found on [LillyDev](https://lillydev.com/heroku/ci)).
+	| Name  |  Contact Email |
+	|---|---|
+	"Needs to be updated by development team"
 
----
+**Tag Manager Code Version (if applicable):**
 
-**Authentication:**
+	"Awaiting Details"
+#### Active Directory Name
+	N/A
 
-This accelerator comes with authentication out of the box.
+<a name="janrain-configuration"></a>
+#### Janrain Configuration:
+"Awaiting Details"
 
-To get started, copy the following environment variables into your `.env` file:
+<a name="folder-structure"></a>
+#### Folder Structure:
+- **bin** :: This folder contains the file which starts the node server [DO NOT CHANGE THIS FILE]
 
-**Note:** Changing these from their preset values will break authentication.
+- **lib** :: This folder contains the transpiled code from the src folder. [DO NOT CHANGE ANYTHING FROM THIS FOLDER]
 
-```
-OPENID_RESP_TYPE=id_token
-OPENID_SERV=https://federate-qa.xh1.lilly.com
-OPENID_SCOPE=openid auth_web
-OPENID_JWKS_URI=https://federate-qa.xh1.lilly.com/pf/JWKS
-CALLBACK=/auth/ping/callback
-```
+- **src** :: This folder contains all the server controllers, server routes and front end files as well
 
-There are also some environment variables that require your configuration:
+	- **controllers** :: This folder contains all the server side controllers [TRY AND MAKE MODULAR CODE ]
 
-1. `OPENID_NONCE` = A secure, high entropy key. You can create a value [here](http://randomkeygen.com/)
-2. `OPENID_CLIENT_ID`= Your auth client id. this can be found by looking for your `BUSINESS AREA` here: https://cirr-heroku-auth-standards.herokuapp.com.
-3. `COOKIE_SECRET`= A secure, high entropy key. You can create a value [here](http://randomkeygen.com/)
-4. `DISABLE_AUTH_LOGS` = By default the Auth Flow will log entries to the console. Disable this
-by setting this value to `false.`. The Default Value is `true`.
-5. `AUTH_REQUIRED` = `true`
+	- **indexer** :: This folder contains all the server side code for indexing the contents on the Bonsai Elasticsearch indexer.
 
-Your application **needs** to following the naming standards set out here: https://cirr-heroku-auth-standards.herokuapp.com. Your application will not authenticate otherwise and you will get an `invalid uri-redirect` message.
+	- **public** :: This folder contains all the front end scss, javascript, fonts and images
 
-When `AUTH_REQUIRED` is set to **false** your application is going to have no authentication.
+		- **scss** :: SASS files
 
-When you set `AUTH_REQUIRED` to **true** your application is going to try and authenticate with Ping. When a user visits your app, they will be redirected to single sign-on before being permitted access.
+		- **img** :: All Images
 
-It is recommended to set `AUTH_REQUIRED` to `false` on your local machine.
-It is recommended to set `AUTH_REQUIRED` to `true` in Heroku.
+		- **fonts** :: All fonts files used in the application
 
-**Note:** Authentication only works on port `3000`. Please make sure you do not run authentication on any other port or you will get an error message of `invalid uri-redirect`
+		- **js** :: All Client-Side JavaScript files. Browserify is ran on these files so you are able to write modularcode
 
----
+	- **routes** :: All the Express Routes used in the application are described here.
 
-**Coding Standards:**
+- **vendor** :: This folder conatins any of the open source libarary used in the client side code.
 
-1. Make sure you have Eslint downloaded and installed on your IDE.
-    1. Atom: [Linter](https://atom.io/packages/linter), [ESLint](https://atom.io/packages/linter-eslint)
-    2. Sublime: [Linter](https://packagecontrol.io/packages/SublimeLinter), [ESlint](https://packagecontrol.io/packages/SublimeLinter-contrib-eslint)
-    3. Other IDE's: [Linter](http://eslint.org)
-2. Make sure you have EditorConfig downloaded and installed on your IDE:
-    1. Atom: [EditorConfig](https://github.com/sindresorhus/atom-editorconfig#readme)
-    2. Sublime: [EditorConfig](https://github.com/sindresorhus/editorconfig-sublime#readme)
-    3. Other IDE's: [EditorConfig](http://editorconfig.org)
+- **views** :: Contains all the handlebars views
 
-This project uses ESlint for JavaScript Coding Standards. The AirBnb Style Guide is used for this project. Please ensure that all code passes the coding checks before pushing code. Run `npm run lint` to find out if your code has passed or not.
+<a name="additional-functionality"></a>
+## Additional Functionality
+Application does not deliver any additional functionality beyond Osiris approved standard requirements.  Validation activities covered within change request
 
-This project also uses [EditorConfig](http://editorconfig.org) to set up our coding style across IDE's.
+<a name="testing"></a>
+## Testing
+Application follows Osiris testing standards as documented by the Osiris Quality approach.  This includes the following:
 
----
+**Heroku CI**
 
-**Contributing:**
+* esLint compliance
+* Checkmarx security compliance
 
-1. Clone the repository.
-2. Read this README file.
-3. Make some changes.
-4. Once you're done with your changes send a pull request into the *develop* branch. (see naming details below).
-5. Heroku will create a review application.
-6. In the Pull Request, open the Review Application and make sure your changes are present and working.
-7. Make sure Continuous Integration has passed (Green tick in Pull Request).
-8. Wait for feedback.
+**Code Review**
 
-When you open a pull request please follow these naming conventions:
+Code review by the Osiris support team
 
-1. `feature/featureName`
-2. `enhancement/enhancementName`
-3. `bug/bugName`
+**Checklists**
+
+* LillyWeb IT Checklists
+
+**Additional Testing**
+
+No additional testing is required for this application
+
+<a name="notes"></a>
+## Notes:
+None

@@ -1,82 +1,131 @@
-// importing modules
-const express = require('express');
-const exphbs = require('express-handlebars');
+require('dotenv').config();
+
 const path = require('path');
-const morgan = require('morgan');
+const express = require('express');
+const session = require('express-session');
+const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
-const compression = require('compression');
-const favicon = require('serve-favicon');
-const helmet = require('helmet');
-
-// Importing the express module under the `app` variable
+const morgan = require('morgan');
+const winston = require('winston');
+const expressHandlebars = require('express-handlebars');
+const MemoryStore = session.MemoryStore;
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
+passport = require('passport');
+const ForceDotComStrategy = require('passport-forcedotcom').Strategy;
 const app = express();
+const GTMConfigs = require("./lib/configs/gtm");
+const autFile = require('./lib/web/auth');
+const push = require('./lib/controllers/publish-controller');
+let appForSocket = null;
+var cache = require('memory-cache');
+// Our port the application will listen on.
+const PORT = process.env.PORT || 8080;
+//let sessionOpts;
 
-/* If the user is local development import the .env file, else do not load the
-.env file. Also if production is set start newrelic for monitoring*/
-if (app.get('env') === 'development') {
-  /* eslint-disable global-require */
-  require('dotenv').config();
-} else if (app.get('env') === 'production') {
-  // Import the NewRelic Module.
-  require('newrelic');
-} else {
-  console.log('Please set your NODE_ENV to either `development` or `production`');
-}
+//This settings is for receiving notification from contentful
+app.use(bodyParser.json({ type: 'application/vnd.contentful.management.v1+json' }));
 
-// Importing the favicon
-app.use(favicon(`${__dirname}/lib/public/favicon.ico`));
+require('./lib/web/session')(app);
 
-// Added further layer of security
-app.use(helmet());
-
-// Importing all routes to the server
-const authenticatedRoutes = require('./lib/routes/authenticated-routes');
-
-// Configure the express app
-app.use(morgan('combined'));
+app.use(morgan('dev'));
+//app.use(session(sessionOpts));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: false,
+  extended: true
 }));
 
-// compress all routes
-app.use(compression());
-
-// view engine setup and public static directory
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+const handlebars = expressHandlebars.create({});
+app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'lib/public')));
 
-// Load authenticated routes
-app.use('/', authenticatedRoutes);
-
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new Error('Page Not Found');
-  err.status = 404;
-  next(err);
+passport.serializeUser((user, done) => {
+  done(null, user);
 });
 
-// development error handler will print stck trace
-// To run in development mode set config var NODE_ENV to 'development'
-if (app.get('env') === 'development') {
-  app.use((err, req, res) => {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err,
-    });
-  });
-}
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
 
-// production error handler. No stacktraces leaked to user
-app.use((err, req, res) => {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {},
+const sfStrategy = new ForceDotComStrategy({
+  clientID: process.env.CF_CLIENT_ID,
+  clientSecret: process.env.CF_CLIENT_SECRET,
+  callbackURL: process.env.CF_CALLBACK_URL,
+  authorizationURL: process.env.SF_AUTHORIZE_URL,
+  tokenURL: process.env.SF_TOKEN_URL,
+  profileFields: ['user_id', 'first_name'],
+}, (accessToken, refreshToken, profile, done) => {
+    // Only retain the profile properties we need.
+  profile.user_id = profile._raw.user_id;
+  delete profile._raw;// eslint-disable no-underscore-dangle
+  delete profile.displayName;
+  delete profile.name;
+  delete profile.emails;
+
+  return done(null, profile);
+});
+
+passport.use(sfStrategy);
+app.use(passport.initialize());
+app.use(passport.session());
+
+//require('./lib/routes')(app, express);
+require('./lib/routes/apiroutes')(app, express);
+require('./lib/routes/authroutes')(app, express);
+
+cache.put('course_popular',null,900000);
+cache.put('event_popular',null,900000);
+cache.put('tool_popular', null, 900000);
+
+// load notification
+push.loadContentful(function(){
+  console.log('Contentful load done');
+  push.loadUserNotification(null,function(){});
+  // you need to call this so initial popular courses,events and tools will be loaded inti cache
+  push.getActiveCE('course',function(){});
+  push.getActiveCE('event',function(){});
+  push.getActiveCE('tool',function(){});
+});
+
+
+
+app.get('*', autFile.ensureAuthenticated, (req, res) => {
+  return res.render('index', {
+    layout: false,
+    gtmContainerId: GTMConfigs.CONTAINER_ID
   });
 });
 
+app.get('/', (req, res) => {
+  winston.info('User authenticated / :');
+  if ((!req.user) && (process.env.AUTH_REQUIRED === 'true')) {
+    if (autFile.isValidExternalUser(req)) {
+      return res.render('index', {
+        layout: false,
+        gtmContainerId: GTMConfigs.CONTAINER_ID
+      });
+    }
+    req.session.destroy();
+    req.logout();
+    return res.redirect('/auth/forcedotcom');
+  }
+  return res.render('index', {layout: false});
+});
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+  return res.render('logout');
+});
+
+app.set('trust proxy', 1); // trust first proxy
+
+appForSocket = app.listen(PORT, () => {
+  console.log(`Server running at localhost:${PORT}`);
+});
+
+require('./lib/controllers/socket-controller').initSocket(appForSocket);
+//require('./lib/controllers/event-controller').init_schedule();
+//require('./lib/controllers/eventschedule-controller').run_scheduler();
 module.exports = app;

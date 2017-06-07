@@ -1,0 +1,52 @@
+{
+	"slugs": {
+		"Index":{
+			     "id" : "5uPz2TZAVq0Emw0IY2EIcM"
+				},
+		"Home":{
+				"id" : "FaeTbwOWqWeIigCWC8U0a"
+		},
+		"Terms":{
+				 "id" : "2mbr2BNhMcOQoqqKaekWgE"
+		},
+		"AboutUs":{
+				 "id" : "ZarVDnWUO4EakIiUOcmcI"
+		},
+		"Contact":{
+				 "id" : "1OdlMuBc2YYe6OcaAocQuW"
+		},
+		"AskedQuestions":{
+				 "id" : "5xUcHTQ2ByoKaUiaSWYqKE"
+		},
+		"Calendar":{
+				 "id" : "4gbKT91bNSeIWuyEMy4usC"
+		},
+		"Cursos":{
+			"id" : "2pcIcJ7vLSqg6YQYc6QmKU"
+		},
+		"coursePage":{
+			"id" : "2Lk0KiKBwcAaMi0Yy2WEGq"
+		},
+		"evaluationPage":{
+			"id" : "49idBHzPhKAGkcu6WkiGAo"
+		},
+		"CursosDetails":{
+			"id" : "26aDSMO9ywuuqMAsOW8I0a"
+		},
+		"CursosTutorials":{
+			"id" : "5fdgX1rkJU8aYYyE8Y0QYw"
+		},
+		"CursosEvaluation":{
+			"id" : "49idBHzPhKAGkcu6WkiGAo"
+		},
+		"Herramientas":{
+			"id" : "1WKaJcyQGgUAASWwMGuqS4"
+		},
+		"MyProfile":{
+			"id" : "1FFK5lASUQqS4sguq46IUy"
+		},
+		"mixedCoursePage":{
+			"id" : "26aDSMO9ywuuqMAsOW8I0a"
+		}
+	}
+}

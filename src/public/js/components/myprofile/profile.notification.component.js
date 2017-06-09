@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
 import Pagination from "../shared/pagination/pagination.component";
-import { getProfileNotifications } from "../../actions/myprofile";
+import { getProfileNotifications, clearProfileNotifications } from "../../actions/myprofile";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -16,6 +16,7 @@ class ProfileNotifications extends React.Component {
 
     componentDidMount() {
         this.pageNumber(1);
+        this.props.clearProfileNotifications();
     }
 
     pageNumber(pageNo) {
@@ -51,7 +52,8 @@ class ProfileNotifications extends React.Component {
 }
 
 const actionCreators = {
-    getProfileNotifications
+    getProfileNotifications,
+    clearProfileNotifications
 };
 
 const mapStateToProps = (state) => {

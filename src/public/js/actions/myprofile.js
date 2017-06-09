@@ -67,3 +67,17 @@ export function getProfileNotifications (pageNo) {
   };
 
 }
+
+export function clearProfileNotifications () {
+  let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+  let baseUrl = '/api/clearnotifications';
+  let data = {
+      uid: userInfo.user.uuid
+    };
+
+  return dispatch => {
+    return axios.post(baseUrl, data).then(response => {
+
+    }).catch (error => {});
+  };
+}

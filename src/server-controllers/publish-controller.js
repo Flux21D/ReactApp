@@ -491,5 +491,6 @@ module.exports = {
     setFavorit,
     courseRegister,
     setScore,
-    modifyCourseData
+    modifyCourseData,
+    clearNotifications
 }

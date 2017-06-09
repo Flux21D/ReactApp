@@ -103,9 +103,10 @@ module.exports = {
 	},
 
     run_scheduler : () =>{
+        //3hrs
         setInterval(function(){
             poll_schedule();
-        },10000);
+        }, 10800000);
         
 
     }

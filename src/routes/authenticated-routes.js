@@ -12,19 +12,19 @@ const router = express.Router();
 // authenticate our router
 auth.authenticate(router);
 
-router.get('/', (req, res) => {
+router.get('*', (req, res) => {
   return res.render('index', {
         layout: false,
         gtmContainerId: GTMConfigs.CONTAINER_ID
       });
 });
 
-// router.get('*', (req, res) => {
-//   return res.render('index', {
-//     layout: false,
-//     gtmContainerId: GTMConfigs.CONTAINER_ID
-//   });
-// });
+router.get('/', (req, res) => {
+  return res.render('index', {
+        layout: false,
+        gtmContainerId: GTMConfigs.CONTAINER_ID
+      });
+});
 
 // index route
 // router.get('/about', (req, res) => {

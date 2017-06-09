@@ -63,12 +63,14 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'lib/public')));
 
 
+require('./lib/routes/apiroutes')(app, express);
+
 // Load authenticated routes
 app.use('/', authenticatedRoutes);
 
 
 //require('./lib/routes')(app, express);
-require('./lib/routes/apiroutes')(app, express);
+
 
 cache.put('course_popular',null,900000);
 cache.put('event_popular',null,900000);

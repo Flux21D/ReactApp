@@ -8,20 +8,56 @@ let htmlToReactParser = new HtmlToReactParser();
 class ProfileCourseContainer extends React.Component {
     constructor(props) {
         super(props);
+
+        this.downloadCertificate = this.downloadCertificate.bind(this);
+    }
+
+    downloadCertificate(eve) {
+        eve.sourcePath = 'acreditacion';
+        this.context.router.push({ 
+            pathname: '/acreditacion',
+            state: eve
+        });
     }
 
     render() {
         const {profile} = this.props;
-        let completedCourse = '';
-        if(profile.completedCourse.length > 0)
-            profile.completedCourse.map(function(item) {
-                let showApprovedBox = '<div class="info tight">' + (item.status === 'pass' ? ('Aprobado <strong>'+ item.score +'%</strong>') : '<strong>NO</strong> Aprobado') + '</div>';
-                let showCredits = (item.credits > 0 && item.status === 'pass') ? ('<div class="info tight"><strong>' + item.credits + '</strong> Créditos</div>') : '';
-                let showCertificate = item.status === 'pass' ? ('<a title="Descargar acreditación" class="button tight" href="/acreditacion"><span class="aw"><img class="svg svgW" src="img/icons/mortar-board.svg" title="Icono"/></span> Descargar acreditación</a>') : '';
-                
-                completedCourse = completedCourse + '<div class="curso"><div class="text"><div class="title">' + item.name + '</div><div class="tools">' + showApprovedBox + showCredits + showCertificate + '</div></div><div class="clear"></div></div>';
-            });
-        const completedCourseElement = htmlToReactParser.parse(completedCourse);
+        let downloadCertiFunc = this.downloadCertificate;
+
+        let completedCourseElement = profile.completedCourse.length > 0 && profile.completedCourse.map(function(item, i) {
+            return (
+                <div className="curso" key={i}>
+                    <div className="text">
+                        <div className="title">{item.name}</div>
+                        <div className="tools">
+                        {
+                            item.status === 'pass' ? 
+                            <div className="info tight">
+                                Aprobado <strong>{item.score}%</strong> 
+                            </div>
+                            :
+                            <div className="info tight">
+                                <strong>NO</strong> Aprobado
+                            </div>
+                        }
+
+                        {
+                            (item.credits > 0 && item.status === 'pass') ? 
+                            <div className="info tight"><strong>{item.credits}</strong> Créditos</div>
+                            : null
+                        }
+
+                        {
+                            item.status === 'pass' ? 
+                            <a title="Descargar acreditación" className="button tight" onClick={() => downloadCertiFunc(item)}><span className="aw"><img className="svg svgW" src="img/icons/mortar-board.svg" title="Icono"/></span> Descargar acreditación</a>
+                            : null
+                        }
+                        </div>
+                    </div>
+                    <div className="clear"></div>
+                </div>
+            )
+        });
 
         let enrolledCourse = '';
         if(profile.ongoingEnrolled.length > 0)
@@ -36,36 +72,30 @@ class ProfileCourseContainer extends React.Component {
                 favouriteCourse = favouriteCourse + '<div class="curso"><div class="text"><div class="title w100">' + item.name + '</div></div><div class="clear"></div></div>';
             });
         const favCourseElement = htmlToReactParser.parse(favouriteCourse);
-
+        
         return (
             <div className="mis-cursos">
-                <div className="content">
-                    {
-                        completedCourseElement ? 
-                        <div>
-                            <div className="title-big nmt">Cursos realizados</div>
-                            {completedCourseElement}
-                        </div>
-                        : null
-                    }
+                <div className="content"> 
+                    <div>
+                        <div className="title-big nmt">Cursos realizados</div>
+                        {
+                            completedCourseElement ? <div>{completedCourseElement}</div> : <p>Todavía no has completado ningún curso</p>
+                        }
+                    </div>
 
-                    {
-                        enrolledCourseElement ?
-                        <div>
-                            <div className="title-big">Cursos en curso o inscritos pendientes de realización</div>
-                            {enrolledCourseElement}
-                        </div>
-                        : null
-                    }
+                    <div>
+                        <div className="title-big">Cursos en curso o inscritos pendientes de realización</div>
+                        {
+                            enrolledCourseElement ? <div>{enrolledCourseElement}</div> : <p>No se ha inscrito en ningún curso</p>
+                        }
+                    </div>
 
-                    {
-                        favCourseElement ? 
-                        <div>
-                            <div className="title-big">Cursos favoritos</div>
-                            {favCourseElement}
-                        </div>
-                        : null
-                    }
+                    <div>
+                        <div className="title-big">Cursos favoritos</div>
+                        {
+                            favCourseElement ? <div>{favCourseElement}</div> : <p>No has guardado ningún curso</p>
+                        }
+                    </div>
                     
                 </div>
             </div>
@@ -80,5 +110,10 @@ const mapStateToProps = (state) => {
         auth: state.auth
     };
 };
+
+ProfileCourseContainer.contextTypes = { 
+  router: React.PropTypes.object.isRequired
+} 
+
 
 export default connect(mapStateToProps)(ProfileCourseContainer);

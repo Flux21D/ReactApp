@@ -25,6 +25,7 @@
     <script language="javascript" src="scripts/slider.class.js"></script>
     
     <script src="vendor/janrain-init.js"></script>
+    <script src="https://eucookie.xh1.lilly.com/Scripts/EUCookiesScript.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -35,13 +36,18 @@
 
 </head>
 <body>
+    <!-- Cookie Banner Added -->
+    <script>
+        cookiesDirective(407,'DK');
+        $('body').click(function(){
+            $('#epd').hide();
+        });
+    </script>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{gtmContainerId}}"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    
-	<!-- Cookie Banner Added -->
       
     <div id="app">Loading...</div>
     <script src="js/bundle.js"></script>

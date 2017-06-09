@@ -6,6 +6,8 @@ class CourseCertificate extends React.Component {
     constructor(props) {
         super(props);
         this.userName = '';
+
+        this.goBackBtnHandler = this.goBackBtnHandler.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +45,19 @@ class CourseCertificate extends React.Component {
         this.userName = userInfo.user.personalData_firstName + ' ' + userInfo.user.personalData_lastName
     }
 
+    goBackBtnHandler() {
+        let courseObj = this.props.location.state; 
+        let pathName = (courseObj.sourcePath && courseObj.sourcePath === 'course') ? '/coursedetail' : '/myprofile';
+        this.context.router.push({ 
+            pathname: pathName,
+            state: courseObj
+        });
+    }
+
     render() {
+        const {location} = this.props;
+        let courseName = location.state.sourcePath === 'course' ? location.state.courseTitle : location.state.name;
+
         return (
             <section className="section-acreditacion">
                 <div className="page section-acreditacion">
@@ -52,7 +66,7 @@ class CourseCertificate extends React.Component {
                         <div className="title">Diploma</div>
                         <div className="name">{this.userName}</div>
                         <div className="superado">Ha superado el curso</div>
-                        <div className="curso">"{this.props.location.state.firstLine}"</div>
+                        <div className="curso">"{courseName}"</div>
                         <div className="text">Realizado el dia 30/5/2017
                             <br/> Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus</div>
                         <div className="logos">
@@ -69,7 +83,7 @@ class CourseCertificate extends React.Component {
                     <br/>
                     <br/>
                     <div className="tools center">
-                        <Link title="Volver" to={{pathname: '/coursedetail', state: this.props.location.state}} className="button tight mt10"><span className="aw"><img className="svg svgW" src="img/icons/angle-left.svg" title="Icono"/></span> Volver</Link>
+                        <Link title="Volver" className="button tight mt10" onClick={this.goBackBtnHandler}><span className="aw"><img className="svg svgW" src="img/icons/angle-left.svg" title="Icono"/></span> Volver</Link>
                         <a title="Descargar acreditación" className="button tight" href="#" download>
                             <div className="aw"><img className="svg svgW" src="img/icons/external-link-square.svg" title="Icono" /></div> Descargar acreditación</a>
                         <a title="Imprimir acreditación" className="button tight" href="javascript:window.print(); void 0;"><span className="aw"><img className="svg svgW" src="img/icons/mortar-board.svg" title="Icono"/></span> Imprimir acreditación</a>
@@ -85,5 +99,10 @@ const mapStateToProps = (state) => {
         auth: state.auth
     };
 };
+
+CourseCertificate.contextTypes = { 
+  router: React.PropTypes.object.isRequired
+} 
+
 
 export default connect(mapStateToProps)(CourseCertificate);

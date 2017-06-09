@@ -93,10 +93,11 @@ class CourseEvaluation extends React.Component {
     }
 
     certificateBtnHandler() {
+        this.props.courseInfo.sourcePath = 'course';
         this.context.router.push({ 
             pathname: '/acreditacion',
             state: this.props.courseInfo
-          });
+        });
     }
 
     render() {

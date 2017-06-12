@@ -85,7 +85,7 @@ class PostLoginHeader extends React.Component {
                         {/* site logo and responsive menu toggler */}
                         <div className="left-col">
                             <span className="aw" id="responsive-menu-toggler"><img className="svg svgW svg18  " src="img/icons/bars.svg" title="Icono"/></span>
-                            <a href="home-logged.html" href="home-logged.html"><img src="img/ux/logo-aula-diabetes.png" alt="Aula Diabetes" /></a>
+                            <Link to="/home"><img src="img/ux/logo-aula-diabetes.png" alt="Aula Diabetes" /></Link>
                         </div>
 
                         {/* desktop menu */}

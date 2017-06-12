@@ -4,6 +4,7 @@ let assets = {};
 let hyperlinks = {};
 let questions = {};
 let courseModules = {};
+let list = {};
 let temPage = {
 	includes:{
 		Entry:[]
@@ -21,6 +22,7 @@ module.exports = function (slug, data) {
 		}
 	};
 	courseModules = {};
+	list = {};
 	if (data.includes && data.includes.Asset) {
 		data.includes.Asset.map(function (item) {
 			assets[item.sys.id] = item.fields.file.url;
@@ -33,6 +35,7 @@ if(slug !== 'subcontent'){
 			hyperlinks[item.sys.id] = item.fields;
 		else if (item.sys.contentType.sys.id === "qchoices") questions[item.sys.id] = item.fields;
 		else if (item.sys.contentType.sys.id === "courseModule") courseModules[item.sys.id] = item.fields;
+		else if (item.sys.contentType.sys.id === "list") list[item.sys.id] = item.fields.text;
 		else temPage.includes.Entry.push(item);
 	});
 	if (slug !== 'subcontent' && slug !== 'profileCourse')
@@ -80,7 +83,8 @@ const getBody = function(content,body,includes){
 		eventBox: [],
 		courseBox: [],
 		qchoices: [],
-		toolContent: []
+		toolContent: [],
+		shorttext: []
 	};
 	var bodyIds = [];
 
@@ -104,6 +108,12 @@ const getBody = function(content,body,includes){
 		if (item.sys.contentType.sys.id === 'imagetype' && bodyIds.indexOf(item.sys.id) >= 0) if (assets[item.fields.imagePath.sys.id]) bodyObj.imagePath = assets[item.fields.imagePath.sys.id];
 		if (item.sys.contentType.sys.id === 'qchoices' && bodyIds.indexOf(item.sys.id) >= 0) bodyObj.qchoices[bodyIds.indexOf(item.sys.id)] = Object.assign(item.fields,{'sysid':item.sys.id});
 		if (item.sys.contentType.sys.id === 'toolContent' && bodyIds.indexOf(item.sys.id) >= 0) bodyObj.toolContent[bodyIds.indexOf(item.sys.id)] = Object.assign(item.fields,{'sysid':item.sys.id});
+		if (item.sys.contentType.sys.id === 'shorttext' && bodyIds.indexOf(item.sys.id) >= 0) {
+			if(item.fields.reference)
+				bodyObj.shorttext.push({'sysid': item.sys.id, list : getFields(item.fields.reference)});
+			else
+				bodyObj.shorttext.push({'sysid': item.sys.id, list : []});
+		}
 	});
 	
 	//eliminate holes
@@ -159,6 +169,12 @@ var extractBanner = function extractBanner(banner, includes) {
 	});
 };
 
+const getFields = function (reference){
+	return reference.map(function(item){
+			if(list[item.sys.id])
+				return list[item.sys.id];
+		});
+}
 const extractColumns = function(columns , includes){
 		let col = {}
 
@@ -207,11 +223,12 @@ const getCourseValues = function(item , includes) {
 	let cBannerId = item.fields.couserMainBannerImage.sys.id;
 	obj.couserMainBannerImage = assets[cBannerId] ? assets[cBannerId] : "";
 
-	item.fields['courseEvaluators'].forEach(function(item){
-		if(questions[item.sys.id]){
-			obj.courseEvaluators.push({sysid:item.sys.id,fields:questions[item.sys.id]});
-		}
-	});
+	if(item.fields['courseEvaluators'])
+		item.fields['courseEvaluators'].forEach(function(item){
+			if(questions[item.sys.id]){
+				obj.courseEvaluators.push({sysid:item.sys.id,fields:questions[item.sys.id]});
+			}
+		});
 	item.fields['courseModules'].forEach(function (item) {
 		if (courseModules[item.sys.id]) {
 			let thumbnail = courseModules[item.sys.id].thumbnailImage ? courseModules[item.sys.id].thumbnailImage.sys.id : "";

@@ -1,6 +1,6 @@
 import store from "./store";
 import axios from "axios";
-
+import {logout} from "../actions/auth";
 export default (nextState, replace, callback) => {
 
   const state = store.getState();
@@ -10,6 +10,7 @@ export default (nextState, replace, callback) => {
     console.log(resp.data.success);
   	if(!resp.data.success)
   	{
+      		logout();
   		replace('/');
   		callback();
   	}

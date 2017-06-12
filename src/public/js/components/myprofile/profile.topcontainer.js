@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
+import {logout} from "../../actions/auth";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -11,6 +12,7 @@ class TopProfileContainer extends React.Component {
         super(props);
 
         this.courseDetails = this.courseDetails.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     courseDetails(eve) {
@@ -21,6 +23,13 @@ class TopProfileContainer extends React.Component {
             state: that.props.cursos.coursoDetailObj
           });
         });
+    }
+
+    handleLogout () {
+    janrain.capture.ui.endCaptureSession();
+        this.props.logout();
+        this.context.router.push("/");
+        window.location.reload();
     }
 
     render() {
@@ -61,7 +70,7 @@ class TopProfileContainer extends React.Component {
                             <div className="title-big nmt">Mis datos</div>
                             <div className="info">
                                 <div className="aw"><img className="svg svgG  " src="img/icons/user-circle-o.svg" title="Icono" /></div>
-                                <div className="nombre"> {userName} <br /> <a title="Modificar" href="perfil-modificar-datos.html" className="button tight">Modificar</a> <a title="Salir" href="index.html" className="button tight">Salir</a></div>
+                                <div className="nombre"> {userName} <br /> <a title="Modificar" href="perfil-modificar-datos.html" className="button tight">Modificar</a> <a title="Salir" className="button tight" onClick={this.handleLogout}>Salir</a></div>
                                 <div className="clear"></div>
                             </div>
                         </div>
@@ -87,7 +96,8 @@ class TopProfileContainer extends React.Component {
 }
 
 const actionCreators = {
-    getProfileCursosDetail
+    getProfileCursosDetail,
+    logout
 };
 
 const mapStateToProps = (state) => {

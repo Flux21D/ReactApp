@@ -44,10 +44,9 @@ export function removeCurrentUser() {
 }
 
 export function logout() {
-
     sessionStorage.removeItem("auth");
-    sessionStorage.removeItem("hideWelcome");
-
+    const request = axios.get('/logout');
+    
     return dispatch => {
         dispatch(removeCurrentUser());
     };

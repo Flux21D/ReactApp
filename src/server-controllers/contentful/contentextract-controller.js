@@ -36,8 +36,10 @@ if(slug !== 'subcontent'){
 		else temPage.includes.Entry.push(item);
 	});
 	if (slug !== 'subcontent' && slug !== 'profileCourse')
-	switch (pageTitle) {
-		case "index":
+	// switch (pageTitle) {
+	// 	case "index":
+	switch (slug) {
+		case "Index":
 			//return getIndexValues(data.includes);
 			return getIndexValues(temPage.includes);
 			break;

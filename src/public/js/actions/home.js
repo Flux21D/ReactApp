@@ -30,7 +30,7 @@ export function getHomePageInfo () {
 
       dispatch(setHomePageInfo({
         bannerContent: bannerObj,
-        herramientasContent: response.data['contentTextOnly'] ? response.data['contentTextOnly'] : [],
+        herramientasContent: response.data['shorttext'] ? response.data['shorttext'] : [],
       }));
 
     }).catch (error => {});

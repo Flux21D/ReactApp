@@ -9,13 +9,19 @@ class UpcomingClinicalToolContainer extends React.Component {
 
     render() {
         const {homeInfo} = this.props;
-
+        
         let herramientasInfo = homeInfo.herramientasContent.map(function(item, i) {
+            let listItem = item.list.map(function(item, i) {
+                return(
+                    <li>{item}</li>
+                )
+            });
+            
             return (
                 <div className={i === 0 ? 'col-left' : 'col-right'} key={i}>
                     <h3 className="sub-title">{item.title}</h3>
                     <ul>
-                        <li>{item.someLongText}</li>
+                        {listItem}
                     </ul>
                 </div>
             )

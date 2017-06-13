@@ -94,6 +94,7 @@ class CourseEvaluation extends React.Component {
 
     certificateBtnHandler() {
         this.props.courseInfo.sourcePath = 'course';
+        this.props.courseInfo.courseCompletionDate = new Date().toLocaleDateString();
         this.context.router.push({ 
             pathname: '/acreditacion',
             state: this.props.courseInfo

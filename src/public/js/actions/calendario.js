@@ -18,9 +18,9 @@ export function getCalendarioInfo (pageNo, keyword, eventType, dateFrom, dateTo,
   if(eventType)
     queryParam = queryParam + (queryParam === '' ? ('?eventType=' + eventType) : '&eventType=' + eventType);
   if(dateFrom)
-    queryParam = queryParam + (queryParam === '' ? ('?dateFrom=' + dateFrom) : '&dateFrom=' + dateFrom);
+    queryParam = queryParam + (queryParam === '' ? ('?startDate=' + dateFrom) : '&startDate=' + dateFrom);
   if(dateTo)
-    queryParam = queryParam + (queryParam === '' ? ('?dateTo=' + dateTo) : '&dateTo=' + dateTo);
+    queryParam = queryParam + (queryParam === '' ? ('?endDate=' + dateTo) : '&endDate=' + dateTo);
   if(city)
     queryParam = queryParam + (queryParam === '' ? ('?city=' + city) : '&city=' + city);
   if(country)

@@ -17,6 +17,8 @@ const getContent = (req,res) => {
             options.eventType = req.query.eventType;
         if(req.query.startDate)
             options.startDate = req.query.startDate;
+        if (req.query.endDate) 
+            options.endDate = req.query.endDate;
         if (req.query.keyword) 
             options.keyword = req.query.keyword;
         if (req.query.accreditation)

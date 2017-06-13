@@ -21,6 +21,7 @@ if (process.env.LOCAL_DEV === 'true') {
   };
   process.env.AUTH_REQUIRED = false;
 } else {
+  process.env.AUTH_REQUIRED = true;
   winston.info('LOCAL_DEV false setting session to RedisStore');
   winston.info('Connecting to Redis :'+process.env.REDIS_URL);
   let client = redis.createClient(process.env.REDIS_URL);

@@ -1,6 +1,6 @@
 var {connect,executeQuery,executeBatch} = require('./db-controller');
 
-const clearNotifications = (uid) => {
+const TotalPlatformUsers = (uid) => {
         let query = '';
         connect().then(function(obj){
             query = "";

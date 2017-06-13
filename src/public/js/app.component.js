@@ -5,13 +5,18 @@ import hideCookie from "./actions/cookie";
 import {withRouter} from "react-router";
 import HeaderComponent from "./components/shared/header/header.component";
 import FooterComponent from "./components/shared/footer/footer.component";
+import {customClick} from "./utils/gtm";
 
 class AppComponent extends React.Component {
 
     constructor(props) {
         super(props);
     }
-
+    componentDidMount () {
+        customClick({
+          'test' : 'abc'
+        });
+    }
     render() {
         return (
             <div id="main-content">

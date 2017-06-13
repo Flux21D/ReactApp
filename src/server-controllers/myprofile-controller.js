@@ -26,7 +26,7 @@ const getProfileInfo = (req,res) => {
     
     if(req.headers.uid && req.headers.speciality){
         let uid = req.headers.uid;
-        let speciality = req.headers.speciality;
+        let speciality = req.headers.speciality.toLowerCase();
 
         async.parallel({
             specialityCourses: getSpecialityCourses.bind(null,uid,speciality),

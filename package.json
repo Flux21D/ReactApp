@@ -6,8 +6,6 @@
   "scripts": {
     "test": "tests/run-ci",
     "gulp": "./gulpfile.js",
-    "build": "gulp",
-    "lint": "gulp lint",
     "unit-test": "gulp mocha",
     "prestart-parallel": "npm run unit-test",
     "start-parallel": "npm-run-all --parallel build start",

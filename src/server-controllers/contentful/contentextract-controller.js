@@ -4,7 +4,7 @@ let assets = {};
 let hyperlinks = {};
 let questions = {};
 let courseModules = {};
-let list = {};
+let shortList = {};
 let temPage = {
 	includes:{
 		Entry:[]
@@ -22,7 +22,7 @@ module.exports = function (slug, data) {
 		}
 	};
 	courseModules = {};
-	list = {};
+	shortList = {};
 	if (data.includes && data.includes.Asset) {
 		data.includes.Asset.map(function (item) {
 			assets[item.sys.id] = item.fields.file.url;
@@ -31,11 +31,13 @@ module.exports = function (slug, data) {
 
 if(slug !== 'subcontent'){
 	data.includes.Entry.map(function(item){
+		if(item.sys.contentType.sys.id === "shorttext")
+			shortList[item.sys.id] = item.fields;
 		if(item.sys.contentType.sys.id === "hyperlink")
 			hyperlinks[item.sys.id] = item.fields;
 		else if (item.sys.contentType.sys.id === "qchoices") questions[item.sys.id] = item.fields;
 		else if (item.sys.contentType.sys.id === "courseModule") courseModules[item.sys.id] = item.fields;
-		else if (item.sys.contentType.sys.id === "list") list[item.sys.id] = item.fields.text;
+		else if (item.sys.contentType.sys.id === "list") shortList[item.sys.id] = item.fields.text;
 		else temPage.includes.Entry.push(item);
 	});
 	if (slug !== 'subcontent' && slug !== 'profileCourse')
@@ -84,7 +86,8 @@ const getBody = function(content,body,includes){
 		courseBox: [],
 		qchoices: [],
 		toolContent: [],
-		shorttext: []
+		shorttext: [],
+		searchPanel: []
 	};
 	var bodyIds = [];
 
@@ -113,6 +116,14 @@ const getBody = function(content,body,includes){
 				bodyObj.shorttext.push({'sysid': item.sys.id,'title': item.fields.title, list : getFields(item.fields.reference)});
 			else
 				bodyObj.shorttext.push({'sysid': item.sys.id, list : []});
+		}
+		if (item.sys.contentType.sys.id === 'searchPanel' && bodyIds.indexOf(item.sys.id) >= 0){
+			if(item.fields.dropDownRefrences)
+				item.fields.dropDownRefrences.map(function(dropdown){
+					if(shortList[dropdown.sys.id])
+						bodyObj.searchPanel.push(Object.assign({'sysid':dropdown.sys.id,'title': shortList[dropdown.sys.id].title, list : getFields(shortList[dropdown.sys.id].reference)}));
+				});
+			
 		}
 	});
 	
@@ -171,8 +182,8 @@ var extractBanner = function extractBanner(banner, includes) {
 
 const getFields = function (reference){
 	return reference.map(function(item){
-			if(list[item.sys.id])
-				return list[item.sys.id];
+			if(shortList[item.sys.id])
+				return shortList[item.sys.id];
 		});
 }
 const extractColumns = function(columns , includes){

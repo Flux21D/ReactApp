@@ -9,9 +9,6 @@ class SearchPanel extends React.Component {
 
         this.searchEvents = this.searchEvents.bind(this);
         this.keywordHandleChange = this.keywordHandleChange.bind(this);
-        this.eventTypeHandleChange = this.eventTypeHandleChange.bind(this);
-        this.cityHandleChange = this.cityHandleChange.bind(this);
-        this.countryHandleChange = this.countryHandleChange.bind(this);
     }
 
     state = {
@@ -50,15 +47,15 @@ class SearchPanel extends React.Component {
     };
 
     eventTypeHandleChange(eve) {
-        this.setState({eventType: eve.target.innerHTML});
+        this.setState({eventType: eve});
     };
 
     cityHandleChange(eve) {
-        this.setState({city: eve.target.innerHTML});
+        this.setState({city: eve});
     };
 
     countryHandleChange(eve) {
-        this.setState({country: eve.target.innerHTML});
+        this.setState({country: eve});
     };
 
     searchEvents() {
@@ -95,6 +92,27 @@ class SearchPanel extends React.Component {
     };
 
     render() {
+        const {calendario} = this.props;
+        let that = this;
+
+        let eventTypeDP = calendario.searchPanel.Type && calendario.searchPanel.Type.map(function(item ,i) {
+            return (
+                <div onClick={that.eventTypeHandleChange.bind(that, item)} key={i}>{item}</div>
+            )
+        });
+
+        let cityTypeDP = calendario.searchPanel.city && calendario.searchPanel.city.map(function(item ,i) {
+            return (
+                <div onClick={that.cityHandleChange.bind(that, item)} key={i}>{item}</div>
+            )
+        });
+
+        let countryTypeDP = calendario.searchPanel.country && calendario.searchPanel.country.map(function(item ,i) {
+            return (
+                <div onClick={that.countryHandleChange.bind(that, item)} key={i}>{item}</div>
+            )
+        });
+
         return (
             <div className="search-cursos search-eventos">
                 <div className="content">
@@ -106,13 +124,7 @@ class SearchPanel extends React.Component {
                             </div>
                             <div className="input zindex5">
                                 <div className="select-values">
-                                    <div onClick={this.eventTypeHandleChange}>Congreso</div>
-                                    <div onClick={this.eventTypeHandleChange}>Reunión</div>
-                                    <div onClick={this.eventTypeHandleChange}>Curso presencial</div>
-                                    <div onClick={this.eventTypeHandleChange}>Tipo 4</div>
-                                    <div onClick={this.eventTypeHandleChange}>Tipo 5</div>
-                                    <div onClick={this.eventTypeHandleChange}>Tipo 6</div>
-                                    <div onClick={this.eventTypeHandleChange}>Tipo 7</div>
+                                    {eventTypeDP}
                                 </div>
                                 <input className="text select" type="text" placeholder="Tipo" name="tipo" />
                             </div>
@@ -124,21 +136,13 @@ class SearchPanel extends React.Component {
                             </div>
                             <div className="input zindex4">
                                 <div className="select-values">
-                                    <div onClick={this.cityHandleChange}>Ciudad 1</div>
-                                    <div onClick={this.cityHandleChange}>Ciudad 2</div>
-                                    <div onClick={this.cityHandleChange}>Ciudad 3</div>
-                                    <div onClick={this.cityHandleChange}>Ciudad 4</div>
-                                    <div onClick={this.cityHandleChange}>Ciudad 5</div>
+                                    {cityTypeDP}
                                 </div>
                                 <input className="text select" type="text" placeholder="Ciudad" name="tipo" />
                             </div>
                             <div className="input zindex3">
                                 <div className="select-values">
-                                    <div onClick={this.countryHandleChange}>País 1</div>
-                                    <div onClick={this.countryHandleChange}>País 2</div>
-                                    <div onClick={this.countryHandleChange}>País 3</div>
-                                    <div onClick={this.countryHandleChange}>País 4</div>
-                                    <div onClick={this.countryHandleChange}>País 5</div>
+                                    {countryTypeDP}
                                 </div>
                                 <input className="text select" type="text" placeholder="País" name="tipo" />
                             </div>

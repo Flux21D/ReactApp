@@ -87,7 +87,7 @@ const getBody = function(content,body,includes){
 		qchoices: [],
 		toolContent: [],
 		shorttext: [],
-		searchPanel: []
+		searchPanel: {}
 	};
 	var bodyIds = [];
 
@@ -121,7 +121,7 @@ const getBody = function(content,body,includes){
 			if(item.fields.dropDownRefrences)
 				item.fields.dropDownRefrences.map(function(dropdown){
 					if(shortList[dropdown.sys.id])
-						bodyObj.searchPanel.push(Object.assign({'sysid':dropdown.sys.id,'title': shortList[dropdown.sys.id].title, list : getFields(shortList[dropdown.sys.id].reference)}));
+						bodyObj.searchPanel[shortList[dropdown.sys.id].title] = getFields(shortList[dropdown.sys.id].reference);
 				});
 			
 		}

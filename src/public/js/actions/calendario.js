@@ -28,7 +28,7 @@ export function getCalendarioInfo (pageNo, keyword, eventType, dateFrom, dateTo,
 
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
-    headers: {'uid': userInfo.user.uuid}
+    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty}
   };
 
   return dispatch => {
@@ -47,7 +47,8 @@ export function getCalendarioInfo (pageNo, keyword, eventType, dateFrom, dateTo,
         calendarEvents: response.data['eventBox'] ? response.data['eventBox'] : [],
         searchParams: response.data['searchParams'] ? response.data['searchParams'] : {},
         totalRecords: response.data['ce_length'] ? Number(response.data['ce_length']) : 1,
-        activePageNo: response.data['page'] ? Number(response.data['page']) : 1
+        activePageNo: response.data['page'] ? Number(response.data['page']) : 1,
+        searchPanel: response.data['searchPanel'] ? response.data['searchPanel'] : [],
       }));
 
     }).catch (error => {});

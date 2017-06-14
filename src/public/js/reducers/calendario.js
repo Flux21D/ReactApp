@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   calendarEvents: [],
   searchParams: {},
   totalRecords: 1,
-  activePageNo: 1
+  activePageNo: 1,
+  searchPanel: []
 };
 
 export default (state = INITIAL_STATE, action = {}) => {

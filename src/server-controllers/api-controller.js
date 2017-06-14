@@ -184,9 +184,9 @@ const getIcal = (req, res) => {
             start: eveObj.startDate||'2016-05-30 06:50',
             end: eveObj.endDate || '2016-05-30 15:00',
             title: eveObj.mainTitle || 'Bolder Boulder',
-            description: eveObj.description || 'Annual 10-kilometer run in Boulder, Colorado',
-            organizer: {name : "sunil" , email: "sunil.shetty@indegene.com"},
-            url: 'http://www.google.com/',
+            description: eveObj.description || 'Event Invitation',
+            organizer: {name : "sunil" , email: process.env.NOREPLY_EMAIL},
+            url: 'https://buit-eucan-aula-es-diab-dev.herokuapp.com',
             status: 'confirmed',
             categories: ['10k races', 'Memorial Day Weekend', 'Boulder CO'],
             alarms: [{ action: 'DISPLAY', trigger: '-PT24H', description: 'Reminder', repeat: true, duration: 'PT15M' }, { action: 'AUDIO', trigger: '-PT30M' }]

@@ -110,7 +110,7 @@ const getBody = function(content,body,includes){
 		if (item.sys.contentType.sys.id === 'toolContent' && bodyIds.indexOf(item.sys.id) >= 0) bodyObj.toolContent[bodyIds.indexOf(item.sys.id)] = Object.assign(item.fields,{'sysid':item.sys.id});
 		if (item.sys.contentType.sys.id === 'shorttext' && bodyIds.indexOf(item.sys.id) >= 0) {
 			if(item.fields.reference)
-				bodyObj.shorttext.push({'sysid': item.sys.id, list : getFields(item.fields.reference)});
+				bodyObj.shorttext.push({'sysid': item.sys.id, title: item.fields, list : getFields(item.fields.reference)});
 			else
 				bodyObj.shorttext.push({'sysid': item.sys.id, list : []});
 		}

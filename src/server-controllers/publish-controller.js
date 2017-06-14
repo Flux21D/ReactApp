@@ -395,19 +395,23 @@ var eventSchedule = require('./eventschedule-controller');
         });
     }
 
-   const modifyCourseData = (type,courses,popularity,fav,reg,options = {},search = false,isHome,callback) => {
+   const modifyCourseData = (typeObj,courses,popularity,fav,reg,options = {},search = false,isHome,callback) => {
         let courseData = [];
         let box = '';
+        let userSpeciality = typeObj.speciality.toLowerCase();
 
-        if(type == 'course')
+        if(typeObj.type == 'course')
             box = 'courseBox';
-        else if(type == 'event')
+        else if(typeObj.type == 'event')
             box = 'eventBox';
-        else if(type == 'tool')
+        else if(typeObj.type == 'tool')
             box = 'toolContent';
 
         courses[box].map(function(c){
-                if(c.isActive){
+            
+            if(c.speciality && c.speciality.toLowerCase().indexOf(userSpeciality) > -1)
+                if(c.isActive)
+                {
                     if(popularity[c.sysid])
                     {   
                         let filter = false;
@@ -417,21 +421,20 @@ var eventSchedule = require('./eventschedule-controller');
                             c.isFavourite = false;
                         c.popularity = Number(popularity[c.sysid]);
 
-                        if(type === 'course')
+                        if(typeObj.type === 'course')
                             if(reg.indexOf(c.sysid)>-1)
                                 c.isRegistered = true;
                             else
                                 c.isRegistered = false;
 
                         c.popularity = Number(popularity[c.sysid]);
-                        
                         if(search){
                             if(options.courseType && c.courseType && options.courseType.toLowerCase() !== c.courseType.toLowerCase())
                                 filter = true;
                             if(options.eventType && c.typeOfEvent && options.eventType.toLowerCase() !== c.typeOfEvent.toLowerCase())
                                 filter = true;
                             if (options.keyword) {
-                                if(type === 'course'){
+                                if(typeObj.type === 'course'){
                                     if (c.courseTitle.toLowerCase().indexOf(options.keyword.toLowerCase()) >= 0 || c.courseDescription.toLowerCase().indexOf(options.keyword.toLowerCase()) >= 0) {
                                         if (!filter) filter = false;
                                     } else filter = true;
@@ -462,7 +465,7 @@ var eventSchedule = require('./eventschedule-controller');
         //For search no need to sort.
         if(!search){
 
-                if (type === 'event' && isHome) {
+                if (typeObj.type === 'event' && isHome) {
                     callback(courseData.sort(function (a, b) {
                                                 return new Date(b.startDate) - new Date(a.startDate);
                                             }).sort(function(a,b){
@@ -471,7 +474,7 @@ var eventSchedule = require('./eventschedule-controller');
                                                 return tempA - tempB;
                                             }).slice(0, 3));
                 }
-                else if(type === 'event'){
+                else if(typeObj.type === 'event'){
                     callback(courseData.sort(function(a, b){
                                 return new Date(b.startDate)-new Date(a.startDate)
                             }));

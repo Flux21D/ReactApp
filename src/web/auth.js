@@ -107,9 +107,9 @@ const authenticate = (router) => {
   });
 
   router.get('/logout', (req, res) => {
-    req.logout();
+    //req.logout();
     req.session.destroy();
-    return res.render('logout');
+    //return res.render('logout');
   });
 
     // use our auth middleware AFTER authentication flow routes

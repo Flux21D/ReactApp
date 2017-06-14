@@ -35,6 +35,7 @@ const getContent = (req,res) => {
             if (data !== null && error === null) {
                 if(slug === 'coursePage' || slug === 'Calendar' || slug === 'Herramientas')
                 {   let uid = req.headers.uid || '6a3bc0f4-22bb-4b83-bbee-2ef9fc86bc70';
+                    let speciality = req.headers.speciality || 'doctor';
                     let temp = contentextract(slug, data);
                     let popularity = {};
                     let userFav = [];
@@ -87,7 +88,7 @@ const getContent = (req,res) => {
                                         userReg.push(item.type_id);
                                 });
 
-                                injectContent(res,type,temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
+                                injectContent(res,{speciality,type},temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
                             });
                         });
                     }   
@@ -102,7 +103,7 @@ const getContent = (req,res) => {
                                         userReg.push(item.type_id);
                                 });
 
-                                injectContent(res,type,temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
+                                injectContent(res,{speciality,type},temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
                             });
                     }
 
@@ -114,25 +115,25 @@ const getContent = (req,res) => {
         });
 }
 
-var injectContent = (res,type,temp,popularity,userFav,userReg,options,search,isHome,page,start,end) => {
-	push.modifyCourseData(type,temp,popularity,userFav,userReg,options,search,isHome,function(courseBox){
-        if(type === 'course')
+var injectContent = (res,typeObj,temp,popularity,userFav,userReg,options,search,isHome,page,start,end) => {
+	push.modifyCourseData(typeObj,temp,popularity,userFav,userReg,options,search,isHome,function(courseBox){
+        if(typeObj.type === 'course')
         {   //this is to send total number of records which will be used for ui pagination
             temp.ce_length = courseBox.length;
             //truncating pages
             temp.courseBox = courseBox.length >= end? courseBox.slice(start,end):courseBox.slice(start);      
         }
-        else if(type === 'event'){
+        else if(typeObj.type === 'event'){
             temp.ce_length = courseBox.length;
             temp.eventBox = courseBox.length >= end? courseBox.slice(start,end):courseBox.slice(start);   
         }
-        else if(type === 'tool'){
+        else if(typeObj.type === 'tool'){
             temp.ce_length = courseBox.length;
             temp.toolContent = courseBox.length >= end? courseBox.slice(start,end):courseBox.slice(start);  
         }
         temp.searchParams = options;
         temp.page = page;
-        if(type === 'course')
+        if(typeObj.type === 'course')
             contenthelp.getPage(slugs.slugs['Cursos'].id, function (data, error) {
                 let addBanner = Object.assign({},temp,{bannerSlider:contentextract('Cursos', data).bannerSlider});
                 res.send(addBanner);

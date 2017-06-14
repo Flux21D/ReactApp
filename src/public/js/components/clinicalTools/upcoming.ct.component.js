@@ -13,7 +13,7 @@ class UpcomingClinicalToolContainer extends React.Component {
         let herramientasInfo = homeInfo.herramientasContent.map(function(item, i) {
             let listItem = item.list.map(function(item, i) {
                 return(
-                    <li>{item}</li>
+                    <li key={i}>{item}</li>
                 )
             });
             

@@ -10,8 +10,6 @@ class SearchPanel extends React.Component {
         this.searchEvents = this.searchEvents.bind(this);
         this.keywordHandleChange = this.keywordHandleChange.bind(this);
         this.eventTypeHandleChange = this.eventTypeHandleChange.bind(this);
-        this.dateFromHandleChange = this.dateFromHandleChange.bind(this);
-        this.dateToHandleChange = this.dateToHandleChange.bind(this);
         this.cityHandleChange = this.cityHandleChange.bind(this);
         this.countryHandleChange = this.countryHandleChange.bind(this);
     }
@@ -27,6 +25,9 @@ class SearchPanel extends React.Component {
     };
 
     componentDidMount() {
+        //datapicker code
+        $("#dateFrom, #dateTo").datepicker();
+
         //select std-form
         let sisel = 1;
         $('div.std-form input.select').click(function () {
@@ -52,14 +53,6 @@ class SearchPanel extends React.Component {
         this.setState({eventType: eve.target.innerHTML});
     };
 
-    dateFromHandleChange(eve) {
-        this.setState({dateFrom: eve.target.value});
-    };
-
-    dateToHandleChange(eve) {
-        this.setState({dateTo: eve.target.value});
-    };
-
     cityHandleChange(eve) {
         this.setState({city: eve.target.innerHTML});
     };
@@ -69,7 +62,7 @@ class SearchPanel extends React.Component {
     };
 
     searchEvents() {
-        this.props.getCalendarioInfo(this.state.pageNo, this.state.keyword, this.state.eventType, this.state.dateFrom, this.state.dateTo, this.state.city, this.state.country).then(function() {
+        this.props.getCalendarioInfo(this.state.pageNo, this.state.keyword, this.state.eventType, this.refs.datePicFrom.value, this.refs.datePicTo.value, this.state.city, this.state.country).then(function() {
             //svg icons
             jQuery('img.svg').each(function () {
                 var $img = jQuery(this);
@@ -124,10 +117,10 @@ class SearchPanel extends React.Component {
                                 <input className="text select" type="text" placeholder="Tipo" name="tipo" />
                             </div>
                             <div className="input zindex1">
-                                <input type="text" placeholder="Fecha desde" name="desde" className="text" onChange={this.dateFromHandleChange}/>
+                                <input id="dateFrom" type="text" placeholder="Fecha desde" name="desde" className="text" ref="datePicFrom"/>
                             </div>
                             <div className="input zindex1">
-                                <input type="text" placeholder="Fecha hasta" name="hasta" className="text" onChange={this.dateToHandleChange}/>
+                                <input id="dateTo" type="text" placeholder="Fecha hasta" name="hasta" className="text" ref="datePicTo"/>
                             </div>
                             <div className="input zindex4">
                                 <div className="select-values">

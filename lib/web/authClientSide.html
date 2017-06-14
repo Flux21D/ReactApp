@@ -20,7 +20,7 @@ $.ajax({
   url: "/auth/token",
   data: {
     id_token: id_token,
-    originalUrl: originalUrl,
+    originalUrl: originalUrl
   },
   success: function () {
     window.location = decodeURIComponent(originalUrl);

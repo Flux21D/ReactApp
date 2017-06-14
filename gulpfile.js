@@ -44,9 +44,7 @@ gulp.task('babelify-routes', () => {
 /*  These compily the web files from ES6 to ES5 and puts the relevant
     files in the lib/web/ */
 gulp.task('babelify-web', () => {
-  return gulp.src('src/web/**/*.js').pipe(babel({
-    presets: ['es2015'],
-  })).pipe(gulp.dest('lib/web/'));
+  return gulp.src(['src/web/**/*.html']).pipe(gulp.dest('lib/web/'));
 });
 
 gulp.task('babelify', () => {
@@ -218,6 +216,6 @@ gulp.task('watch', () => {
 
 // Make my default task to watch both folders
 //gulp.task('default', ['watch']);
-gulp.task('build', ['less', 'image', 'font','babelify','minify-js-vendor','minify-js', 'minify-css-styles','minify-xml-transfer']);
+gulp.task('build', ['less', 'image', 'font','babelify','babelify-web','minify-js-vendor','minify-js', 'minify-css-styles','minify-xml-transfer']);
 
 /*  -----------------------  */

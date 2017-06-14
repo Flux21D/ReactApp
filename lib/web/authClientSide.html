@@ -19,8 +19,8 @@ $.ajax({
   type: "POST",
   url: "/auth/token",
   data: {
-    id_token,
-    originalUrl,
+    id_token: id_token,
+    originalUrl: originalUrl,
   },
   success: function () {
     window.location = decodeURIComponent(originalUrl);

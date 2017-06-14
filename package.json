@@ -13,7 +13,6 @@
     "prod_test": "tests/codecheck",
     "start": "node app.js",
     "start:dev": "nodemon app.js --ignore 'src/public/js/**/*.js' --ignore 'lib/**/*.js'",
-    "heroku-postbuild": "node ./node_modules/gulp/bin/gulp.js build && node ./node_modules/webpack/bin/webpack.js -p --progress",
     "build:dev": "webpack --watch --progress",
     "build:prod": "node ./node_modules/gulp/bin/gulp.js build && node ./node_modules/webpack/bin/webpack.js -p --progress"
   },

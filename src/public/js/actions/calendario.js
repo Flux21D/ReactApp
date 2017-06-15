@@ -48,7 +48,7 @@ export function getCalendarioInfo (pageNo, keyword, eventType, dateFrom, dateTo,
         searchParams: response.data['searchParams'] ? response.data['searchParams'] : {},
         totalRecords: response.data['ce_length'] ? Number(response.data['ce_length']) : 1,
         activePageNo: response.data['page'] ? Number(response.data['page']) : 1,
-        searchPanel: response.data['searchPanel'] ? response.data['searchPanel'] : [],
+        searchPanel: response.data['searchPanel'] ? response.data['searchPanel'] : []
       }));
 
     }).catch (error => {});

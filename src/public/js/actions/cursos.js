@@ -57,6 +57,7 @@ export function getCursosInfo (pageNo, searchObj) {
         searchParams: response.data['searchParams'] ? response.data['searchParams'] : {},
         totalCoursesCount: response.data['ce_length'] ? Number(response.data['ce_length']) : 1,
         activePageNo: response.data['page'] ? Number(response.data['page']) : 1,
+        searchPanel: response.data['searchPanel'] ? response.data['searchPanel'] : []
       }));
 
     }).catch (error => {});

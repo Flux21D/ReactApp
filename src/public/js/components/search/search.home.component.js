@@ -21,34 +21,39 @@ class SearchPanel extends React.Component {
     };
 
     componentDidMount() {
-        if(this.props.component === 'course') {
-            this.refs.txtKeyword.value = this.props.locState ? this.props.locState.keyword : '';
-            this.refs.txtCourseType.value = this.props.locState ? this.props.locState.courseType : '';
-            this.refs.txtAcreditado.value = this.props.locState ? this.props.locState.accreditation : '';
+        if(this.props.component === 'course' && this.props.locState) {
+            this.refs.txtKeyword.value = this.props.locState.keyword;
+            this.refs.txtCourseType.value = this.props.locState.courseType;
+            this.refs.txtAcreditado.value = this.props.locState.accreditation;
         }
-        //select std-form
-        let sisel = 1;
-        $('div.std-form input.select').click(function () {
-            sisel =! sisel;
-            $('div.select-values').hide();
-            if(!sisel) $(this).parent().find('div.select-values').show();
-            else  $(this).parent().find('div.select-values').hide();
-            $(this).blur();
-        });
-
-        $('div.std-form div.select-values div').click(function () {
-            $(this).parent().parent().find('input.select').val($(this).html());
-            $('div.select-values').hide();
-            sisel = 0;
-        });
     };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.cursos.searchPanel !== this.props.cursos.searchPanel) {
+            //select std-form
+            let sisel = 1;
+            $('div.std-form input.select').click(function () {
+                sisel =! sisel;
+                $('div.select-values').hide();
+                if(!sisel) $(this).parent().find('div.select-values').show();
+                else  $(this).parent().find('div.select-values').hide();
+                $(this).blur();
+            });
+
+            $('div.std-form div.select-values div').click(function () {
+                $(this).parent().parent().find('input.select').val($(this).html());
+                $('div.select-values').hide();
+                sisel = 1;
+            });
+        }
+    }
 
     keywordHandleChange(eve) {
         this.setState({keyword: eve.target.value});
     };
 
     courseTypeHandleChange(eve) {
-        this.setState({courseType: eve.target.innerHTML});
+        this.setState({courseType: eve});
     };
 
     accreditationHandleChange(eve) {
@@ -67,6 +72,15 @@ class SearchPanel extends React.Component {
     };
 
     render() {
+        const {cursos} = this.props;
+        let that = this;
+
+        let courseTypeDP = cursos.searchPanel.Type && cursos.searchPanel.Type.map(function(item, i) {
+            return (
+                <div onClick={that.courseTypeHandleChange.bind(that, item)} key={i}>{item}</div>
+            )
+        });
+
         return (
             <div className="search-cursos">
                 <div className="content">
@@ -78,9 +92,7 @@ class SearchPanel extends React.Component {
                             </div>
                             <div className="input zindex1">
                                 <div className="select-values">
-                                    <div onClick={this.courseTypeHandleChange}>Online</div>
-                                    <div onClick={this.courseTypeHandleChange}>Presencial</div>
-                                    <div onClick={this.courseTypeHandleChange}>Mixto</div>
+                                    {courseTypeDP}
                                 </div>
                                 <input id="courseTypeDP" className="text select" type="text" placeholder="Formato" name="formato" ref="txtCourseType"/>
                             </div>
@@ -109,6 +121,7 @@ const actionCreators = {
 
 const mapStateToProps = (state) => {
     return {
+        cursos: state.cursos,
         auth: state.auth
     };
 };

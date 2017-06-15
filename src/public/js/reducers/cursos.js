@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   totalCoursesCount: 1,
   activePageNo: 1,
   favCursos: {},
-  coursoDetailObj: {}
+  coursoDetailObj: {},
+  searchPanel: []
 };
 
 export default (state = INITIAL_STATE, action = {}) => {

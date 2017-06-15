@@ -3,7 +3,8 @@ import {SET_HOME_PAGE, SET_HOME_CALENDARIO} from "../actions/types";
 const INITIAL_STATE = {
   bannerContent: {},
   herramientasContent: [],
-  homeCalEvents: []
+  homeCalEvents: [],
+  searchPanel: []
 };
 
 export default (state = INITIAL_STATE, action = {}) => {

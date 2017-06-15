@@ -65,7 +65,7 @@ class CourseComponent extends React.Component {
             <div>
                 <div className="page section-cursos">
                     <TopBannerSlider />
-                    <SearchPanel component='course' locState={this.props.location.state}/>
+                    <SearchPanel component='course' locState={this.props.location.state} searchPanel={this.props.cursos.searchPanel}/>
                     <CourseEventContainer />
                 </div>
             </div>

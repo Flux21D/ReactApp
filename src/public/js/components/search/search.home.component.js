@@ -29,7 +29,7 @@ class SearchPanel extends React.Component {
     };
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.cursos.searchPanel !== this.props.cursos.searchPanel) {
+        if (prevProps.searchPanel !== this.props.searchPanel) {
             //select std-form
             let sisel = 1;
             $('div.std-form input.select').click(function () {
@@ -72,10 +72,10 @@ class SearchPanel extends React.Component {
     };
 
     render() {
-        const {cursos} = this.props;
+        const {searchPanel} = this.props;
         let that = this;
 
-        let courseTypeDP = cursos.searchPanel.Type && cursos.searchPanel.Type.map(function(item, i) {
+        let courseTypeDP = searchPanel.Type && searchPanel.Type.map(function(item, i) {
             return (
                 <div onClick={that.courseTypeHandleChange.bind(that, item)} key={i}>{item}</div>
             )
@@ -121,7 +121,6 @@ const actionCreators = {
 
 const mapStateToProps = (state) => {
     return {
-        cursos: state.cursos,
         auth: state.auth
     };
 };

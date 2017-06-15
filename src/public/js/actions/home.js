@@ -31,6 +31,7 @@ export function getHomePageInfo () {
       dispatch(setHomePageInfo({
         bannerContent: bannerObj,
         herramientasContent: response.data['shorttext'] ? response.data['shorttext'] : [],
+        searchPanel: response.data['searchPanel'] ? response.data['searchPanel'] : []
       }));
 
     }).catch (error => {});

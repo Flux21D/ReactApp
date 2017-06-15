@@ -70,7 +70,7 @@ class HomeComponent extends React.Component {
                     <TopBannerSlider />
                     <UpcomingEventContainer />
                     <MiddleBannerSlider />
-                    <SearchPanel component='home'/>
+                    <SearchPanel component='home' searchPanel={this.props.homeInfo.searchPanel}/>
                     <UpcomingClinicalToolContainer/>
                 </div>
             </div>

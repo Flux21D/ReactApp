@@ -21,9 +21,7 @@ class SearchPanel extends React.Component {
     componentDidMount() { };
 
     componentDidUpdate(prevProps, prevState) {
-        debugger
         if (prevProps.calendario.searchPanel !== this.props.calendario.searchPanel) {
-            console.log('componentDidUpdate');
             //datapicker code
             $("#dateFrom, #dateTo").datepicker();
         }

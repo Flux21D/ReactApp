@@ -133,13 +133,13 @@ var injectContent = (res,typeObj,temp,popularity,userFav,userReg,options,search,
         }
         temp.searchParams = options;
         temp.page = page;
-        if(typeObj.type === 'course')
-            contenthelp.getPage(slugs.slugs['Cursos'].id, function (data, error) {
-                let addBanner = Object.assign({},temp,{bannerSlider:contentextract('Cursos', data).bannerSlider});
-                res.send(addBanner);
-            });
-        else
-            res.send(temp);
+        // if(typeObj.type === 'course')
+        //     contenthelp.getPage(slugs.slugs['Cursos'].id, function (data, error) {
+        //         let addBanner = Object.assign({},temp,{bannerSlider:contentextract('Cursos', data).bannerSlider});
+        //         res.send(addBanner);
+        //     });
+        // else
+        res.send(temp);
     });
 
 };

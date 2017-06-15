@@ -94,14 +94,14 @@ class SearchPanel extends React.Component {
                                 <div className="select-values">
                                     {courseTypeDP}
                                 </div>
-                                <input id="courseTypeDP" className="text select" type="text" placeholder="Formato" name="formato" ref="txtCourseType"/>
+                                <input id="courseTypeDP" className="text select" type="text" placeholder="Formato" name="formato" ref="txtCourseType" readOnly/>
                             </div>
                             <div className="input zindex1">
                                 <div className="select-values">
                                     <div onClick={this.accreditationHandleChange}>Si</div>
                                     <div onClick={this.accreditationHandleChange}>No</div>
                                 </div>
-                                <input className="text select" type="text" placeholder="Acreditado" name="acreditado" ref="txtAcreditado"/>
+                                <input className="text select" type="text" placeholder="Acreditado" name="acreditado" ref="txtAcreditado" readOnly/>
                             </div>
                             <div className="input nmr">
                                 <input type="button" value="Buscar" className="submit" onClick={this.searchCourses}/>

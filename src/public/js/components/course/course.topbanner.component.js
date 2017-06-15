@@ -11,6 +11,7 @@ class TopBannerSlider extends React.Component {
         super(props);
 
         this.courseDetails = this.courseDetails.bind(this);
+        this.stopSlider = this.stopSlider.bind(this);
     }
 
     courseDetails(eve) {
@@ -23,33 +24,54 @@ class TopBannerSlider extends React.Component {
         });
     }
 
+    stopSlider() {
+        console.log('hi');
+        $("div.slider-header").each(function(i) {
+            let idSlider = $(this).attr('id');
+            let slider = new Slider('#'+idSlider, 5000);
+            slider.stop();
+        });
+    }
+
     render() {
         const {cursos} = this.props;
         let courseDetailsFunc = this.courseDetails;
+        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+        let showDefaultBannerImage = true, bannerSlider = [];
 
-        let bannerSlider = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
-                    let url = 'url(' + item.imagePath + ')';
-                    return (
-                        <div className="slide" style={{backgroundImage: url}} key={i}>
-                            <div className="content cv">
-                                <div className="size3">{item.title}</div>
-                                <h2 className="size1">{item.subTitle}</h2>
-                                <div className="size3">{item.description}</div>
-                                {
-                                    item.buttonLinks ? 
-                                    <div className="button-div"><Link title="Acceder al curso" className="button" onClick={() => courseDetailsFunc(item)}>Acceder al curso</Link></div>
-                                    : null
-                                }
+        bannerSlider = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
+                    if(item.speciality.indexOf(userInfo.user.professionalData_specialty) > 0) {
+                        let url = 'url(' + item.imagePath + ')';
+                        showDefaultBannerImage = false;
+                        return (
+                            <div className="slide" style={{backgroundImage: url}} key={i}>
+                                <div className="content cv">
+                                    <div className="size3">{item.title}</div>
+                                    <h2 className="size1">{item.subTitle}</h2>
+                                    <div className="size3">{item.description}</div>
+                                    {
+                                        item.buttonLinks ? 
+                                        <div className="button-div"><Link title="Acceder al curso" className="button" onClick={() => courseDetailsFunc(item)}>Acceder al curso</Link></div>
+                                        : null
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
+                    }
                 });
 
         let pagination = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
-                    return (
-                        <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
-                    )
+                    if(item.speciality.indexOf(userInfo.user.professionalData_specialty) > 0) {
+                        return (
+                            <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
+                        )
+                    }
                 });
+
+        if(showDefaultBannerImage) {
+            bannerSlider = <div className="slide" style={{backgroundImage: 'url(img/home-logged/back-curso-destacado-2.jpg)'}}></div>
+            //this.stopSlider();
+        }
 
         return (
             <div className="slider-header" id="slider-1">

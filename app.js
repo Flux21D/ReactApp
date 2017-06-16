@@ -116,9 +116,9 @@ app.use((err, req, res) => {
   });
 });
 
-appForSocket = app.listen(port, () => {
-  console.log(`Server running at localhost:${port}`);
-});
+//appForSocket = app.listen(port, () => {
+//  console.log(`Server running at localhost:${port}`);
+//});
 
 require('./lib/server-controllers/socket-controller').initSocket(appForSocket);
 require('./lib/server-controllers/eventschedule-controller').run_scheduler();

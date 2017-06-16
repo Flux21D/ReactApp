@@ -77,13 +77,23 @@ var eventSchedule = require('./eventschedule-controller');
                 let query = '';
                 let batchQuery = [];
                 const eventData = contentextract("Cursos", data);
+                let startDate;
+                let endDate;
                 connect().then(function (obj) {
                     eventData.courseBox.forEach(function (course, index) {
                         //Add try catch for empty speciality
                         var specialization = course.speciality.split(',').reduce(function (prev, cur) {
                             return prev.toLowerCase().trim() + ',' + cur.toLowerCase().trim();
                         });
-                        query = "insert into spainschema.course_event_info (id,description,name,type,is_active,start_date,end_date,ce_type,specialization)" + " values('" + course.sysid + "','" + course.courseDescription + "','" + course.courseTitle + "','course','" + (course.isActive === true) + "','" + course.startDate + "','" + course.endDate + "','" + course.courseType + "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + course.courseDescription + "',name = '" + course.courseTitle + "',type = 'course',is_active = '" + (course.isActive === true) + "',start_date='" + course.startDate + "',end_date='" + course.endDate + "',ce_type = '" + course.courseType + "',specialization='{" + specialization + "}' ";
+
+                        startDate = course.startDate;
+                        endDate = course.endDate;
+
+                        if(startDate && endDate)
+                            query = "insert into spainschema.course_event_info (id,description,name,type,is_active,start_date,end_date,ce_type,specialization)" + " values('" + course.sysid + "','" + course.courseDescription + "','" + course.courseTitle + "','course','" + (course.isActive === true) + "','" + startDate + "','" + endDate + "','" + course.courseType+ "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + course.courseDescription + "',name = '" + course.courseTitle + "',type = 'course',is_active = '" + (course.isActive === true) + "',start_date='" + startDate + "',end_date='" + endDate + "',ce_type = '" + course.courseType + "',specialization='{" + specialization + "}' ";
+                        else
+                            query = "insert into spainschema.course_event_info (id,description,name,type,is_active,ce_type,specialization)" + " values('" + course.sysid + "','" + course.courseDescription + "','" + course.courseTitle + "','course','" + (course.isActive === true) + "','" + course.courseType+ "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + course.courseDescription + "',name = '" + course.courseTitle + "',type = 'course',is_active = '" + (course.isActive === true) + "',ce_type = '" + course.courseType + "',specialization='{" + specialization + "}' ";
+                        
                         batchQuery.push(query);
 
                     });

@@ -23,35 +23,46 @@ class TopBannerSlider extends React.Component {
     render() {
         const {homeInfo} = this.props;
         let courseDetailsFunc = this.courseDetails;
+        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+        let showDefaultBannerImage = true, topBannerSlides = [];
 
-        let topBannerSlides = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            let url = 'url(' + item.imagePath + ')';
-            return (
-                <div className="slide" style={{backgroundImage: url}} key={i}>
-                    {
-                        item.buttonLinks ? 
-                        <div className="content cv">
-                            <div className="size3">{item.title}</div>
-                            <h2 className="size1">{item.subTitle}</h2>
-                            <div className="size3">{item.description}</div>
-                            <div className="button-div"><Link title="Acceder al curso" className="button" onClick={() => courseDetailsFunc(item)}>Acceder al curso</Link></div>
-                        </div>
-                        :
-                        <div className="content cv">
-                            <div className="size2">{item.title}</div>
-                            <h1 className="size1">{item.subTitle}</h1>
-                            <div className="size3">{item.description}</div>
-                        </div>
-                    }
-                </div>
-            )
+        topBannerSlides = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
+            if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+                let url = 'url(' + item.imagePath + ')';
+                showDefaultBannerImage = false;
+                return (
+                    <div className="slide" style={{backgroundImage: url}} key={i}>
+                        {
+                            item.buttonLinks ? 
+                            <div className="content cv">
+                                <div className="size3">{item.title}</div>
+                                <h2 className="size1">{item.subTitle}</h2>
+                                <div className="size3">{item.description}</div>
+                                <div className="button-div"><Link title="Acceder al curso" className="button" onClick={() => courseDetailsFunc(item)}>Acceder al curso</Link></div>
+                            </div>
+                            :
+                            <div className="content cv">
+                                <div className="size2">{item.title}</div>
+                                <h1 className="size1">{item.subTitle}</h1>
+                                <div className="size3">{item.description}</div>
+                            </div>
+                        }
+                    </div>
+                )
+            }
         });
 
         let topBannerPaginator = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            return (
-                <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
-            )
+            if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+                return (
+                    <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
+                )
+            }
         });
+
+        if(showDefaultBannerImage) {
+            topBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/home-logged/slide.jpg)'}}></div>
+        }
 
         return (
             <div className="slider-header" id="slider-1">

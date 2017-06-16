@@ -40,7 +40,7 @@ class TopBannerSlider extends React.Component {
         let showDefaultBannerImage = true, bannerSlider = [];
 
         bannerSlider = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
-                    if(item.speciality.indexOf(userInfo.user.professionalData_specialty) > 0) {
+                    if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                         let url = 'url(' + item.imagePath + ')';
                         showDefaultBannerImage = false;
                         return (
@@ -61,7 +61,7 @@ class TopBannerSlider extends React.Component {
                 });
 
         let pagination = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
-                    if(item.speciality.indexOf(userInfo.user.professionalData_specialty) > 0) {
+                    if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                         return (
                             <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
                         )

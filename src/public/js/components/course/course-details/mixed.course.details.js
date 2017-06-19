@@ -92,7 +92,7 @@ class MixedCourseDetails extends React.Component {
                     <div className="num">{moduleInfo.sequence}</div>
                     
                     {
-                        moduleInfo.moduleType === 'presencial' ? 
+                        moduleInfo.moduleType.toLowerCase() === 'presencial' ? 
                         <div className="modalidad"><span className="aw"><img className="svg svgG6 svg16" src="img/icons/user-o.svg" title="Icono"/></span> <span> Presencial</span></div>
                         :
                         <div className="modalidad"><span className="aw"><img className="svg svgG6 svg16" src="img/icons/laptop.svg" title="Icono"/></span> <span> Online</span></div>

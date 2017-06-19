@@ -79,7 +79,7 @@ class CourseEventContainer extends React.Component {
                             <div className="event" key={i}>
                                 <div className="date-modalidad">
                                     {
-                                        item.courseType !== 'Presencial' ? 
+                                        (item.startDate && item.endDate) ? 
                                         <div className="date">
                                             <div className="day">{date}</div>
                                             <div className="month">{month}</div>

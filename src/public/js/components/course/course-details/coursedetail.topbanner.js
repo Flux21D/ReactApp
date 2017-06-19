@@ -76,16 +76,27 @@ class TopBannerImage extends React.Component {
         return (
                 <div className="section-header" style={{backgroundImage: url}}>
                     <div className="content">
-                        <h1 className="size1">{bannerInfo.firstLine}</h1>
+                        <h1 className="size1">{bannerInfo.courseTitle}</h1>
                         <p className="size3">{bannerInfo.courseOnBannerDescription}</p>
                         <div className="tools">
                             <div className="grey"><span className="aw"><img className="svg svgW svg16" src="img/icons/laptop.svg" title="Icono"/><small>+</small></span> {bannerInfo.courseType}</div>
-                            <div className="grey">{bannerInfo.credits}</div>
-                            <div className="grey">Del {startDate} al {endDate}</div>
                             {
-                                (bannerInfo.isRegistered || this.state.isCourseRegistered) ? 
+                                bannerInfo.credits ?
+                                <div className="grey">{bannerInfo.credits}</div>
+                                : null
+                            }
+
+                            {
+                                (bannerInfo.startDate && bannerInfo.endDate) ? 
+                                <div className="grey">Del {startDate} al {endDate}</div>
+                                : null
+                            }
+
+                            {
+                                (bannerInfo.courseType.toLowerCase() === 'presencial' || bannerInfo.courseType.toLowerCase() === 'mixto') ? ((bannerInfo.isRegistered || this.state.isCourseRegistered) ? 
                                 <div className="grey"><span className="aw"><img className="svg svgW svg16" src="img/icons/check-circle.svg" title="Icono"/></span> Inscrito <span className="hidden-mobile">al curso</span></div>
-                                : <a title="Inscribirse" className="red inscribirse">Inscribirse <span className="hidden-mobile">al curso</span></a>
+                                : <a title="Inscribirse" className="red inscribirse">Inscribirse <span className="hidden-mobile">al curso</span></a>)
+                                : null
                             }
                         </div>
                         <Link title="Volver a cursos" to="/cursos" className="button tight mt10"><span className="aw"><img className="svg svgW" src="img/icons/angle-left.svg" title="Icono"/></span> Volver a cursos</Link>

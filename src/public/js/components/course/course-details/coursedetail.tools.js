@@ -15,7 +15,7 @@ class CourseTools extends React.Component {
 
     render() {
         const {courseType, courseInfo} = this.props;
-        let credit = courseInfo.credits.split(' ');
+        let credit = courseInfo.credits && courseInfo.credits.split(' ');
 
         return (
             <div className="col-tools" id="col-tools">
@@ -30,13 +30,17 @@ class CourseTools extends React.Component {
                 
                 {/*<!-- tools for users in course --> */}
                 {
-                    courseInfo.tutorEmailId ? 
+                    (courseInfo.tutorEmailId && courseInfo.isRegistered) ? 
                     <a className={'tool ' + (courseType === 'tutorial' ? 'active' : '')} title="Tutoría" onClick={() => this.setCourseScreen('tutorial')}><span className="aw awcircle"><img className="svg svgR svg16" src="img/icons/question.svg" title="Icono"/></span><span className="text"> Tutoría</span></a>
                     : null
                 }
 
-                <a className={'tool ' + (courseType === 'evaluation' ? 'active' : '')} title="Realizar evaluación" onClick={() => this.setCourseScreen('evaluation')}><span className="aw awcircle"><img className="svg svgR svg18 " src="img/icons/pencil.svg" title="Icono"/></span><span className="text"> Realizar evaluación</span></a>
-                
+                {
+                    (courseInfo.courseEvaluators.length > 0 && courseInfo.isRegistered) ?
+                    <a className={'tool ' + (courseType === 'evaluation' ? 'active' : '')} title="Realizar evaluación" onClick={() => this.setCourseScreen('evaluation')}><span className="aw awcircle"><img className="svg svgR svg18 " src="img/icons/pencil.svg" title="Icono"/></span><span className="text"> Realizar evaluación</span></a>
+                    : null
+                }
+
                 {/*<!-- tools for teachers --> */}
                 <a className={'tool ' + (courseType === 'material' ? 'active' : '')} title="Material del curso" onClick={() => this.setCourseScreen('material')}><span className="aw awcircle"><img className="svg svgR svg18 " src="img/icons/user-md.svg" title="Icono"/></span><span className="text"> Material del curso</span></a>
             </div>

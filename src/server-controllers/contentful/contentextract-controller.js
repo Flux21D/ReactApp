@@ -161,7 +161,7 @@ var extractBanner = function extractBanner(banner, includes) {
 
 		includes.Entry.map(function(item){
 			if(item.sys.contentType.sys.id === 'imagetype')
-				{   let imageObj = Object.assign({},item.fields);
+				{   let imageObj = Object.assign({sysid:item.sys.id},item.fields);
 					//delete imageObj.imagePath;
 
 			if (assets[imageObj.imagePath.sys.id]) imageObj.imagePath = assets[imageObj.imagePath.sys.id];

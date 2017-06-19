@@ -69,6 +69,48 @@ var eventSchedule = require('./eventschedule-controller');
         });
     }
 
+    const loadNews = (callback) => {
+        let crsCount = 0;
+        contenthelp.getPage(slugs.slugs["Home"].id, function (data, error) {
+           
+            if (data !== null && error === null) {
+                let query = '';
+                let batchQuery = [];
+                const Home = contentextract("Home", data);
+                
+                connect().then(function (obj) {
+                    //Home.bannerSlider.forEach(function (banner, index) {
+                        //Add try catch for empty speciality
+                        if(Home.bannerSlider)
+                        {  
+                            Home.bannerSlider.forEach(function (bannerSlider, index) {
+                                bannerSlider.forEach(function (banner, index) {
+                                    let specialization = banner.speciality.split(',').reduce(function (prev, cur) {
+                                        return prev.toLowerCase().trim() + ',' + cur.toLowerCase().trim();
+                                    });
+                                    if(banner.bannerType && banner.bannerType === 'news')
+                                        query = "insert into spainschema.course_event_info (id,description,name,type,is_active,ce_type,specialization)" + " values('" + banner.sysid + "','" + banner.description + "','" + banner.title + "','news',true,'news','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + banner.description + "',name = '" + banner.title + "',type = 'news',is_active = true , ce_type = 'news',specialization='{" + specialization + "}' ";
+                                    else
+                                        query = '';
+                                    
+                                    if(query!=='')
+                                        batchQuery.push(query);
+                                });
+                           });    
+                        }
+
+                    //});
+                    return executeBatch(obj, batchQuery);
+                }).then(function (result) {
+                   callback(result);
+                }).catch(function (error) {
+                    console.log(error);
+                    callback("failed");
+                });
+            }
+        });
+    }
+
     const loadCourses = (callback) => {
         let crsCount = 0;
         contenthelp.getPage(slugs.slugs["coursePage"].id, function (data, error) {

@@ -54,6 +54,11 @@ executeQuery : (obj,query) => {
                     });
             });
             
+            if(batchQuery.length === 0){
+                obj.done();
+                resolve('');
+            }
+            
         });
     }
 

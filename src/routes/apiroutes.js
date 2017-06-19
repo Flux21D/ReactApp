@@ -140,6 +140,12 @@ module.exports = function (app, express) {
                         push.loadUserNotification(null, function () {});
                     });
                 }
+                if(req.body.sys.contentType.sys.id === 'imagetype' && req.body.fields.bannerType && req.body.fields.bannerType['en-US'] === 'news')
+                {
+                    nofifypush.saveNews(req.body, function () {
+                        push.loadUserNotification(null, function () {});
+                    });
+                }
 
                 res.status(200).send();
             }

@@ -9,7 +9,7 @@ class CourseMaterial extends React.Component {
     }
 
     componentDidMount() {
-        let sysIds = this.props.courseInfo.materialsUpload.map(function(item) {
+        let sysIds = this.props.courseInfo.materialsUpload && this.props.courseInfo.materialsUpload.map(function(item) {
             return item.sys.id;
         });
 

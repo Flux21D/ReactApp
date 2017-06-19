@@ -42,7 +42,11 @@ class CourseTools extends React.Component {
                 }
 
                 {/*<!-- tools for teachers --> */}
-                <a className={'tool ' + (courseType === 'material' ? 'active' : '')} title="Material del curso" onClick={() => this.setCourseScreen('material')}><span className="aw awcircle"><img className="svg svgR svg18 " src="img/icons/user-md.svg" title="Icono"/></span><span className="text"> Material del curso</span></a>
+                {
+                    courseInfo.materialsUpload ? 
+                    <a className={'tool ' + (courseType === 'material' ? 'active' : '')} title="Material del curso" onClick={() => this.setCourseScreen('material')}><span className="aw awcircle"><img className="svg svgR svg18 " src="img/icons/user-md.svg" title="Icono"/></span><span className="text"> Material del curso</span></a>
+                    : null
+                }
             </div>
         );
     }

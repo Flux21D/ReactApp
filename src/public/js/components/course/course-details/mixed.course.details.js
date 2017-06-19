@@ -125,7 +125,7 @@ class MixedCourseDetails extends React.Component {
 
                         {/* <!-- authors of the course --> */}
                         <div className="title-big nmt">Autores del curso</div>
-                        <div>{courseInfo.authorDescription}</div>
+                        <div dangerouslySetInnerHTML={{__html:courseInfo.authorDescription}}/>
                     </div> 
                     : <CursoModulo showModulo={this.toggelModule}/>
                 }

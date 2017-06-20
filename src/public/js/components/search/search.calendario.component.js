@@ -24,6 +24,21 @@ class SearchPanel extends React.Component {
         if (prevProps.calendario.searchPanel !== this.props.calendario.searchPanel) {
             //datapicker code
             $("#dateFrom, #dateTo").datepicker();
+
+            let sisel = 1;
+            $('div.std-form input.select').click(function () {
+                sisel =! sisel;
+                $('div.select-values').hide();
+                if(!sisel) $(this).parent().find('div.select-values').show();
+                else  $(this).parent().find('div.select-values').hide();
+                $(this).blur();
+            });
+
+            $('div.std-form div.select-values div').click(function () {
+                $(this).parent().parent().find('input.select').val($(this).html());
+                $('div.select-values').hide();
+                sisel = 1;
+            });
         }
     }
 

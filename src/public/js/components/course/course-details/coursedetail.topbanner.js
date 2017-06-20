@@ -93,10 +93,9 @@ class TopBannerImage extends React.Component {
                             }
 
                             {
-                                (bannerInfo.courseType.toLowerCase() === 'presencial' || bannerInfo.courseType.toLowerCase() === 'mixto') ? ((bannerInfo.isRegistered || this.state.isCourseRegistered) ? 
+                                (bannerInfo.isRegistered || this.state.isCourseRegistered) ? 
                                 <div className="grey"><span className="aw"><img className="svg svgW svg16" src="img/icons/check-circle.svg" title="Icono"/></span> Inscrito <span className="hidden-mobile">al curso</span></div>
-                                : <a title="Inscribirse" className="red inscribirse">Inscribirse <span className="hidden-mobile">al curso</span></a>)
-                                : null
+                                : <a title="Inscribirse" className="red inscribirse">Inscribirse <span className="hidden-mobile">al curso</span></a>
                             }
                         </div>
                         <Link title="Volver a cursos" to="/cursos" className="button tight mt10"><span className="aw"><img className="svg svgW" src="img/icons/angle-left.svg" title="Icono"/></span> Volver a cursos</Link>

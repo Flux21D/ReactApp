@@ -27,7 +27,7 @@ class MiddleBannerSlider extends React.Component {
         let showDefaultBannerImage = true, middleBannerSlides = [];
 
         middleBannerSlides = homeInfo.bannerContent.middleBanner && homeInfo.bannerContent.middleBanner.map(function(item, i) {
-            if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+            if(item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                 let url = 'url(' + item.imagePath + ')';
                 showDefaultBannerImage = false;
                 return (

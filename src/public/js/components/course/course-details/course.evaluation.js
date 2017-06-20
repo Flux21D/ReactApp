@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
-import { getCursosEvaluationInfo, cursosEvaluationResult } from "../../../actions/cursos.evaluation";
+import { cursosEvaluationResult } from "../../../actions/cursos.evaluation";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -22,7 +22,6 @@ class CourseEvaluation extends React.Component {
     };
 
     componentDidMount () {
-        //this.props.getCursosEvaluationInfo();
         this.componentDidUpdate();
     }
 
@@ -186,7 +185,6 @@ class CourseEvaluation extends React.Component {
 }
 
 const actionCreators = {
-    getCursosEvaluationInfo,
     cursosEvaluationResult
 };
 

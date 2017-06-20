@@ -27,7 +27,7 @@ class TopBannerSlider extends React.Component {
         let showDefaultBannerImage = true, topBannerSlides = [];
 
         topBannerSlides = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+            if(item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                 let url = 'url(' + item.imagePath + ')';
                 showDefaultBannerImage = false;
                 return (

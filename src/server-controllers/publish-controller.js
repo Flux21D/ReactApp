@@ -460,8 +460,7 @@ var eventSchedule = require('./eventschedule-controller');
             box = 'toolContent';
 
         courses[box].map(function(c){
-            
-            if(c.speciality && c.speciality.toLowerCase().indexOf(userSpeciality) > -1)
+            if(c.speciality && c.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf(userSpeciality) > -1)
                 if(c.isActive)
                 {
                     if(popularity[c.sysid])

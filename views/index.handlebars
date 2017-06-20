@@ -44,6 +44,15 @@
         $('body').click(function(){
             $('#epd').hide();
         });
+        var tid = setTimeout(myCode, 2000);
+        function myCode() {
+            if ($('#cookiesdirective').length) {
+                var href = $("#cookiesdirective a").attr("href");
+                $("#cookiesdirective a").attr("target", "_blank")
+            } else {
+                tid = setTimeout(myCode, 2000); // repeat myself
+            }
+        }
     </script>
 
     <!-- Google Tag Manager (noscript) -->

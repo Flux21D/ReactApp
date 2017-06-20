@@ -185,7 +185,9 @@ var eventSchedule = require('./eventschedule-controller');
         loadCalendar(function(result){
             loadCourses(function(result){
                 loadTools(function(result){
-                    callback('Done');
+                    loadNews(function(result){
+                        callback('Done');
+                    });
                 });
             });
         });
@@ -408,21 +410,27 @@ var eventSchedule = require('./eventschedule-controller');
             evalObj.cid = req.body.cid;
             evalObj.credits = req.body.credits || 0;
             evalObj.accredited = req.body.accredited ? (req.body.accredited.toLowerCase() === 'yes' ? true : false) : false;
-            connect().then(function (obj) {
-                query = "insert into spainschema.user_course_map (uid,score,status,type_id,date_performed,credits,accredited) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"','"+evalObj.cid+"','"+ date_performed +"',"+ parseInt(evalObj.credits) +",'"+evalObj.accredited+"') "+
-                        "on conflict ON CONSTRAINT user_course_map_uid_type_id_key do NOTHING";
-                batchQuery.push(query);
-                query = "insert into spainschema.course_eval_info (cid,score,status) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"') ";
-                batchQuery.push(query);
-                return executeBatch(obj, batchQuery);
-            }).then(function (result) {
-                
-                res.send('Done');
-            }).catch(function (error) {
-                console.log(error);
-                res.send(error);
-                return "failed";
-            });
+            
+                connect().then(function (obj) {
+                    //this will store only first pass marks
+                    if(evalObj.status.toLowerCase() === 'pass')
+                        query = "insert into spainschema.user_course_map (uid,score,status,type_id,date_performed,credits,accredited) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"','"+evalObj.cid+"','"+ date_performed +"',"+ parseInt(evalObj.credits) +",'"+evalObj.accredited+"') "+
+                                "on conflict ON CONSTRAINT user_course_map_uid_type_id_key do NOTHING";
+                    
+                    batchQuery.push(query);
+
+                    query = "insert into spainschema.course_eval_info (cid,score,status) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"') ";
+                    
+                    batchQuery.push(query);
+                    return executeBatch(obj, batchQuery);
+                }).then(function (result) {
+                    
+                    res.send('Done');
+                }).catch(function (error) {
+                    console.log(error);
+                    res.send(error);
+                    return "failed";
+                });
         }
     }
 

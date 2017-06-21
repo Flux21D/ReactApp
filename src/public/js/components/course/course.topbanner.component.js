@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
+import {stopCarousel} from "../../utils/custom.jquery";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -25,12 +26,7 @@ class TopBannerSlider extends React.Component {
     }
 
     stopSlider() {
-        console.log('hi');
-        $("div.slider-header").each(function(i) {
-            let idSlider = $(this).attr('id');
-            let slider = new Slider('#'+idSlider, 5000);
-            slider.stop();
-        });
+        stopCarousel();
     }
 
     render() {

@@ -13,13 +13,15 @@ import $ from "jquery";
 class CourseDetailsComponent extends React.Component {
     
     state = {
-        courseType: 'mixedCourse'
+        courseType: 'mixedCourse',
+        isCourseRegistered: false
     };
 
     constructor(props) {
         super(props);
 
         this.setScreen = this.setScreen.bind(this);
+        this.toggleCourseRegister = this.toggleCourseRegister.bind(this);
     }
 
     componentDidMount () {
@@ -32,18 +34,22 @@ class CourseDetailsComponent extends React.Component {
         });
     }
 
+    toggleCourseRegister() {
+        this.setState({isCourseRegistered: true});
+    }
+
     render() {
         const {cursosDetails, location} = this.props;
         return (
             <div>
                 <div className="page section-curso">
-                    <TopBannerImage bannerInfo={location.state}/>
+                    <TopBannerImage toggleCourseRegister={this.toggleCourseRegister} bannerInfo={location.state}/>
                     <div className="content curso">
                         { this.state.courseType === 'mixedCourse' ? <MixedCourseDetails courseInfo={location.state}/> : null }
                         { this.state.courseType === 'tutorial' ? <CourseTutorial courseInfo={location.state}/> : null }
                         { this.state.courseType === 'evaluation' ? <CourseEvaluation courseInfo={location.state}/> : null }
                         { this.state.courseType === 'material' ? <CourseMaterial courseInfo={location.state}/> : null }
-                        <CourseTools courseType={this.state.courseType} setScreen={this.setScreen} courseInfo={location.state}/>
+                        <CourseTools courseType={this.state.courseType} setScreen={this.setScreen} isCourseRegistered={this.state.isCourseRegistered} courseInfo={location.state}/>
                         <div className="clear"></div>
                     </div>
                 </div>

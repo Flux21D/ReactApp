@@ -30,13 +30,13 @@ class CourseTools extends React.Component {
                 
                 {/*<!-- tools for users in course --> */}
                 {
-                    (courseInfo.tutorEmailId && courseInfo.isRegistered) ? 
+                    (courseInfo.tutorEmailId && (courseInfo.isRegistered || this.props.isCourseRegistered)) ? 
                     <a className={'tool ' + (courseType === 'tutorial' ? 'active' : '')} title="Tutoría" onClick={() => this.setCourseScreen('tutorial')}><span className="aw awcircle"><img className="svg svgR svg16" src="img/icons/question.svg" title="Icono"/></span><span className="text"> Tutoría</span></a>
                     : null
                 }
 
                 {
-                    (courseInfo.courseEvaluators.length > 0 && courseInfo.isRegistered) ?
+                    (courseInfo.courseEvaluators.length > 0 && (courseInfo.isRegistered || this.props.isCourseRegistered)) ?
                     <a className={'tool ' + (courseType === 'evaluation' ? 'active' : '')} title="Realizar evaluación" onClick={() => this.setCourseScreen('evaluation')}><span className="aw awcircle"><img className="svg svgR svg18 " src="img/icons/pencil.svg" title="Icono"/></span><span className="text"> Realizar evaluación</span></a>
                     : null
                 }

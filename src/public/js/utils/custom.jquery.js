@@ -46,3 +46,55 @@ export function selectDropdown() {
         sisel = 1;
     });
 }
+
+//course-register ok window
+export function courseRegisterOkWindow() {
+    $('a.inscribirse').click(function () {
+        if (confirm('¿Seguro que deseas inscribirte a este curso?')) {
+            $('#modal-ok').fadeIn();
+        }
+    });
+}
+
+export function closeModalWindow() {
+    $('.close_window').click(function () {
+        $('.modal-wrapper').fadeOut();
+        $('body').removeClass('modal-on');
+    });
+}
+
+//submit tutorial
+export function submitTutorial() {
+    $('#submit-tutoria').click(function () {
+        if(!$('#field1').val() || !$('#field2').val()) {
+            $('#modal-external').fadeIn();
+            return false;
+        }
+    });
+}
+
+//key press
+export function closeModalOnKeyPress() {
+    $(document).keyup(function (e) {
+        if (e.keyCode === 27) // escape key maps to keycode '27'
+            $('.modal-wrapper').fadeOut();
+    });
+}
+
+//play carousel
+export function playCarousel() {
+    $("div.slider-header").each(function(i) {
+        let idSlider = $(this).attr('id');
+        let slider = new Slider('#'+idSlider, 5000);
+        slider.play();
+    });
+}
+
+//stop carousel
+export function stopCarousel() {
+    $("div.slider-header").each(function(i) {
+        let idSlider = $(this).attr('id');
+        let slider = new Slider('#'+idSlider, 5000);
+        slider.stop();
+    });
+}

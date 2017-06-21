@@ -2,23 +2,15 @@ import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
 import { getCursosInfo } from "../../actions/cursos";
+import {selectDropdown} from "../../utils/custom.jquery";
 
 class SearchPanel extends React.Component {
     constructor(props) {
         super(props);
 
         this.searchCourses = this.searchCourses.bind(this);
-        this.keywordHandleChange = this.keywordHandleChange.bind(this);
-        this.courseTypeHandleChange = this.courseTypeHandleChange.bind(this);
         this.accreditationHandleChange = this.accreditationHandleChange.bind(this);
     }
-
-    state = {
-        pageNo: 1,
-        keyword: '',
-        courseType: '',
-        accreditation: ''
-    };
 
     componentDidMount() {
         if(this.props.component === 'course' && this.props.locState) {
@@ -30,44 +22,33 @@ class SearchPanel extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.searchPanel !== this.props.searchPanel) {
-            //select std-form
-            let sisel = 1;
-            $('div.std-form input.select').click(function () {
-                sisel =! sisel;
-                $('div.select-values').hide();
-                if(!sisel) $(this).parent().find('div.select-values').show();
-                else  $(this).parent().find('div.select-values').hide();
-                $(this).blur();
-            });
-
-            $('div.std-form div.select-values div').click(function () {
-                $(this).parent().parent().find('input.select').val($(this).html());
-                $('div.select-values').hide();
-                sisel = 1;
-            });
+            selectDropdown();
         }
     }
 
-    keywordHandleChange(eve) {
-        this.setState({keyword: eve.target.value});
-    };
-
     courseTypeHandleChange(eve) {
-        this.setState({courseType: eve});
+        this.refs.txtCourseType.value = eve;
     };
 
     accreditationHandleChange(eve) {
-        this.setState({accreditation: eve.target.innerHTML});
+        this.refs.txtAcreditado.value = eve.target.innerHTML;
     };
 
     searchCourses() {
+        let searchObj = {
+            pageNo: 1,
+            keyword: this.refs.txtKeyword.value,
+            courseType: this.refs.txtCourseType.value,
+            accreditation: this.refs.txtAcreditado.value
+        }
+
         if(this.props.component === 'home') {
             this.context.router.push({ 
                 pathname: '/cursos',
-                state: this.state
+                state: searchObj
             });
         } else {
-            this.props.getCursosInfo(this.state.pageNo, this.state);
+            this.props.getCursosInfo(searchObj.pageNo, searchObj);
         }
     };
 
@@ -88,7 +69,7 @@ class SearchPanel extends React.Component {
                     <div className="std-form form">
                         <form>
                             <div className="input zindex1">
-                                <input type="text" placeholder="Palabra clave" name="kw" className="text" onChange={this.keywordHandleChange} ref='txtKeyword'/>
+                                <input type="text" placeholder="Palabra clave" name="kw" className="text" ref='txtKeyword'/>
                             </div>
                             <div className="input zindex1">
                                 <div className="select-values">

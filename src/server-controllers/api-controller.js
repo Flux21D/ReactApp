@@ -36,6 +36,7 @@ const getContent = (req,res) => {
                 if(slug === 'coursePage' || slug === 'Calendar' || slug === 'Herramientas')
                 {   let uid = req.headers.uid || '6a3bc0f4-22bb-4b83-bbee-2ef9fc86bc70';
                     let speciality = req.headers.speciality || 'doctor';
+                    let isDelegate = req.headers.isdelegate || false;
                     let temp = contentextract(slug, data);
                     let popularity = {};
                     let userFav = [];
@@ -88,7 +89,7 @@ const getContent = (req,res) => {
                                         userReg.push(item.type_id);
                                 });
 
-                                injectContent(res,{speciality,type},temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
+                                injectContent(res,{speciality,type,isDelegate},temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
                             });
                         });
                     }   
@@ -103,7 +104,7 @@ const getContent = (req,res) => {
                                         userReg.push(item.type_id);
                                 });
 
-                                injectContent(res,{speciality,type},temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
+                                injectContent(res,{speciality,type,isDelegate},temp,popularity,userFav,userReg,options,search,isHome,page,start,end);
                             });
                     }
 

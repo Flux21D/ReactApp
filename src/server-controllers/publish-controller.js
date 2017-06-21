@@ -162,10 +162,11 @@ var eventSchedule = require('./eventschedule-controller');
                 connect().then(function (obj) {
                     toolData.toolContent.forEach(function (tool, index) {
                         //Add try catch for empty speciality
-                        var specialization = tool.speciality.split(',').reduce(function (prev, cur) {
-                            return prev.toLowerCase().trim() + ',' + cur.toLowerCase().trim();
-                        });
-                        query = "insert into spainschema.course_event_info (id,description,name,type,is_active,specialization)" + " values('" + tool.sysid + "','" + tool.description + "','" + tool.title + "','tool','" + (tool.isActive === true) + "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + tool.description + "',name = '" + tool.title + "',type = 'tool',is_active = '" + (tool.isActive === true) + "',specialization='{" + specialization + "}' ";
+                        // var specialization = tool.speciality.split(',').reduce(function (prev, cur) {
+                        //     return prev.toLowerCase().trim() + ',' + cur.toLowerCase().trim();
+                        // });
+                        //query = "insert into spainschema.course_event_info (id,description,name,type,is_active,specialization)" + " values('" + tool.sysid + "','" + tool.description + "','" + tool.title + "','tool','" + (tool.isActive === true) + "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + tool.description + "',name = '" + tool.title + "',type = 'tool',is_active = '" + (tool.isActive === true) + "',specialization='{" + specialization + "}' ";
+                        query = "insert into spainschema.course_event_info (id,description,name,type,is_active,specialization)" + " values('" + tool.sysid + "','" + tool.description + "','" + tool.title + "','tool','" + (tool.isActive === true) + "','{all}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + tool.description + "',name = '" + tool.title + "',type = 'tool',is_active = '" + (tool.isActive === true) + "',specialization='{all}' ";
                         batchQuery.push(query);
                     });
                     return executeBatch(obj, batchQuery);
@@ -210,10 +211,15 @@ var eventSchedule = require('./eventschedule-controller');
                 let batchQuery = [];
                 connect().then(function(userobj){
                     result.rows.forEach(function(item,index){      
+                        // query = "insert into spainschema.user_notification_map (uid,notification_type,notification_date,notification_desc,status,action,type_id)"+
+                        //         "(select '"+item.uid+"' as uid,type as notification_type,now() as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
+                        //         "from spainschema.course_event_info as d "+
+                        //         "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[]) "+
+                        //         "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
                         query = "insert into spainschema.user_notification_map (uid,notification_type,notification_date,notification_desc,status,action,type_id)"+
                                 "(select '"+item.uid+"' as uid,type as notification_type,now() as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
                                 "from spainschema.course_event_info as d "+
-                                "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[]) "+
+                                "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[] and type in ('course','news')) "+
                                 "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
                         //TODO another query if user is from lilly        
                         batchQuery.push(query);
@@ -459,16 +465,18 @@ var eventSchedule = require('./eventschedule-controller');
         let courseData = [];
         let box = '';
         let userSpeciality = typeObj.speciality.toLowerCase();
-
+        var delegate = typeObj.isDelegate == 'true' ? true : false;
+        let isNotFilterable = false;
         if(typeObj.type == 'course')
             box = 'courseBox';
         else if(typeObj.type == 'event')
             box = 'eventBox';
         else if(typeObj.type == 'tool')
             box = 'toolContent';
-
+        
         courses[box].map(function(c){
-            if(c.speciality && c.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf(userSpeciality) > -1)
+            isNotFilterable = delegate || (c.speciality && c.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf(userSpeciality) > -1) || (typeObj.type==='tool') || (c.speciality && c.speciality === 'all');
+            if(isNotFilterable)
                 if(c.isActive)
                 {
                     if(popularity[c.sysid])

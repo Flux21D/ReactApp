@@ -7,13 +7,18 @@ module.exports = {
 	 	let query = '';
 
         connect().then(function(client){
-        	let specialization = tool.fields.speciality['en-US'].split(',').reduce(function(prev,cur){
-                            return prev.toLowerCase().trim()+','+cur.toLowerCase().trim();
-                        });
+        	// let specialization = tool.fields.speciality['en-US'].split(',').reduce(function(prev,cur){
+         //                    return prev.toLowerCase().trim()+','+cur.toLowerCase().trim();
+         //                });
         	
-            const query =  "insert into spainschema.course_event_info (id,description,name,type,is_active,specialization)"+
-                                  " values('"+tool.sys.id+"','"+tool.fields.description['en-US']+"','"+tool.fields.title['en-US']+"','tool','"+(tool.fields.isActive['en-US']===true)+"','{"+specialization+"}') on conflict ON CONSTRAINT course_event_info_pkey "+
-                                  "do update set description = '"+tool.fields.description['en-US']+"',name = '"+tool.fields.title['en-US']+"',type = 'tool',is_active = '"+(tool.fields.isActive['en-US']===true)+"',specialization='{"+specialization+"}' ";
+            // query =  "insert into spainschema.course_event_info (id,description,name,type,is_active,specialization)"+
+            //           " values('"+tool.sys.id+"','"+tool.fields.description['en-US']+"','"+tool.fields.title['en-US']+"','tool','"+(tool.fields.isActive['en-US']===true)+"','{"+specialization+"}') on conflict ON CONSTRAINT course_event_info_pkey "+
+            //           "do update set description = '"+tool.fields.description['en-US']+"',name = '"+tool.fields.title['en-US']+"',type = 'tool',is_active = '"+(tool.fields.isActive['en-US']===true)+"',specialization='{"+specialization+"}' ";
+
+             query =  "insert into spainschema.course_event_info (id,description,name,type,is_active,specialization)"+
+                      " values('"+tool.sys.id+"','"+tool.fields.description['en-US']+"','"+tool.fields.title['en-US']+"','tool','"+(tool.fields.isActive['en-US']===true)+"','{all}') on conflict ON CONSTRAINT course_event_info_pkey "+
+                      "do update set description = '"+tool.fields.description['en-US']+"',name = '"+tool.fields.title['en-US']+"',type = 'tool',is_active = '"+(tool.fields.isActive['en-US']===true)+"',specialization='{all}' ";
+                                
             return executeQuery(client,query);
         })
         .then(function(result){

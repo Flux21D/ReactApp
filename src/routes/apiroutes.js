@@ -114,7 +114,7 @@ module.exports = function (app, express) {
                     nofifypush.saveTools(req.body, function () {
                         cache.put('tool_popular',null,900000);
                         push.getActiveCE('tool',function(){});
-                        push.loadUserNotification(null, function () {});
+                        //push.loadUserNotification(null, function () {});
                     });
                 }
                 if (req.body.sys.contentType.sys.id === 'courseBox') {
@@ -137,7 +137,7 @@ module.exports = function (app, express) {
                     nofifypush.saveEvent(req.body, function () {
                         cache.put('event_popular',null,900000);
                         push.getActiveCE('event',function(){});
-                        push.loadUserNotification(null, function () {});
+                        //push.loadUserNotification(null, function () {});
                     });
                 }
                 if(req.body.sys.contentType.sys.id === 'imagetype' && req.body.fields.bannerType && req.body.fields.bannerType['en-US'] === 'news')

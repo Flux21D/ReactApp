@@ -27,14 +27,15 @@ const getProfileInfo = (req,res) => {
     if(req.headers.uid && req.headers.speciality){
         let uid = req.headers.uid;
         let speciality = req.headers.speciality.toLowerCase();
+        let isDelegate = req.headers.isdelegate == 'true' || false;
 
         async.parallel({
-            specialityCourses: getSpecialityCourses.bind(null,uid,speciality),
-            userCalender: getUserCalender.bind(null,uid,speciality),
-            completedCourse: getCompletedCourse.bind(null,uid,speciality),
-            favCourse : getFavCourse.bind(null,uid,speciality),
-            favTools : getFavTools.bind(null,uid,speciality),
-            ongoingEnrolled : getOngoingEnrolled.bind(null,uid,speciality)
+            specialityCourses: getSpecialityCourses.bind(null,uid,speciality,isDelegate),
+            userCalender: getUserCalender.bind(null,uid,speciality,isDelegate),
+            completedCourse: getCompletedCourse.bind(null,uid,speciality,isDelegate),
+            favCourse : getFavCourse.bind(null,uid,speciality,isDelegate),
+            favTools : getFavTools.bind(null,uid,speciality,isDelegate),
+            ongoingEnrolled : getOngoingEnrolled.bind(null,uid,speciality,isDelegate)
         },
         function(err, results) {
             if(err)
@@ -45,17 +46,26 @@ const getProfileInfo = (req,res) => {
     }
 }
 
-const getSpecialityCourses = (uid , speciality, callback) => {
+const getSpecialityCourses = (uid , speciality, isDelegate, callback) => {
     let query = '';
-    connect().then(function(userobj){ 
-            query = "((select cif.id, cif.name from spainschema.course_event_info cif  where cif.specialization  @> ARRAY['"+speciality+"']::varchar[] and cif.is_active = true and type='course' "+
-                    "and now() between cif.start_date and cif.end_date limit 3) "+
-                    "UNION ALL "+
-                    "(select cif.id, cif.name from spainschema.course_register cr, spainschema.course_event_info cif, spainschema.user_info ui where cif.specialization  @> ARRAY['"+speciality+"']::varchar[] and cif.is_active = true "+
-                    "and cif.id = cr.cid and cr.uid = ui.uid and ui.uid = '"+uid+"' and (cif.start_date > now() or cif.start_date is null) limit 3) "+
-                    "UNION ALL "+
-                    "(select cif.id, cif.name from spainschema.user_course_map cr, spainschema.user_info ui, spainschema.course_event_info cif where cr.uid = ui.uid and cif.id = cr.type_id and ui.uid = '"+uid+"' limit 3)) limit 3 "
-                                            
+    connect().then(function(userobj){
+            if(!isDelegate) 
+                query = "((select cif.id, cif.name from spainschema.course_event_info cif  where cif.specialization  @> ARRAY['"+speciality+"']::varchar[] and cif.is_active = true and type='course' "+
+                        "and now() between cif.start_date and cif.end_date limit 3) "+
+                        "UNION ALL "+
+                        "(select cif.id, cif.name from spainschema.course_register cr, spainschema.course_event_info cif, spainschema.user_info ui where cif.specialization  @> ARRAY['"+speciality+"']::varchar[] and cif.is_active = true "+
+                        "and cif.id = cr.cid and cr.uid = ui.uid and ui.uid = '"+uid+"' and (cif.start_date > now() or cif.start_date is null) limit 3) "+
+                        "UNION ALL "+
+                        "(select cif.id, cif.name from spainschema.user_course_map cr, spainschema.user_info ui, spainschema.course_event_info cif where cr.uid = ui.uid and cif.id = cr.type_id and ui.uid = '"+uid+"' limit 3)) limit 3 "
+            else
+                query = "((select cif.id, cif.name from spainschema.course_event_info cif  where cif.is_active = true and type='course' "+
+                        "and now() between cif.start_date and cif.end_date limit 3) "+
+                        "UNION ALL "+
+                        "(select cif.id, cif.name from spainschema.course_register cr, spainschema.course_event_info cif, spainschema.user_info ui where cif.is_active = true "+
+                        "and cif.id = cr.cid and cr.uid = ui.uid and ui.uid = '"+uid+"' and (cif.start_date > now() or cif.start_date is null) limit 3) "+
+                        "UNION ALL "+
+                        "(select cif.id, cif.name from spainschema.user_course_map cr, spainschema.user_info ui, spainschema.course_event_info cif where cr.uid = ui.uid and cif.id = cr.type_id and ui.uid = '"+uid+"' limit 3)) limit 3 "
+
                     return executeQuery(userobj, query);
         })
         .then(function(execResult){
@@ -67,7 +77,7 @@ const getSpecialityCourses = (uid , speciality, callback) => {
         });
 }
 
-const getUserCalender = (uid , speciality, callback) => {
+const getUserCalender = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "(select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('event') and cif.id = uf.type_id) "+
@@ -106,7 +116,7 @@ const getUserNotification = (uid , callback) => {
         });
 }
 
-const getCompletedCourse = (uid , speciality, callback) => {
+const getCompletedCourse = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "select cr.* , cif.* from spainschema.user_course_map cr, spainschema.user_info ui, spainschema.course_event_info cif where cr.uid = ui.uid and cif.id = cr.type_id and ui.uid = '"+uid+"' ";
@@ -122,7 +132,7 @@ const getCompletedCourse = (uid , speciality, callback) => {
         });
 }
 
-const getFavCourse = (uid , speciality, callback) => {
+const getFavCourse = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('course') and "+
@@ -139,7 +149,7 @@ const getFavCourse = (uid , speciality, callback) => {
         });
 }
 
-const getFavTools = (uid , speciality, callback) => {
+const getFavTools = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "select cif.*,uf.*  from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('tool') and "+
@@ -156,7 +166,7 @@ const getFavTools = (uid , speciality, callback) => {
         });
 }
 
-const getOngoingEnrolled = (uid , speciality, callback) => {
+const getOngoingEnrolled = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "(select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('course') "+

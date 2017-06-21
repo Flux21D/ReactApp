@@ -22,6 +22,10 @@ class CalendarioEventContainer extends React.Component {
         isFavouriteLocal: []
     };
 
+    componentDidMount() {
+        this.refs.txtSortEvent.value = 'Fecha';
+    }
+
     favEvents(eve) {
         let userInfo = JSON.parse(sessionStorage.getItem('auth'));
         let eventId = eve.sysid;
@@ -47,7 +51,7 @@ class CalendarioEventContainer extends React.Component {
     };
 
     pageNumber(pageNo) {
-        this.refs.sortEvent.value = '';
+        this.refs.txtSortEvent.value = '';
         let queryParams = this.props.calendario.searchParams;
         this.props.getCalendarioInfo(pageNo, queryParams.keyword, queryParams.eventType, queryParams.dateFrom, queryParams.dateTo, queryParams.city, queryParams.country);
     };
@@ -102,7 +106,7 @@ class CalendarioEventContainer extends React.Component {
                                 <div onClick={this.sortEvents}>Nombre</div>
                                 <div onClick={this.sortEvents}>Fecha</div>
                             </div>
-                            <input className="text select select-tight" type="text" placeholder="Popularidad" name="orderby" ref='sortEvent'/>
+                            <input className="text select select-tight" type="text" placeholder="Popularidad" name="orderby" ref='txtSortEvent'/>
                         </div>
                     </div>
                     <h2 className="title-big-grey"><span className="aw"><img className="svg svgR svg18" src="img/icons/mortar-board.svg" title="Icono"/></span> Eventos encontrados</h2>

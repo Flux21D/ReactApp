@@ -18,6 +18,10 @@ class CourseEventContainer extends React.Component {
         isFavouriteLocal: []
     };
 
+    componentDidMount() {
+        this.refs.txtSortCourse.value = 'Popularidad';
+    }
+
     favCourse(eve) {
         let userInfo = JSON.parse(sessionStorage.getItem('auth'));
         this.props.setFavCursos(userInfo.user.uuid, 'course', eve.sysid);
@@ -26,7 +30,7 @@ class CourseEventContainer extends React.Component {
     };
 
     pageNumber(pageNo) {
-        this.refs.sortCourse.value = '';
+        this.refs.txtSortCourse.value = '';
         let queryParams = this.props.cursos.searchParams;
         this.props.getCursosInfo(pageNo, queryParams).then(function() {
             replaceSVGIcons();
@@ -96,7 +100,7 @@ class CourseEventContainer extends React.Component {
                                 <div onClick={this.sortCourses}>Nombre</div>
                                 <div onClick={this.sortCourses}>Fecha</div>
                             </div>
-                            <input className="text select select-tight" type="text" placeholder="Tipo de evento" name="tipo" ref='sortCourse'/>
+                            <input className="text select select-tight" type="text" placeholder="Tipo de evento" name="tipo" ref='txtSortCourse'/>
                         </div>
                     </div>
                     <h2 className="title-big-grey"><span className="aw"><img className="svg svgR svg18 " src="img/icons/mortar-board.svg" title="Icono"/></span> Cursos encontrados</h2>

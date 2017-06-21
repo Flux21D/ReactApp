@@ -45,7 +45,7 @@ export function getHomeCalendarioInfo (isHome) {
 
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
-    headers: {'uid': userInfo.user.uuid}
+    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty, isdelegate: false}
   };
 
   return dispatch => {

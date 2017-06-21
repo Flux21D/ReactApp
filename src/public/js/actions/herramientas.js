@@ -17,7 +17,7 @@ export function getHerramientasInfo (pageNo) {
 
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
-    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty}
+    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty, isdelegate: false}
   };
 
   return dispatch => {

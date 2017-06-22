@@ -419,13 +419,28 @@ var eventSchedule = require('./eventschedule-controller');
             
                 connect().then(function (obj) {
                     //this will store only first pass marks
-                    if(evalObj.status.toLowerCase() === 'pass')
-                        query = "insert into spainschema.user_course_map (uid,score,status,type_id,date_performed,credits,accredited) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"','"+evalObj.cid+"','"+ date_performed +"',"+ parseInt(evalObj.credits) +",'"+evalObj.accredited+"') "+
-                                "on conflict ON CONSTRAINT user_course_map_uid_type_id_key do NOTHING";
+                    //if(evalObj.status.toLowerCase() === 'pass'){
+                        // query = "insert into spainschema.user_course_map (uid,score,status,type_id,date_performed,credits,accredited) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"','"+evalObj.cid+"','"+ date_performed +"',"+ parseInt(evalObj.credits) +",'"+evalObj.accredited+"') "+
+                        //         "on conflict ON CONSTRAINT user_course_map_uid_type_id_key do NOTHING";
+                        //This query will insert if entry is not there, if entry is there and score is higher than old score then update
+                        //if old score is less than new score do nothing. This query will not work if table is empty
+                        query = "insert into spainschema.user_course_map (uid,status,action,type_id,accredited,score,date_performed,credits) "+
+                                "(select '"+evalObj.uid+"' as uid,'"+evalObj.status+"' as status,'' as action,'"+evalObj.cid+"' as type_id,"+evalObj.accredited+" as accredited,'"+evalObj.score+"' as score,'"+ date_performed +"' as date_performed,"+parseInt(evalObj.credits)+" as credits from spainschema.user_course_map "+
+                                "where (uid = '"+evalObj.uid+"' and type_id = '"+evalObj.cid+"' and "+
+                                "'"+evalObj.score+"' > score) or not exists (select distinct(uid) from spainschema.user_course_map where uid = '"+evalObj.uid+"' and type_id = '"+evalObj.cid+"') "+
+                                ") LIMIT 1 on conflict ON CONSTRAINT user_course_map_uid_type_id_key "+
+                                "do update set score = '"+evalObj.score+"',status = '"+evalObj.status+"',accredited = "+evalObj.accredited+",date_performed = '"+ date_performed +"',credits = "+parseInt(evalObj.credits)+"";
+                        
+                        batchQuery.push(query);
+			//This query works when table is empty.
+                        query = "insert into spainschema.user_course_map (uid,status,action,type_id,accredited,score,date_performed,credits) "+
+                                "select '"+evalObj.uid+"' as uid,'"+evalObj.status+"' as status,'' as action,'"+evalObj.cid+"' as type_id,"+evalObj.accredited+" as accredited,'"+evalObj.score+"' as score,'"+ date_performed +"' as date_performed,"+parseInt(evalObj.credits)+" as credits "+
+                                "where not exists (SELECT * FROM spainschema.user_course_map)";
+                    //}
                     
                     batchQuery.push(query);
 
-                    query = "insert into spainschema.course_eval_info (cid,score,status) values ('"+evalObj.uid+"','"+evalObj.score+"','"+evalObj.status+"') ";
+                    query = "insert into spainschema.course_eval_info (cid,score,status) values ('"+evalObj.cid+"','"+evalObj.score+"','"+evalObj.status+"') ";
                     
                     batchQuery.push(query);
                     return executeBatch(obj, batchQuery);

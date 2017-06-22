@@ -467,7 +467,7 @@ var eventSchedule = require('./eventschedule-controller');
             //converting result to map of key values, so when next time using we can fetch just by 
             //giving key instead of looping
             if(result.rowCount > 0)
-                getActiveCE(type,function(){});
+                getActiveCE('course',function(){});
             callback(result);
         }).catch(function (error) {
             console.log(error);

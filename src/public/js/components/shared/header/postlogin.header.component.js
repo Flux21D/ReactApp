@@ -40,7 +40,7 @@ class PostLoginHeader extends React.Component {
                             </ul>
                             <ul className="main-menu">
                                 <li><Link title="Home" to="/home" className={location.pathname === '/home' || location.pathname === '/' ? 'active' : ''}>Home</Link></li>
-                                <li><Link title="Cursos" to="/cursos" className={location.pathname === '/cursos' ? 'active' : ''}>Cursos</Link></li>
+                                <li><Link title="Cursos" to="/cursos" className={(['/cursos', '/coursedetail'].indexOf(location.pathname) > -1) ? 'active' : ''}>Cursos</Link></li>
                                 <li><Link title="Calendario" to="/calendario" className={location.pathname === '/calendario' ? 'active' : ''}>Calendario</Link></li>
                                 <li><Link title="Herramientas" to="/herramientas" className={location.pathname === '/herramientas' ? 'active' : ''}>Herramientas</Link></li>
                                 <li><Link title="Ayuda" id="show-sub-ayuda" className={location.pathname === '/faq' || location.pathname === '/contact' ? 'active' : ''}>Ayuda</Link></li>

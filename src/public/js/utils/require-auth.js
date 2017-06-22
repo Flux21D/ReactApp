@@ -7,12 +7,12 @@ export default (nextState, replace, callback) => {
   const accessToken = JSON.parse(sessionStorage.getItem('auth')) ? JSON.parse(sessionStorage.getItem('auth')).accessToken : null;
   const req = axios.get("/api/validate?AuthToken="+accessToken);
   req.then(resp => {
-    console.log(resp.data.success);
   	if(!resp.data.success)
   	{
       		logout();
   		replace('/');
   		callback();
+      		window.location.reload();
   	}
   	else
   	{

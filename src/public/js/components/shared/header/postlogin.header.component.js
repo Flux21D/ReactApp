@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import $ from "jquery";
 import ProfileNotification from "../../myprofile/profile.notification";
+import { postLoginFunctionality } from "../../../utils/custom.jquery";
 
 class PostLoginHeader extends React.Component {
 
@@ -13,64 +14,7 @@ class PostLoginHeader extends React.Component {
 
     componentDidMount()
     {
-        //submenu
-        $('#show-sub-ayuda').click(function() {
-            $('#sub-ayuda').fadeToggle();
-            return false;
-        });
-
-        //hide sub-menu on outside click
-        $(document).mouseup(function (e) {
-            var container = $('div.select-values, #sub-ayuda');
-
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                container.hide();
-            }
-        });
-
-        //responsive-menu
-        $('#responsive-menu-toggler, .responsive-menu-toggler, div.back-submenu-responsive').click(function () {
-            $('ul.submenu-responsive').toggleClass('on');
-            $('div.back-submenu-responsive').fadeToggle();
-            if($('.submenu-responsive').hasClass('on'))
-            {
-                $('.input.zindex3, .input.zindex4, .input.zindex5').css('z-index','1');
-            }
-            else
-            {
-                $('.input.zindex3').css('z-index','3');
-                $('.input.zindex4').css('z-index','4');
-                $('.input.zindex5').css('z-index','5');
-            }
-            $('body').toggleClass('disable-scroll');
-        });
-
-        //menu selection
-        var selector1 = '.main-menu a';
-        $(selector1).on('click', function() {            
-            if(!$(this).parent().is(':last-child'))
-            {
-                $(selector1).removeClass('active');
-                $(this).addClass('active');
-            }
-            
-        });
-
-        //responsive-menu selection
-        var selector = '.submenu-responsive a';
-        $(selector).on('click', function() {
-            $(selector).removeClass('active');
-            $(this).addClass('active');
-            $('ul.submenu-responsive').toggleClass('on');
-            $('div.back-submenu-responsive').fadeToggle();
-            $('body').removeClass('disable-scroll');
-        });
-
-        $('.sub-ayuda a').click(function(){
-            $('#sub-ayuda').fadeToggle();
-            $(selector1).removeClass('active');
-            $('#show-sub-ayuda').toggleClass('active');
-        });
+        postLoginFunctionality();
     }
 
     render () {

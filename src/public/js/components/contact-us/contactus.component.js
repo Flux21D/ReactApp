@@ -4,6 +4,7 @@ import {Link} from "react-router";
 import TopBannerImage from "./contactus.topbanner";
 import ContactBodyContent from "./contactus.body.content";
 import { getContactUsInfo } from "../../actions/contactus";
+import { replaceSVGIcons } from "../../utils/custom.jquery";
 import $ from "jquery";
 
 class ContactUs extends React.Component {
@@ -12,7 +13,9 @@ class ContactUs extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getContactUsInfo();
+        this.props.getContactUsInfo().then(function() {
+            replaceSVGIcons();
+        });
     }
 
     render() {

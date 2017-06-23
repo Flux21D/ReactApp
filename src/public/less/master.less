@@ -3055,3 +3055,140 @@ media all and (min-width:1100px){
     min-height: 920px;
   }
 }
+
+.my-modal-open {
+
+  .my-modal {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    &:before {
+      content: " ";
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+
+.my-modal {
+  display: none;
+  overflow: hidden;
+
+  .my-modal-dialog {
+    position: relative;
+    left: 50%;
+    display: inline-block;
+
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+
+    z-index: 2;
+    background: #ffffff;
+
+    margin: 30px auto;
+
+    max-width: ~"calc(100% - 120px)";
+    min-height: 100px;
+
+    &.full-screen {
+      width: 100%;
+      max-width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+  }
+
+  .my-modal-content {
+    position: relative;
+    padding: 26px;
+
+    h3.title {
+      color: #f36c00;
+      text-align: center;
+    }
+
+    p.description {
+      color: #425464;
+      margin: 26px auto;
+      text-align: center;
+    }
+  }
+
+  .my-modal-footer-buttons {
+    margin-top: 26px; 
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    justify-content: space-between;
+
+    .btn {
+      width: 137px;
+    }
+  }
+
+  .my-modal-close {
+    position: absolute;
+    top: 0;
+    right: -40px;
+    cursor: pointer;
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+}
+
+.sd-modal {
+  z-index: 1;
+
+  &:after {
+    z-index: 1;
+    content: " ";
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .sd-modal-content {
+    position: absolute;
+    background: #ffffff;
+    z-index: 2;
+
+    .title {
+      font-family: 'Apex New Light';
+      color: #f36c00 !important;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+  }
+
+  .close-sd-modal {
+    color: #ffffff;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+  }
+}

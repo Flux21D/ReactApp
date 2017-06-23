@@ -9,20 +9,22 @@ import PostLoginBody from "../shared/header/postLoginBody.component";
 import RegisterComponent from '../register/register.component';
 import Modal from "../shared/modal/modal";
 import {openModal} from "../../actions/modal";
+import ThanksComponent from '../register/thanks.component';
+import {removeNewUser} from "../../actions/auth";
 
 class IndexComponent extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+
+    }
 
     componentWillUnmount() {}
 
     render() {
-        const {modal} = this.props;
-        let classes = modal.Component ? 'my-modal-open' : ' ';
-
+            
         return (
             <div>
                 {
@@ -48,7 +50,8 @@ const mapStateToProps = (state) => {
 };
 
 const actionCreators = {
-    openModal
+    openModal,
+    removeNewUser
 };
 
 export default connect(mapStateToProps,actionCreators)(IndexComponent);

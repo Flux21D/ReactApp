@@ -18,7 +18,7 @@ For more information about these settings, see the following documents:
 
     // --- Engage Widget -------------------------------------------------------
 
-    janrain.settings.language = 'en-US';
+    janrain.settings.language = 'es-ES';
     janrain.settings.appUrl = 'https://elililly-dev.rpxnow.com';
     janrain.settings.tokenUrl = 'http://localhost:8080/';
     janrain.settings.tokenAction = 'event';
@@ -34,8 +34,8 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.appId = 'm2uqcsxt5rmhjqf7dbqxbgsbzn';
     janrain.settings.capture.captureServer = 'https://elililly-dev.janraincapture.com';
     janrain.settings.capture.redirectUri = 'http://localhost:8080/';
-    janrain.settings.capture.clientId = 'fc6px2bggkqtbd6k9qpfrwts6p44crj5';
-    janrain.settings.capture.flowName = 'lilly_pro_uk';
+    janrain.settings.capture.clientId = '28pc8dxjtvsxun8b7mg95px9883hvzxg';
+    janrain.settings.capture.flowName = 'lilly_pro_es';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;
     janrain.settings.capture.keepProfileCookieAfterLogout = false;

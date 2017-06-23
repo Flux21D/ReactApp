@@ -7,6 +7,7 @@ import {
     UPDATE_CURRENT_USER
 } from '../actions/types';
 import extend from "lodash/extend";
+import removeNewUser from "../utils/new-user";
 
 const sessionAuthData = JSON.parse(sessionStorage.getItem('auth'));
 const authToken = sessionAuthData ? sessionAuthData.accessToken : null;
@@ -55,7 +56,7 @@ export default (state = initialState, action = {}) => {
             return state;
         case REMOVE_NEW_USER:
             state.isNew = false;
-            // removeNewUser();
+            removeNewUser();
             return state;
         default:
             return state;

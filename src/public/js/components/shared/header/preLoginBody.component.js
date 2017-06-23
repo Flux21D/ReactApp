@@ -63,8 +63,8 @@ class PreLoginBody extends React.Component {
     that.loadJS('vendor/jquery-2.2.4.min.js',function(){}).then(function(){
         that.loadJS('vendor/janrain-init.js',function(){}).then(function(){
             setTimeout(function(){
-                janrain.settings.capture.screenToRender = 'signIn';
-                janrain.settings.capture.flowName = 'lilly_pro_uk';
+                //janrain.settings.capture.screenToRender = 'signIn';
+                //janrain.settings.capture.flowName = 'lilly_pro_uk';
                 that.janrainCaptureWidgetOnLoad();
                 let logged = loggedIn(null);
                 let flag = logged();
@@ -232,9 +232,26 @@ class PreLoginBody extends React.Component {
         introText = introText + '<div className="txt" key={index}><p>' + item.someLongText + '</p><strong className="big">' + item.someShortText + '</strong></div>';
       });
 
+      // let beforehtmlInput = '<div className="page section-home"><div className="all"><div className="content">' + introText;
+      // let htmlInput = '<div style="display:none;" class="std-form login-form" id="signIn"><img src="img/home/redonda.png" alt="redonda" /><br/><div class="capture_header signin-title"><h1>{* page_signin_signin_header *}</h1></div><div class="capture_signin">{* #userInformationForm *}{* traditionalSignIn_emailAddress *}{* traditionalSignIn_password *}<div class="capture_footer"><div class="capture_left"><a href="#" id="back-btn" onclick="{this.backBtnFunc.bind(this)}"> Cancel </a></div><div class="capture_right">{* traditionalSignIn_signInButton *}</div></div>{* /userInformationForm *}</div><p class="register">Not a member yet? <a href="/register" id="reg-btn" onClick="{this.loadPage}">Register now</a></p><div class="capture_form_item forgotpwd"><a href="#" data-capturescreen="forgotPassword" id="forgotpwd-link" onclick="{this.forgotPasswordClick.bind(this)}">{* page_signin_signin_forgot *}</a></div></div></div>';
+      // let afterhtmlInput= '<div class="clear"></div></div></div></div>'
       let beforehtmlInput = '<div className="page section-home"><div className="all"><div className="content">' + introText;
-      let htmlInput = '<div style="display:none;" class="std-form login-form" id="signIn"><img src="img/home/redonda.png" alt="redonda" /><br/><div class="capture_header signin-title"><h1>{* page_signin_signin_header *}</h1></div><div class="capture_signin">{* #userInformationForm *}{* traditionalSignIn_emailAddress *}{* traditionalSignIn_password *}<div class="capture_footer"><div class="capture_left"><a href="#" id="back-btn" onclick="{this.backBtnFunc.bind(this)}"> Cancel </a></div><div class="capture_right">{* traditionalSignIn_signInButton *}</div></div>{* /userInformationForm *}</div><p class="register">Not a member yet? <a href="/register" id="reg-btn" onClick="{this.loadPage}">Register now</a></p><div class="capture_form_item forgotpwd"><a href="#" data-capturescreen="forgotPassword" id="forgotpwd-link" onclick="{this.forgotPasswordClick.bind(this)}">{* page_signin_signin_forgot *}</a></div></div></div>';
-      let afterhtmlInput= '<div class="clear"></div></div></div></div>'
+      let htmlInput = '<div style="display:none;" class="std-form login-form" id="signIn"><img src="img/home/redonda.png" alt="redonda" /><br/>'+
+                      '<div class="capture_header signin-title"><h1>{* page_signin_signin_header *}</h1></div>'+
+                      '<div class="capture_signin">{* #userInformationForm *}{* traditionalSignIn_emailAddress *}{* traditionalSignIn_password *}'+
+                      '<div class="capture_footer"><div class="capture_left"><a href="#" id="back-btn" onclick="{this.backBtnFunc.bind(this)}"> Cancel </a></div>'+
+                      '<div class="capture_right">{* traditionalSignIn_signInButton *}</div>'+
+                      '</div>{* /userInformationForm *}</div><p class="register">Not a member yet? <a href="/register" id="reg-btn" onClick="{this.loadPage}">Register now</a></p>'+
+                      '<div class="capture_form_item forgotpwd"><a href="#" data-capturescreen="forgotPassword" id="forgotpwd-link" onclick="{this.forgotPasswordClick.bind(this)}">{* page_signin_signin_forgot *}</a>'+
+                      '</div></div>'+
+                      '<div style="display:none;" id="userStatusPostLogin">{* page_access_not_active *}'+
+                      '</div>'+
+                      '<div style="display:none;" id="countryPostLogin">{* page_access_wrong_country *}'+
+                      '</div>'+
+                      '<div style="display:none;" id="professionalGroupPostLogin">{* page_access_wrong_group *}'+
+                      '</div>'+
+                      '</div>';
+      let afterhtmlInput= '<div class="clear"></div></div></div>'
       let reactElement = htmlToReactParser.parse(beforehtmlInput + htmlInput + afterhtmlInput);
       return (
         <div >

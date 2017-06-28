@@ -9,6 +9,7 @@ class CourseTutorial extends React.Component {
         super(props);
 
         this.sendMail = this.sendMail.bind(this);
+        this.clearFields = this.clearFields.bind(this);
     }
 
     componentDidMount() {
@@ -25,7 +26,13 @@ class CourseTutorial extends React.Component {
         let msgSub = this.refs.txtSub.value;
         let msgBody = this.refs.txtBody.value;
         this.props.sendTutorialsMail(fromail, toMail, msgSub, msgBody);
+        $('#modal-thanks').fadeIn();
     };
+
+    clearFields() {
+        this.refs.txtSub.value = '';
+        this.refs.txtBody.value = '';
+    }
 
     render() {
         const {courseInfo} = this.props;
@@ -33,7 +40,6 @@ class CourseTutorial extends React.Component {
         return (
             <div className="col-left">
                 <div className="sub-page-tutoria">
-
                     <h2 className="title-big nmt"><strong>{courseInfo.tutorTitle}</strong></h2>
                     <p className="section-intro">{courseInfo.tutorDescription}</p>
 
@@ -51,6 +57,16 @@ class CourseTutorial extends React.Component {
                             <div className="title">Por favor, rellene todos los campos</div>
                             <div className="links center">
                                 <a title="Aceptar" className="button close_window" id="link-ok" target="_blank">Aceptar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="modal-wrapper" id="modal-thanks">
+                        <div className="window cv">
+                            <div className="close aw close_window" onClick={this.clearFields}><img className="svg svgR  " src="img/icons/close.svg" title="Icono" /></div>
+                            <div className="title">Gracias por la sumisión!</div>
+                            <div className="links center">
+                                <a title="Aceptar" className="button close_window" id="link-ok" target="_blank" onClick={this.clearFields}>Bueno</a>
                             </div>
                         </div>
                     </div>

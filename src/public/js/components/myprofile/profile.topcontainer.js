@@ -70,7 +70,7 @@ class TopProfileContainer extends React.Component {
                             <div className="title-big nmt">Mis datos</div>
                             <div className="info">
                                 <div className="aw"><img className="svg svgG  " src="img/icons/user-circle-o.svg" title="Icono" /></div>
-                                <div className="nombre"> {userName} <br /> <a title="Modificar" href="perfil-modificar-datos.html" className="button tight">Modificar</a> <a title="Salir" className="button tight" onClick={this.handleLogout}>Salir</a></div>
+                                <div className="nombre"> {userName} <br /> <a title="Modificar" className="button tight" onClick={this.props.setEditProfile}>Modificar</a> <a title="Salir" className="button tight" onClick={this.handleLogout}>Salir</a></div>
                                 <div className="clear"></div>
                             </div>
                         </div>

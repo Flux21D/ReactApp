@@ -11,10 +11,23 @@ import FooterComponent from "../shared/footer/footer.component";
 import $ from "jquery";
 import { getProfileInfo } from "../../actions/myprofile";
 import { replaceSVGIcons } from "../../utils/custom.jquery";
+import EditForm from "./edit.profile.component";
 
 class MyProfile extends React.Component {
     constructor(props) {
         super(props);
+
+        this.setEditProfile = this.setEditProfile.bind(this);
+    }
+
+    state = {
+        showEditProfile: false,
+    };
+
+    setEditProfile () {
+        this.setState({
+            showEditProfile: !this.state.showEditProfile
+        });
     }
 
     componentDidMount() {
@@ -28,10 +41,22 @@ class MyProfile extends React.Component {
             <div>
                 <div className="page section-perfil">
                     <TopBannerImage />
-                    <TopProfileContainer />
-                    <ProfileNotifications />
-                    <ProfileCourseContainer />
-                    <HerramientasFavorites />
+                    <TopProfileContainer setEditProfile={this.setEditProfile}/>
+                    {
+                        !this.state.showEditProfile ?
+                        <div>
+                            <ProfileNotifications />
+                            <ProfileCourseContainer />
+                            <HerramientasFavorites />
+                        </div>
+                        : null
+                    }
+                    
+                    {
+                        this.state.showEditProfile ?
+                        <EditForm />
+                        : null
+                    }
                 </div>
             </div>
         );

@@ -59,11 +59,17 @@ class CourseEvaluation extends React.Component {
     }
 
     evaluateCourse(percentage) {
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
         let status = percentage < 70 ? 'fail' : 'pass';
-        let courseId = this.props.courseInfo.sysid;
         let credits = this.props.courseInfo.credits ? this.props.courseInfo.credits.split(' ')[0] : '';
-        this.props.cursosEvaluationResult(userInfo.user.uuid, courseId, percentage, status, credits, 'yes');
+        let evaluationObj = {
+            percentage: percentage
+            courseId: this.props.courseInfo.sysid,
+            status: status,
+            credits: credits,
+            accreditation: this.props.officialAccreditation,
+            courseTitle: this.props.courseTitle
+        };
+        this.props.cursosEvaluationResult(evaluationObj);
     }
 
     certificateBtnHandler() {

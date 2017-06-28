@@ -21,15 +21,17 @@ export function getCursosEvaluationInfo () {
 
 }
 
-export function cursosEvaluationResult (uid, courseId, percentage, status, credits, accredited) {
+export function cursosEvaluationResult (obj) {
   let baseUrl = '/api/courseval';
+  let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let data = {
-            uid: uid,
-            score: percentage,
-            cid: courseId,
-            status: status,
-            credits: credits,
-            accredited: accredited
+            uid: userInfo.user.uuid,
+            score: obj.percentage,
+            cid: obj.courseId,
+            status: obj.status,
+            credits: obj.credits,
+            accredited: obj.accreditation,
+            courseTitle: obj.courseTitle
         };
 
   return dispatch => {

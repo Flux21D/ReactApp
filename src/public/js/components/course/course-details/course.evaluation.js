@@ -62,7 +62,7 @@ class CourseEvaluation extends React.Component {
         let status = percentage < 70 ? 'fail' : 'pass';
         let credits = this.props.courseInfo.credits ? this.props.courseInfo.credits.split(' ')[0] : '';
         let evaluationObj = {
-            percentage: percentage
+            percentage: percentage,
             courseId: this.props.courseInfo.sysid,
             status: status,
             credits: credits,

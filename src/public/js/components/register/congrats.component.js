@@ -51,7 +51,7 @@ class Congrats extends React.Component {
         return (
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
-                    <Link to="welcome" className="close-sd-modal">
+                    <Link to="/" className="close-sd-modal">
                         <img src="svg/icons/icon_close_white.svg" alt="Close"/>
                     </Link>
 
@@ -64,7 +64,7 @@ class Congrats extends React.Component {
                     }
 
                     <div>
-                        <Link to="welcome" className="btn btn-orange btn-close">CLOSE</Link>
+                        <Link to="/" className="btn btn-orange btn-close">CLOSE</Link>
                     </div>
                 </div>
             </div>

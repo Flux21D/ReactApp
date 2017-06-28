@@ -244,6 +244,32 @@ class PreLoginBody extends React.Component {
                       '</div>{* /userInformationForm *}</div><p class="register">Not a member yet? <a href="/register" id="reg-btn" onClick="{this.loadPage}">Register now</a></p>'+
                       '<div class="capture_form_item forgotpwd"><a href="#" data-capturescreen="forgotPassword" id="forgotpwd-link" onclick="{this.forgotPasswordClick.bind(this)}">{* page_signin_signin_forgot *}</a>'+
                       '</div></div>'+
+                      '<div style="display:none;" id="forgotPassword">'+
+                        '<div class="capture_header">'+
+                            '<h1>{* page_signin_forgotPassword_header *}</h1>'+
+                        '</div>'+
+                        '<h2>{* page_signin_forgotPassword_header2 *}</h2>'+
+                        '{* #forgotPasswordForm *}'+
+                            '{* traditionalSignIn_emailAddress *}'+
+                            '<div class="capture_footer">'+
+                                '<div class="capture_left">'+
+                                    '{* backButton *}'+
+                                '</div>'+
+                                '<div class="capture_right">'+
+                                    '{* forgotPassword_sendButton *}'+
+                                '</div>'+
+                            '</div>'+
+                        '{* /forgotPasswordForm *}'+
+                      '</div>'+
+                      '<div style="display:none;" id="forgotPasswordSuccess">'+
+                          '<div class="capture_header">'+
+                              '<h1>{* page_signin_forgotPasswordSuccess_header *}</h1>'+
+                          '</div>'+
+                              '<p>{* page_signin_forgotPasswordSuccess_message *}</p>'+
+                          '<div class="capture_footer">'+
+                              '<a href="#" data-capturescreen="signIn" class="capture_btn capture_primary">{* page_signin_forgotPasswordSuccess_signin *}</a>'+
+                          '</div>'+
+                      '</div>'+
                       '<div style="display:none;" id="userStatusPostLogin">{* page_access_not_active *}'+
                       '</div>'+
                       '<div style="display:none;" id="countryPostLogin">{* page_access_wrong_country *}'+

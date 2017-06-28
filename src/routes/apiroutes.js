@@ -160,7 +160,8 @@ module.exports = function (app, express) {
         res.send('Done');
     });
     apiRoutes.get('/getcontent/:slug', apihandler.getContent);
-
+    apiRoutes.post("/reset-password", authController.resetPassword);
+    apiRoutes.post("/verify-email", authController.verifyEmail);
     apiRoutes.post('/getsubcontent/', apihandler.getSubContent);
     apiRoutes.post('/geticsfile',apihandler.getIcal);
     app.use("/api", apiRoutes);

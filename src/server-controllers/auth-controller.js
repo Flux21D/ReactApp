@@ -7,8 +7,8 @@ const exchangeCodeToToken = (code, cb) => {
     let reqUrl = "https://" + configs.APP_DOMAIN + ".janraincapture.com/oauth/token?";
 
     reqUrl += "grant_type=authorization_code&";
-    reqUrl += "redirect_uri=https://buit-eucan-olum-selfdetail-dev.herokuapp.com/reset-password?code="  + code[0] + "&";
-    reqUrl += "code=" + code[1] + "&";
+    reqUrl += "redirect_uri=https://"+process.env.HEROKU_DOMAIN+"/reset-password";
+    reqUrl += "&code=" + code + "&";
     reqUrl += "client_id=" + configs.CLIENT_ID + "&";
     reqUrl += "client_secret=" + configs.CLIENT_SECRET;
 

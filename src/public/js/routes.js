@@ -18,6 +18,8 @@ import Questions from "./components/faq/faq.component";
 import CourseCertificate from "./components/course/course-details/course.certificate";
 import WebmapComponent from "./components/web-map/webmap.component";
 import Error404 from "./components/errors/404";
+import ResetPassword from './components/forgot-password/reset-password';
+import CongratsComponent from "./components/register/congrats.component";
 
 export default (
 	<Route path="/" component={AppComponent}>
@@ -30,8 +32,14 @@ export default (
 		<Route path="privacy" component={TermsConditions} onEnter={requireAuth} />
 		<Route path="about" component={AboutUs} onEnter={requireAuth} />
 		<Route path="register" component={IndexComponent}>
-            		<IndexRoute component={RegisterComponent}/>
-        	</Route>
+            <IndexRoute component={RegisterComponent}/>
+        </Route>
+        <Route path="reset-password" component={IndexComponent}>
+            <IndexRoute component={ResetPassword}/>
+        </Route>
+        <Route path="verify-email" component={IndexComponent}>
+            <IndexRoute component={CongratsComponent}/>
+        </Route>
 		<Route path="coursedetail" component={CourseDetailsComponent} onEnter={requireAuth} />
 		<Route path="contact" component={ContactUs} onEnter={requireAuth} />
 		<Route path="faq" component={Questions} onEnter={requireAuth} />

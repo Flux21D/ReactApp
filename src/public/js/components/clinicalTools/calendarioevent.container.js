@@ -111,7 +111,9 @@ class CalendarioEventContainer extends React.Component {
                     </div>
                     <h2 className="title-big-grey"><span className="aw"><img className="svg svgR svg18" src="img/icons/mortar-board.svg" title="Icono"/></span> Eventos encontrados</h2>
                     <div className="events">
-                        {calEvents}
+                        {
+                            calEvents.length > 0 ? calEvents : <div><h2>No se han encontrado resultados</h2></div>
+                        }
                     </div>
                     <div className="clear"></div>
 

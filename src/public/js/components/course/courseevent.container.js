@@ -88,7 +88,7 @@ class CourseEventContainer extends React.Component {
                             </div>
                         )
                     });
-        
+
         return (
             <div className="results-search" id="results-search">
                 <div className="content">
@@ -105,7 +105,9 @@ class CourseEventContainer extends React.Component {
                     </div>
                     <h2 className="title-big-grey"><span className="aw"><img className="svg svgR svg18 " src="img/icons/mortar-board.svg" title="Icono"/></span> Cursos encontrados</h2>
                     <div className="events">
-                        {courses}
+                        {
+                            courses.length > 0 ? courses : <div><h2>No se han encontrado resultados</h2></div>
+                        }
                     </div>
                     <div className="clear"></div>
 

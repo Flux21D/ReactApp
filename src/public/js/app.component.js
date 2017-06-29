@@ -8,6 +8,33 @@ import FooterComponent from "./components/shared/footer/footer.component";
 import {customClick} from "./utils/gtm";
 import Modal from "./components/shared/modal/modal";
 
+const webTab = [ '/:Login:Home',
+                 '/home:Home',
+                 '/cursos:Cursos',
+                 '/coursedetail:Curso',
+                 '/calendario:Calendario',
+                 '/herramientas:Herramientas clínicas',
+                 '/faq:Preguntas Frecuentes',
+                 '/contact:Contactar',
+                 '/myprofile:Mi perfil',
+                 '/about:Quiénes somos',
+                 '/webMap:Mapa Web',
+                 '/acreditacion:Acreditación'
+                ];
+
+function getTitle(path, auth) {
+  for(let k = 0; k < webTab.length; k++) {
+    let entry = webTab[k].split(':');
+    
+    if(entry[0].toLowerCase() == path.toLowerCase()) {
+        if(path.toLowerCase() === '/' && auth)
+            return entry[2]
+        else
+            return entry[1];
+    }
+  }
+}
+
 class AppComponent extends React.Component {
 
     constructor(props) {
@@ -19,14 +46,16 @@ class AppComponent extends React.Component {
         // });
     }
     render() {
-        const {modal} = this.props;
+        const {modal, location, auth} = this.props;
+        document.title = 'Aula Diabetes - ' + getTitle(location.pathname, auth.accessToken);
         let classes = modal.Component ? 'my-modal-open' : ' ';
+
         return (
             <div id="main-content" className={classes}>
                 {modal.Component ? <Modal /> : null}
-                <HeaderComponent showHeader={this.props.location.pathname === '/acreditacion' ? true : false}/>
+                <HeaderComponent showHeader={location.pathname === '/acreditacion' ? true : false}/>
                     {this.props.children}
-                <FooterComponent showFooter={this.props.location.pathname === '/acreditacion' ? true : false}/>
+                <FooterComponent showFooter={location.pathname === '/acreditacion' ? true : false}/>
             </div>
         );
     }

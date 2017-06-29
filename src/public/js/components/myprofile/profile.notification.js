@@ -31,7 +31,7 @@ class ProfileNotification extends React.Component {
         return (
             <div className="miperfil">
                 <div className="bola">{this.state.notificationCount}</div>
-                <Link title="Mi perfil" to="myprofile"><span className="aw"><img className="svg svgR  " src="img/icons/user-circle-o.svg" title="Icono"/></span> Mi perfil</Link>
+                <Link title="Mi perfil" to="/myprofile"><span className="aw"><img className="svg svgR  " src="img/icons/user-circle-o.svg" title="Icono"/></span> Mi perfil</Link>
             </div>
         );
     }

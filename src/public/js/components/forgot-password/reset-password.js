@@ -95,7 +95,7 @@ class ResetPassword extends React.Component {
                                 <p>Password has been successfully updated.</p>
 
                                 <div>
-                                    <Link className="btn btn-orange" to="login">LOGIN</Link>
+                                    <Link className="btn btn-orange" to="/login">LOGIN</Link>
                                 </div>
                             </div> : null}
 

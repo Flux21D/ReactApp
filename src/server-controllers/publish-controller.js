@@ -51,8 +51,9 @@ var profile = require('./myprofile-controller');
                     var specialization = upevent.speciality.split(',').reduce(function (prev, cur) {
                         return prev.toLowerCase().trim() + ',' + cur.toLowerCase().trim();
                     });
-                             
-                    query = "insert into spainschema.course_event_info (id,description,name,type,is_active,start_date,end_date,ce_type,specialization)" + " values('" + upevent.sysid + "','" + upevent.description + "','" + upevent.mainTitle + "','event','" + (upevent.isActive === true) + "','" + upevent.startDate + "','" + upevent.endDate + "','" + upevent.eventType + "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + upevent.description + "',name = '" + upevent.mainTitle + "',type = 'event',is_active = '" + (upevent.isActive === true) + "',start_date='" + upevent.startDate + "',end_date='" + upevent.endDate + "',ce_type = '" + upevent.eventType + "',specialization='{" + specialization + "}' ";
+                    
+                    query = "insert into spainschema.course_event_info (id,description,name,type,is_active,start_date,end_date,ce_type,specialization)" + " values('" + upevent.sysid + "','" + upevent.description + "','" + upevent.mainTitle + "','event','" + (upevent.isActive === true) + "','" + new Date(upevent.startDate).toISOString() + "','" + new Date(upevent.endDate).toISOString() + "','" + upevent.eventType + "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + upevent.description + "',name = '" + upevent.mainTitle + "',type = 'event',is_active = '" + (upevent.isActive === true) + "',start_date='" + new Date(upevent.startDate).toISOString() + "',end_date='" + new Date(upevent.endDate).toISOString() + "',ce_type = '" + upevent.eventType + "',specialization='{" + specialization + "}' ";
+                    
                     batchQuery.push(query);
 
                     });
@@ -131,7 +132,7 @@ var profile = require('./myprofile-controller');
                         endDate = course.endDate;
 
                         if(startDate && endDate)
-                            query = "insert into spainschema.course_event_info (id,description,name,type,is_active,start_date,end_date,ce_type,specialization)" + " values('" + course.sysid + "','" + course.courseDescription + "','" + course.courseTitle + "','course','" + (course.isActive === true) + "','" + startDate + "','" + endDate + "','" + course.courseType+ "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + course.courseDescription + "',name = '" + course.courseTitle + "',type = 'course',is_active = '" + (course.isActive === true) + "',start_date='" + startDate + "',end_date='" + endDate + "',ce_type = '" + course.courseType + "',specialization='{" + specialization + "}' ";
+                            query = "insert into spainschema.course_event_info (id,description,name,type,is_active,start_date,end_date,ce_type,specialization)" + " values('" + course.sysid + "','" + course.courseDescription + "','" + course.courseTitle + "','course','" + (course.isActive === true) + "','" + new Date(startDate).toISOString() + "','" + new Date(endDate).toISOString() + "','" + course.courseType + "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + course.courseDescription + "',name = '" + course.courseTitle + "',type = 'course',is_active = '" + (course.isActive === true) + "',start_date='" + new Date(startDate).toISOString() + "',end_date='" + new Date(endDate).toISOString() + "',ce_type = '" + course.courseType + "',specialization='{" + specialization + "}' ";
                         else
                             query = "insert into spainschema.course_event_info (id,description,name,type,is_active,ce_type,specialization)" + " values('" + course.sysid + "','" + course.courseDescription + "','" + course.courseTitle + "','course','" + (course.isActive === true) + "','" + course.courseType+ "','{" + specialization + "}') on conflict ON CONSTRAINT course_event_info_pkey " + "do update set description = '" + course.courseDescription + "',name = '" + course.courseTitle + "',type = 'course',is_active = '" + (course.isActive === true) + "',ce_type = '" + course.courseType + "',specialization='{" + specialization + "}' ";
                         
@@ -216,7 +217,7 @@ var profile = require('./myprofile-controller');
                         //         "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[]) "+
                         //         "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
                         query = "insert into spainschema.user_notification_map (uid,notification_type,notification_date,notification_desc,status,action,type_id)"+
-                                "(select '"+item.uid+"' as uid,type as notification_type,now() as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
+                                "(select '"+item.uid+"' as uid,type as notification_type,CAST(NOW() at time zone 'utc' AS date) as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
                                 "from spainschema.course_event_info as d "+
                                 "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[] and type in ('course','news')) "+
                                 "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
@@ -307,18 +308,18 @@ var profile = require('./myprofile-controller');
                         "(select type_id as cid,uid from spainschema.user_fav_map "+
                         "EXCEPT "+
                         "select cid,uid from spainschema.course_register) as fil) as ceagg "+
-                        "group by ceagg.cid) as temp ,spainschema.course_event_info cei where  type = '"+type+"' and temp.cid = cei.id and cei.is_active = '"+true+"' and (cei.end_date >= CURRENT_TIMESTAMP or cei.end_date is null)) "+
+                        "group by ceagg.cid) as temp ,spainschema.course_event_info cei where  type = '"+type+"' and temp.cid = cei.id and cei.is_active = '"+true+"' and (cei.end_date >= CAST(NOW() at time zone 'utc' AS date) or cei.end_date is null)) "+
                         "UNION "+
-                        "select 0 as count, id from spainschema.course_event_info where  type = '"+type+"' and is_active = '"+true+"'  and (end_date >= CURRENT_TIMESTAMP or end_date is null)) as final group by id";
+                        "select 0 as count, id from spainschema.course_event_info where  type = '"+type+"' and is_active = '"+true+"'  and (end_date >= CAST(NOW() at time zone 'utc' AS date) or end_date is null)) as final group by id";
                 
             if(type === 'event' || type === 'tool')
                 query = "select id, max(count) from "+
                         "((select count, cid as id from "+
                         "(select count(*) as count ,ceagg.cid from "+
                         "(select type_id  as cid from spainschema.user_fav_map) as ceagg "+
-                        "group by ceagg.cid) as temp ,spainschema.course_event_info cei where  type = '"+type+"' and temp.cid = cei.id and cei.is_active = '"+true+"' and (cei.end_date >= CURRENT_TIMESTAMP or cei.end_date is null)) "+
+                        "group by ceagg.cid) as temp ,spainschema.course_event_info cei where  type = '"+type+"' and temp.cid = cei.id and cei.is_active = '"+true+"' and (cei.end_date >= CAST(NOW() at time zone 'utc' AS date) or cei.end_date is null)) "+
                         "UNION "+
-                        "select 0 as count, id from spainschema.course_event_info where  type = '"+type+"' and is_active = '"+true+"'  and (end_date >= CURRENT_TIMESTAMP or end_date is null)) as final group by id";
+                        "select 0 as count, id from spainschema.course_event_info where  type = '"+type+"' and is_active = '"+true+"'  and (end_date >= CAST(NOW() at time zone 'utc' AS date) or end_date is null)) as final group by id";
                 
 
 
@@ -408,7 +409,7 @@ var profile = require('./myprofile-controller');
             let evalObj = {};
             let batchQuery = [];
 	        var today = new Date();
-            var date_performed = today.getMonth()+'-'+today.getDate()+'-'+today.getFullYear();
+            var date_performed = new Date().toISOString();//today.getMonth()+'-'+today.getDate()+'-'+today.getFullYear();
             evalObj.uid = req.body.uid;
             evalObj.score = req.body.score;
             evalObj.status = req.body.status;
@@ -462,7 +463,7 @@ var profile = require('./myprofile-controller');
         connect().then(function (obj) {
             //this query will give both popularity and courses which are active,
             //for courses which are not yet registered, popularity will be zero
-            query = "insert into spainschema.course_register (uid,registration,cid) values ('"+uid+"','"+timeStamp+"','"+cid+"') "+
+            query = "insert into spainschema.course_register (uid,registration,cid) values ('"+uid+"','"+ new Date(timeStamp).toISOString()+"','"+cid+"') "+
                     "on conflict ON CONSTRAINT course_register_uid_cid_key do NOTHING";
             return executeQuery(obj, query);
         }).then(function (result) {
@@ -535,9 +536,9 @@ var profile = require('./myprofile-controller');
                                 filter = true;
                             if(options.country && c.country && options.country.toLowerCase() !== c.country.toLowerCase())
                                 filter = true;
-                            if(options.startDate && new Date(options.startDate) >  new Date(c.startDate.split('T')[0]))
+                            if(options.startDate && new Date(options.startDate).toISOString() >  new Date(c.startDate).toISOString())
                                 filter = true;
-                            if(options.endDate && new Date(options.endDate) <  new Date(c.endDate.split('T')[0]))
+                            if(options.endDate && new Date(options.endDate).toISOString() <  new Date(c.endDate).toISOString())
                                 filter = true;
                         }
                         if(!filter)
@@ -551,7 +552,7 @@ var profile = require('./myprofile-controller');
 
                 if (typeObj.type === 'event' && isHome) {
                     callback(courseData.sort(function (a, b) {
-                                                return new Date(b.startDate) - new Date(a.startDate);
+                                                return new Date(b.startDate).toISOString() - new Date(a.startDate).toISOString();
                                             }).sort(function(a,b){
                                                 let tempA = a.showInHomePagePriority ? a.showInHomePagePriority : Infinity;
                                                 let tempB = b.showInHomePagePriority ? b.showInHomePagePriority : Infinity;
@@ -560,7 +561,7 @@ var profile = require('./myprofile-controller');
                 }
                 else if(typeObj.type === 'event'){
                     callback(courseData.sort(function(a, b){
-                                return new Date(b.startDate)-new Date(a.startDate)
+                                return new Date(b.startDate).toISOString()-new Date(a.startDate).toISOString()
                             }));
                 }
                 else

@@ -56,7 +56,7 @@ const poll_schedule = () => {
     let push = require('./publish-controller');
 	connect().then(function(userobj){     
         //query = "select * from  spainschema.schedule_mail sm, spainschema.user_info ui where status = 'pending' and email_date <= now() and sm.uid = ui.uid";
-        query = "select ui.*,cei.*,sm.* from  spainschema.schedule_mail sm, spainschema.user_info ui, spainschema.course_event_info cei where status = 'pending' and email_date <= now() and sm.uid = ui.uid and cei.id=sm.type_id";                            
+        query = "select ui.*,cei.*,sm.* from  spainschema.schedule_mail sm, spainschema.user_info ui, spainschema.course_event_info cei where status = 'pending' and email_date <= CAST(NOW() at time zone 'utc' AS date) and sm.uid = ui.uid and cei.id=sm.type_id";                            
         return executeQuery(userobj, query);
     })
     .then(function(execResult){

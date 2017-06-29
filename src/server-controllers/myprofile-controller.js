@@ -72,15 +72,15 @@ const getSpecialityCourses = (uid , speciality, isDelegate, callback) => {
     connect().then(function(userobj){
             if(!isDelegate) 
                 query = "((select cif.id, cif.name from spainschema.course_event_info cif  where cif.specialization  @> ARRAY['"+speciality+"']::varchar[] and cif.is_active = true and type='course' "+
-                        "and now() between cif.start_date and cif.end_date limit 3) "+
+                        "and CAST(NOW() at time zone 'utc' AS date) between cif.start_date and cif.end_date limit 3) "+
                         "UNION ALL "+
                         "(select cif.id, cif.name from spainschema.course_register cr, spainschema.course_event_info cif, spainschema.user_info ui where cif.specialization  @> ARRAY['"+speciality+"']::varchar[] and cif.is_active = true "+
-                        "and cif.id = cr.cid and cr.uid = ui.uid and ui.uid = '"+uid+"' and (cif.start_date > now() or cif.start_date is null) limit 3) "+
+                        "and cif.id = cr.cid and cr.uid = ui.uid and ui.uid = '"+uid+"' and (cif.start_date > CAST(NOW() at time zone 'utc' AS date) or cif.start_date is null) limit 3) "+
                         "UNION ALL "+
                         "(select cif.id, cif.name from spainschema.user_course_map cr, spainschema.user_info ui, spainschema.course_event_info cif where cr.uid = ui.uid and cif.id = cr.type_id and ui.uid = '"+uid+"' limit 3)) limit 3 "
             else
                 query = "((select cif.id, cif.name from spainschema.course_event_info cif  where cif.is_active = true and type='course' "+
-                        "and now() between cif.start_date and cif.end_date limit 3) "+
+                        "and CAST(NOW() at time zone 'utc' AS date) between cif.start_date and cif.end_date limit 3) "+
                         "UNION ALL "+
                         "(select cif.id, cif.name from spainschema.course_register cr, spainschema.course_event_info cif, spainschema.user_info ui where cif.is_active = true "+
                         "and cif.id = cr.cid and cr.uid = ui.uid and ui.uid = '"+uid+"' and (cif.start_date > now() or cif.start_date is null) limit 3) "+
@@ -103,7 +103,7 @@ const getUserCalender = (uid , speciality, isDelegate, callback) => {
     connect().then(function(userobj){ 
             query = "(select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('event') and cif.id = uf.type_id) "+
                     "UNION ALL "+
-                    "(select * from spainschema.course_event_info cif where cif.type in ('event') and cif.is_active = true and cif.end_date > now() and cif.start_date > now() order by cif.start_date asc) "+
+                    "(select * from spainschema.course_event_info cif where cif.type in ('event') and cif.is_active = true and cif.end_date > CAST(NOW() at time zone 'utc' AS date) and cif.start_date > CAST(NOW() at time zone 'utc' AS date) order by cif.start_date asc) "+
                     "limit 2";
                                             
                     return executeQuery(userobj, query);
@@ -157,7 +157,7 @@ const getFavCourse = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('course') and "+
-                    "cif.id = uf.type_id and cif.is_active = true and (cif.end_date > now() or cif.end_date is null) ";
+                    "cif.id = uf.type_id and cif.is_active = true and (cif.end_date > CAST(NOW() at time zone 'utc' AS date) or cif.end_date is null) ";
                                             
                     return executeQuery(userobj, query);
         })
@@ -174,7 +174,7 @@ const getFavTools = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "select cif.*,uf.*  from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('tool') and "+
-                    "cif.id = uf.type_id and cif.is_active = true and (cif.end_date > now() or cif.end_date is null)";
+                    "cif.id = uf.type_id and cif.is_active = true and (cif.end_date > CAST(NOW() at time zone 'utc' AS date) or cif.end_date is null)";
                                             
                     return executeQuery(userobj, query);
         })
@@ -191,10 +191,10 @@ const getOngoingEnrolled = (uid , speciality, isDelegate, callback) => {
     let query = '';
     connect().then(function(userobj){ 
             query = "(select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('course') "+
-                    "and cif.id = uf.type_id and cif.is_active = true and now() between cif.start_date and cif.end_date) "+
+                    "and cif.id = uf.type_id and cif.is_active = true and CAST(NOW() at time zone 'utc' AS date) between cif.start_date and cif.end_date) "+
                     "UNION "+
                     "(select cif.* from spainschema.course_register cr, spainschema.course_event_info cif where cr.uid = '"+uid+"' "+
-                    "and cif.id = cr.cid and cif.is_active = true and (cif.end_date > now() or cif.end_date is null))";
+                    "and cif.id = cr.cid and cif.is_active = true and (cif.end_date > CAST(NOW() at time zone 'utc' AS date) or cif.end_date is null))";
                                             
                     return executeQuery(userobj, query);
         })

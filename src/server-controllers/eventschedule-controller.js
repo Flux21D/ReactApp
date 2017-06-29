@@ -1,6 +1,8 @@
 var send = require("./sendgrid-controller");
 var {connect,executeQuery,executeBatch} = require('./db-controller');
 var send = require("./sendgrid-controller");
+var profile = require('./myprofile-controller');
+
 
 function secondsToDate(secs) {
     var d = new Date();
@@ -27,7 +29,7 @@ const addSchedule = (uid,type_id,email_date) => {
 
 }
 
-const updateSchedule = (batchQuery) => {
+const updateSchedule = (batchQuery,callback) => {
 	//let query = '';
 
 	connect().then(function(userobj){ 
@@ -36,17 +38,22 @@ const updateSchedule = (batchQuery) => {
                 return executeBatch(userobj, batchQuery);
     })
     .then(function(execResult){
-        return execResult;
+        //return execResult;
+        callback();
     })
     .catch(function(error){ 
         console.log(error);
-        return "failed"
+        callback();
+        //return "failed"
     });
 
 }
 
 const poll_schedule = () => {
 	let query;
+    //Since this file is called in app.js was not able to get functions of publish-controller
+    //so added inside poll_schedule
+    let push = require('./publish-controller');
 	connect().then(function(userobj){     
         //query = "select * from  spainschema.schedule_mail sm, spainschema.user_info ui where status = 'pending' and email_date <= now() and sm.uid = ui.uid";
         query = "select ui.*,cei.*,sm.* from  spainschema.schedule_mail sm, spainschema.user_info ui, spainschema.course_event_info cei where status = 'pending' and email_date <= now() and sm.uid = ui.uid and cei.id=sm.type_id";                            
@@ -55,14 +62,16 @@ const poll_schedule = () => {
     .then(function(execResult){
             let mailObj = {};
             let batchQuery = [];
+            let batchNotify = [];
             let query = "";
+            let notifyQuery = "";
             let track = 0;
     		execResult.rows.forEach(function(item){
                 mailObj = {
                     tomail:item.email,
                     fromail:process.env.FROM_MAIL,
                     subject:'event reminder',
-                    message:'This mail is reminder for event: '+item.decription+' date: '+item.start_date+""
+                    message:'This mail is reminder for event: '+item.description+' date: '+item.start_date+""
                 }
     			send.contactSalesRepresentative(mailObj,function(err,done){
                     track = track+1;
@@ -72,12 +81,24 @@ const poll_schedule = () => {
                         query = "update spainschema.schedule_mail set status = 'done' where uid = '"+item.uid+"' and type_id = '"+item.id+"' and action = '"+item.action+"'";
                         batchQuery.push(query);
                     }
-                    if(track == execResult.rows.length)
-                        updateSchedule(batchQuery);
+
+                    notifyQuery = "insert into spainschema.user_notification_map (uid,notification_type,notification_desc,status,action,type_id)"+
+                                  "values ('"+item.uid+"','event','reminder for event: "+item.description+" date: "+item.start_date+"','unseen','reminder','"+item.id+"')"+
+                                  "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
+                    
+                    batchNotify.push(notifyQuery);
+
+                    if(track == execResult.rows.length){
+                        updateSchedule(batchQuery,function(){
+                            profile.addNotificationBatch(batchNotify,function(){
+                                push.loadUserNotification(null,function(){});
+                            });
+                        });
+                    }
                 });
 
     		});
-    	updateSchedule(batchQuery);
+    	//updateSchedule(batchQuery);
         return execResult;
     })
     .catch(function(error){ 

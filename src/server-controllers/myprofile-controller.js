@@ -1,8 +1,8 @@
-var {connect,executeQuery} = require('./db-controller');
+var {connect,executeQuery,executeBatch} = require('./db-controller');
 var async = require('async');
 
 
-const addNotification = (uid,type_id,type,action,desc) => {
+const addNotification = (uid,type_id,type,action,desc,callback) => {
 	let query = '';
 
 	connect().then(function(userobj){     
@@ -10,14 +10,35 @@ const addNotification = (uid,type_id,type,action,desc) => {
                 "values ('"+uid+"','"+type+"','"+desc+"','unseen','"+action+"','"+type_id+"')"
                 "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
                                         
-                return executeQuery(userobj, batchQuery);
+                return executeQuery(userobj, query);
     })
     .then(function(execResult){
-        return execResult;
+        //return execResult;
+        callback();
     })
     .catch(function(error){ 
         console.log(error);
-        return "failed"
+        callback();
+        //return "failed"
+    });
+
+}
+
+const addNotificationBatch = (batchQuery,callback) => {
+    let query = '';
+
+    connect().then(function(userobj){     
+                                        
+        return executeBatch(userobj, batchQuery);
+    })
+    .then(function(execResult){
+        //return execResult;
+        callback();
+    })
+    .catch(function(error){ 
+        console.log(error);
+        //return "failed"
+        callback();
     });
 
 }
@@ -189,5 +210,6 @@ const getOngoingEnrolled = (uid , speciality, isDelegate, callback) => {
 module.exports = {
 	addNotification,
     getUserNotification,
+    addNotificationBatch,
     getProfileInfo
 }

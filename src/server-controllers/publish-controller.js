@@ -6,8 +6,7 @@ var {connect,executeQuery,executeBatch} = require('./db-controller');
 var socketPush = require('./socket-controller');
 var cache = require('memory-cache');
 var eventSchedule = require('./eventschedule-controller');
-
-
+var profile = require('./myprofile-controller');
 
     const saveUser = (uuid , email, specialization) => {
         connect().then(function(client){
@@ -416,7 +415,8 @@ var eventSchedule = require('./eventschedule-controller');
             evalObj.cid = req.body.cid;
             evalObj.credits = req.body.credits || 0;
             evalObj.accredited = req.body.accredited ? (req.body.accredited.toLowerCase() === 'yes' ? true : false) : false;
-            
+            evalObj.courseTitle = req.body.courseTitle || '';
+
                 connect().then(function (obj) {
                     //this will store only first pass marks
                     //if(evalObj.status.toLowerCase() === 'pass'){
@@ -445,7 +445,9 @@ var eventSchedule = require('./eventschedule-controller');
                     batchQuery.push(query);
                     return executeBatch(obj, batchQuery);
                 }).then(function (result) {
-                    
+                    profile.addNotification(evalObj.uid,evalObj.cid,'course','add','Course completed',function(){
+                        loadUserNotification(evalObj.uid,function(){});
+                    });
                     res.send('Done');
                 }).catch(function (error) {
                     console.log(error);

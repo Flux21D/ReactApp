@@ -31,7 +31,8 @@ export function cursosEvaluationResult (obj) {
             status: obj.status,
             credits: obj.credits,
             accredited: obj.accreditation,
-            courseTitle: obj.courseTitle
+            courseTitle: obj.courseTitle,
+            toEmail: userInfo.user.professionalContactData_emailAddress
         };
 
   return dispatch => {

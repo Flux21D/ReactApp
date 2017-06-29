@@ -66,8 +66,8 @@ class CourseEvaluation extends React.Component {
             courseId: this.props.courseInfo.sysid,
             status: status,
             credits: credits,
-            accreditation: this.props.officialAccreditation,
-            courseTitle: this.props.courseTitle
+            accreditation: this.props.courseInfo.officialAccreditation,
+            courseTitle: this.props.courseInfo.courseTitle
         };
         this.props.cursosEvaluationResult(evaluationObj);
     }

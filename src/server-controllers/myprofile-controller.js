@@ -7,7 +7,7 @@ const addNotification = (uid,type_id,type,action,desc,callback) => {
 
 	connect().then(function(userobj){     
         query = "insert into spainschema.user_notification_map (uid,notification_type,notification_desc,status,action,type_id)"+
-                "values ('"+uid+"','"+type+"','"+desc+"','unseen','"+action+"','"+type_id+"')"
+                "values ('"+uid+"','"+type+"','"+desc+"','unseen','"+action+"','"+type_id+"')"+
                 "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
                                         
                 return executeQuery(userobj, query);

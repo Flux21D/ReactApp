@@ -1,13 +1,15 @@
 import React from "react";
-import {connect} from "react-redux";
-import {Link} from "react-router";
+import { connect } from "react-redux";
+import { Link } from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
+import { stopSliderCarousel } from "../../utils/custom.jquery";
 
 class MiddleBannerSlider extends React.Component {
     constructor(props) {
         super(props);
 
         this.courseDetails = this.courseDetails.bind(this);
+        this.stopSlider = this.stopSlider.bind(this);
     }
 
     courseDetails(eve) {
@@ -18,6 +20,10 @@ class MiddleBannerSlider extends React.Component {
             state: that.props.cursos.coursoDetailObj
           });
         });
+    }
+
+    stopSlider(divId) {
+        setTimeout(function() { stopSliderCarousel(divId); }, 2000);
     }
 
     render() {
@@ -53,6 +59,9 @@ class MiddleBannerSlider extends React.Component {
 
         if(showDefaultBannerImage) {
             middleBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/backgrounds/historia.jpg)'}}></div>
+            this.stopSlider('slider-2');
+        } else if(middleBannerSlides.length === 1) {
+            this.stopSlider('slider-2');
         }
 
         return (

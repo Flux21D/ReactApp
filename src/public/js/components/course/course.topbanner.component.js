@@ -1,8 +1,8 @@
 import React from "react";
-import {connect} from "react-redux";
-import {Link} from "react-router";
+import { connect } from "react-redux";
+import { Link } from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
-import {stopCarousel} from "../../utils/custom.jquery";
+import { stopCarousel } from "../../utils/custom.jquery";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -26,7 +26,7 @@ class TopBannerSlider extends React.Component {
     }
 
     stopSlider() {
-        stopCarousel();
+        setTimeout(function() { stopCarousel(); }, 2000);
     }
 
     render() {
@@ -66,7 +66,7 @@ class TopBannerSlider extends React.Component {
 
         if(showDefaultBannerImage) {
             bannerSlider = <div className="slide" style={{backgroundImage: 'url(img/home-logged/back-curso-destacado-2.jpg)'}}></div>
-            //this.stopSlider();
+            this.stopSlider();
         }
 
         return (

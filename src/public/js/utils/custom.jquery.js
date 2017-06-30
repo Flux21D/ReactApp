@@ -85,8 +85,19 @@ export function closeModalOnKeyPress() {
 export function playCarousel() {
     $("div.slider-header").each(function(i) {
         let idSlider = $(this).attr('id');
-        let slider = new Slider('#'+idSlider, 5000);
+        let slider = new Slider('#' + idSlider, 5000);
         slider.play();
+    });
+}
+
+//stop carousel
+export function stopSliderCarousel(id) {
+    $("div.slider-header").each(function(i) {
+        if(id) {
+            let idSlider = id;//$(this).attr('id');
+            let slider = new Slider('#' + idSlider, 5000);
+            slider.stop();
+        }
     });
 }
 

@@ -20,13 +20,21 @@ class Pagination extends React.Component {
         totalRecords: 0,
         firstPage: 1,
         lastPage: 1,
+        disablePrevButton: false,
+        disableNextButton: false
     };
 
     updateState(totalRec) {
-       this.setState({
-        totalRecords: totalRec,
-        lastPage: Math.ceil(totalRec / this.recordsPerPage) < this.showPages ? Math.ceil(totalRec / this.recordsPerPage) : this.showPages
+        this.setState({
+            totalRecords: totalRec,
+            lastPage: (Math.ceil(totalRec / this.recordsPerPage) < this.showPages) ? Math.ceil(totalRec / this.recordsPerPage) : this.showPages
         });
+
+        if (Math.ceil(totalRec / this.recordsPerPage) < this.showPages) {
+            this.setState({disableNextButton: true});
+        } else {
+            this.setState({disableNextButton: false});
+        }
     };
 
     componentWillReceiveProps(nextProps) {
@@ -41,6 +49,10 @@ class Pagination extends React.Component {
             var a = document.getElementById(i);
             a.addEventListener('click', this.pageValue.bind(this));
         };
+
+        if(this.state.firstPage === 1) {
+            this.setState({disablePrevButton: true});
+        }
     };
 
     componentDidUpdate() {
@@ -51,16 +63,32 @@ class Pagination extends React.Component {
     };
 
     previousPage() {
+        let firstPageNo = this.state.firstPage;
         if(this.state.firstPage > 1) {
+            this.setState({disableNextButton: false});
             this.setState({firstPage: this.state.firstPage - 1});
             this.setState({lastPage: this.state.lastPage - 1});
+            firstPageNo = this.state.firstPage - 1;
+        } 
+
+        if(firstPageNo === 1) {
+            this.setState({disablePrevButton: true});
         }
     };
 
     nextPage() {
-        if(this.state.lastPage < Math.ceil(this.state.totalRecords / this.recordsPerPage)) {
+        let nextPageNo = this.state.lastPage;
+        let lastPageNo = Math.ceil(this.state.totalRecords / this.recordsPerPage);
+        
+        if(this.state.lastPage < lastPageNo) {
+            this.setState({disablePrevButton: false});
             this.setState({firstPage: this.state.firstPage + 1});
             this.setState({lastPage: this.state.lastPage + 1});
+            nextPageNo = this.state.lastPage + 1;
+        } 
+
+        if (nextPageNo === lastPageNo) {
+            this.setState({disableNextButton: true});
         }
     };
 
@@ -82,9 +110,9 @@ class Pagination extends React.Component {
         
         return (
             <div className="results-paginator">
-                <a title="Anterior" className="aw" onClick={this.previousPage}><img className="svg svgG6" src="img/icons/angle-left.svg" title="Icono"/></a>
+                <a title="Anterior" className={this.state.disablePrevButton ? 'aw disable-button' : 'aw'} onClick={this.previousPage}><img className="svg svgG6" src="img/icons/angle-left.svg" title="Icono"/></a>
                 {reactElement}
-                <a title="Siguiente" className="aw" onClick={this.nextPage}><img className="svg svgG6" src="img/icons/angle-right.svg" title="Icono"/></a>
+                <a title="Siguiente" className={this.state.disableNextButton ? 'aw disable-button' : 'aw'} onClick={this.nextPage}><img className="svg svgG6" src="img/icons/angle-right.svg" title="Icono"/></a>
             </div>
         );
     }

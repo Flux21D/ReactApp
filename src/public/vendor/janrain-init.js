@@ -34,7 +34,7 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.appId = 'm2uqcsxt5rmhjqf7dbqxbgsbzn';
     janrain.settings.capture.captureServer = 'https://elililly-dev.janraincapture.com';
     janrain.settings.capture.redirectUri = 'http://localhost:8080/';
-    janrain.settings.capture.clientId = '28pc8dxjtvsxun8b7mg95px9883hvzxg';
+    janrain.settings.capture.clientId = 'qcsq9zp6pnzg5zb6pcwk2shsx2t6a32f';
     janrain.settings.capture.flowName = 'lilly_pro_es';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;

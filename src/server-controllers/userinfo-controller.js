@@ -12,7 +12,10 @@ module.exports = {
 		request(options, function (error, response, body) {
     		if (!error && response.statusCode == 200) {
               		let usrinfo = JSON.parse(body);
-              		push.saveUser(usrinfo.result.uuid,usrinfo.result.professionalContactData.emailAddress,usrinfo.result.professionalData.specialty);
+                  let email = usrinfo.result.professionalContactData.emailAddress || '';
+                  let specialty = usrinfo.result.professionalData.specialty || usrinfo.result.professionalData.professionalGroup || '';
+              		let isEmployee = usrinfo.result.controlFields.notes === 'Lilly' ? 'lilly':'normal';
+                  push.saveUser(usrinfo.result.uuid,email,specialty,isEmployee);
               		res.json(body)
 	        }
 		})

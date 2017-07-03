@@ -34,8 +34,8 @@ const getContent = (req,res) => {
         contenthelp.getPage(slugs.slugs[slug].id, function (data, error) {
             if (data !== null && error === null) {
                 if(slug === 'coursePage' || slug === 'Calendar' || slug === 'Herramientas')
-                {   let uid = req.headers.uid || '6a3bc0f4-22bb-4b83-bbee-2ef9fc86bc70';
-                    let speciality = req.headers.speciality || 'doctor';
+                {   let uid = req.headers.uid || '';
+                    let speciality = req.headers.speciality || '';
                     let isDelegate = req.headers.isdelegate || false;
                     let temp = contentextract(slug, data);
                     let popularity = {};

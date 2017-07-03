@@ -28,7 +28,7 @@ class Congrats extends React.Component {
                     this.setState({
                         success: true,
                         title: "Congratulations!",
-                        description: "Your registration has been confirmed and now you have a profile on buit-eucan-olum-selfdetail-dev.herokuapp.com."
+                        description: "Your registration has been confirmed and now you have a profile."
                     });
                 } else if (resp.data.stat === 'error') {
                     this.setState({

@@ -115,18 +115,34 @@ class PreLoginBody extends React.Component {
                             success: function(result){
                               var obj = JSON.parse(result);
                               console.dir(obj);
-                              const user = {
-                                             uuid: capture_user.uuid,
-                                             personalData_title: obj.result.personalData.title,
-                                             personalData_firstName: obj.result.personalData.firstName,
-                                             personalData_lastName: obj.result.personalData.lastName,
-                                             professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress,
-                                             professionalContactData_phone: obj.result.professionalContactData.phone,
-                                             professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
-                                             professionalData_specialty: obj.result.professionalData.specialty,
-                                             professionalData_postalCode: obj.result.professionalData.postalCode,
-                                             termsAndCondition_contactConsent: obj.result.termsAndCondition.contactConsent
+                              let user = {};
+                              if(obj.result.controlFields.notes === 'Lilly'){
+                                user = {
+                                           uuid: capture_user.uuid,
+                                           personalData_firstName: obj.result.personalData.firstName,
+                                           personalData_lastName: obj.result.personalData.lastName,
+                                           professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress||'sunil.shetty@indegene.com',
+                                           professionalContactData_phone: obj.result.professionalContactData.phone,
+                                           professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
+                                           professionalData_specialty: obj.result.professionalData.professionalGroup,
+                                           idelegate : true
                                         };
+                              }
+                              else{
+                                  user = {
+                                           uuid: capture_user.uuid,
+                                           personalData_title: obj.result.personalData.title,
+                                           personalData_firstName: obj.result.personalData.firstName,
+                                           personalData_lastName: obj.result.personalData.lastName,
+                                           professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress,
+                                           professionalContactData_phone: obj.result.professionalContactData.phone,
+                                           professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
+                                           professionalData_specialty: obj.result.professionalData.specialty,
+                                           professionalData_postalCode: obj.result.professionalData.postalCode,
+                                           termsAndCondition_contactConsent: obj.result.termsAndCondition.contactConsent,
+                                           isdelegate:false
+                                        };
+                              }          
 
 
                                         const authData = {
@@ -238,6 +254,9 @@ class PreLoginBody extends React.Component {
       let beforehtmlInput = '<div className="page section-home"><div className="all"><div className="content">' + introText;
       let htmlInput = '<div style="display:none;" class="std-form login-form" id="signIn"><img src="img/home/redonda.png" alt="redonda" /><br/>'+
                       '<div class="capture_header signin-title"><h1>{* page_signin_signin_header *}</h1></div>'+
+                      '<div class="capture_signin">'+
+                        '<h2>{* page_signin_signin_social_header *}</h2>{* loginWidget *} <br />'+
+                      '</div>'+
                       '<div class="capture_signin">{* #userInformationForm *}{* traditionalSignIn_emailAddress *}{* traditionalSignIn_password *}'+
                       '<div class="capture_footer"><div class="capture_left"><a href="#" id="back-btn" onclick="{this.backBtnFunc.bind(this)}"> Cancel </a></div>'+
                       '<div class="capture_right">{* traditionalSignIn_signInButton *}</div>'+

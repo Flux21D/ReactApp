@@ -9,11 +9,11 @@ var eventSchedule = require('./eventschedule-controller');
 var profile = require('./myprofile-controller');
 var send = require('./sendgrid-controller');
 
-    const saveUser = (uuid , email, specialization) => {
+    const saveUser = (uuid , email, specialization, userType) => {
         connect().then(function(client){
             let query ;
 
-            query = "insert  into spainschema.user_info (uid,email,specialization,user_type) values('"+uuid+"','"+email+"','"+specialization.toLowerCase()+"','normal') ON CONFLICT DO NOTHING";
+            query = "insert  into spainschema.user_info (uid,email,specialization,user_type) values('"+uuid+"','"+email+"','"+specialization.toLowerCase()+"','"+userType+"') ON CONFLICT DO NOTHING";
             //TODO if user is lilly user
             //query = "insert  into spainschema.user_info (uid,email,specialization,user) values('"+uuid+"','"+email+"','"+specialization.toLowerCase()+"','lilly') ON CONFLICT DO NOTHING";
             return executeQuery(client,query);

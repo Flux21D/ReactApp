@@ -78,7 +78,7 @@ class CourseCertificate extends React.Component {
         
         return (
             <section className="section-acreditacion">
-                <div className="page section-acreditacion downloadSection" style={{zIndex: 1, position: "absolute", top: "0px", left: "0px", width: "100%", height: "543px"}}>
+                <div className="page section-acreditacion downloadSection" style={{zIndex: 1, position: "absolute", top: "0px", left: "0px", width: "100%", height: "600px"}}>
                     {/* <!-- user diploma --> */}
                     <div className="diploma">
                         <div className="title">Diploma</div>
@@ -108,7 +108,7 @@ class CourseCertificate extends React.Component {
                     </div>
                 </div>
                 {/* <!-- Added Clone Area --> */}
-                <div className="cloneArea" style={{zIndex: -1, opacity: "0", position: "absolute", top: "0px", left: "0px", width: "100%", height: "543px"}}></div>
+                <div className="cloneArea" style={{zIndex: -1, opacity: "0", position: "absolute", top: "0px", left: "0px", width: "100%", height: "600px"}}></div>
                 {/* <!-- Ended --> */}
             </section>
         );

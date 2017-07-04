@@ -708,13 +708,13 @@ $BUTTONS
 .janrain-capture-ui button.capture_primary,
 .janrain-capture-ui input.capture_primary
 {
-    background: linear-gradient(top, #34c5ff,#0092cd);
+    /*background: linear-gradient(top, #34c5ff,#0092cd);
     background: -moz-linear-gradient(top, #34c5ff,#0092cd);
     background: -ms-linear-gradient(top, #34c5ff,#0092cd);
     background: -o-linear-gradient(top, #34c5ff,#0092cd);
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #34c5ff), color-stop(100%, #0092cd));
-    background: -webkit-linear-gradient(top, #34c5ff,#0092cd);
-    background-color: #009ddc;
+    background: -webkit-linear-gradient(top, #34c5ff,#0092cd);*/
+    background-color: #e31d1a !important;
     color: #fff;
     text-shadow: 0 1px 1px rgba(0,0,0,0.45);
 }

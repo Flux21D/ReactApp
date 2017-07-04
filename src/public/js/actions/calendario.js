@@ -28,7 +28,7 @@ export function getCalendarioInfo (pageNo, keyword, eventType, dateFrom, dateTo,
 
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
-    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty, isdelegate: false}
+    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty, isdelegate: userInfo.user.isdelegate}
   };
 
   return dispatch => {

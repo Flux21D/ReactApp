@@ -107,28 +107,26 @@ class PreLoginBody extends React.Component {
         let that = this;
 
         janrain.events.onCaptureLoginSuccess.addHandler(function(res) {
-            //if (res.stat === "ok") {
                 const accessToken = res.accessToken;
                 const capture_user = res.userData;
-                $.ajax({url: "/api/getuserinfo?AccessToken="+accessToken,
+                $.ajax({url: "/api/getuserinfo?AccessToken=" + accessToken,
                             method: "GET",
                             success: function(result){
                               var obj = JSON.parse(result);
                               console.dir(obj);
                               let user = {};
-                              if(obj.result.controlFields.notes === 'Lilly'){
-                                user = {
+                              if(obj.result.controlFields.notes === 'Lilly') {
+                                  user = {
                                            uuid: capture_user.uuid,
                                            personalData_firstName: obj.result.personalData.firstName,
                                            personalData_lastName: obj.result.personalData.lastName,
-                                           professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress||'sunil.shetty@indegene.com',
+                                           professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress || 'sunil.shetty@indegene.com',
                                            professionalContactData_phone: obj.result.professionalContactData.phone,
                                            professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
                                            professionalData_specialty: obj.result.professionalData.professionalGroup,
-                                           idelegate : true
+                                           isdelegate: true
                                         };
-                              }
-                              else{
+                              } else {
                                   user = {
                                            uuid: capture_user.uuid,
                                            personalData_title: obj.result.personalData.title,
@@ -140,7 +138,7 @@ class PreLoginBody extends React.Component {
                                            professionalData_specialty: obj.result.professionalData.specialty,
                                            professionalData_postalCode: obj.result.professionalData.postalCode,
                                            termsAndCondition_contactConsent: obj.result.termsAndCondition.contactConsent,
-                                           isdelegate:false
+                                           isdelegate: false
                                         };
                               }          
 
@@ -158,7 +156,6 @@ class PreLoginBody extends React.Component {
                                         that.onSubmit();
                                 }
                   });
-          //}
         });
 
         janrain.events.onCaptureSessionFound.addHandler(function(result) {

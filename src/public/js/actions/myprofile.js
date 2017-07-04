@@ -19,7 +19,7 @@ export function getProfileInfo () {
   let baseUrl = '/api/getprofileinfo';
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
-    headers: {'uid': userInfo.user.uuid, 'speciality': userInfo.user.professionalData_specialty, isdelegate: false}
+    headers: {'uid': userInfo.user.uuid, 'speciality': userInfo.user.professionalData_specialty, isdelegate: userInfo.user.isdelegate}
   };
 
   return dispatch => {
@@ -50,7 +50,7 @@ export function getProfileNotifications (pageNo) {
   let baseUrl = '/api/getnotifications';
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
-    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty, isdelegate: false}
+    headers: {'uid': userInfo.user.uuid, speciality: userInfo.user.professionalData_specialty, isdelegate: userInfo.user.isdelegate}
   };
   let queryParam = '?page=' + pageNo;
 

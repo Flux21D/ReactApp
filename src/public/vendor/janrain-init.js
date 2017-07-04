@@ -56,12 +56,12 @@ For more information about these settings, see the following documents:
 
     // --- Federate  -----------------------------------------------------------
 
-    //janrain.settings.capture.federate = true;
-    //janrain.settings.capture.federateServer = '';
-    //janrain.settings.capture.federateXdReceiver = '';
-    //janrain.settings.capture.federateLogoutUri = '';
-    //janrain.settings.capture.federateLogoutCalllback = function() {};
-    //janrain.settings.capture.federateEnableSafari = false;
+    janrain.settings.capture.federate = true;
+    janrain.settings.capture.federateServer = 'https://elililly-dev.janrainsso.com';
+    janrain.settings.capture.federateXdReceiver = 'https://buit-eucan-aula-es-diab-dev.herokuapp.com/';
+    janrain.settings.capture.federateLogoutUri = 'https://buit-eucan-aula-es-diab-dev.herokuapp.com/';
+    janrain.settings.capture.federateLogoutCalllback = function() {};
+    janrain.settings.capture.federateEnableSafari = false;
 
     // --- Backplane -----------------------------------------------------------
 

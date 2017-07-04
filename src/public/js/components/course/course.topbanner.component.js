@@ -36,7 +36,7 @@ class TopBannerSlider extends React.Component {
         let showDefaultBannerImage = true, bannerSlider = [];
 
         bannerSlider = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
-                    if(item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+                    if(userInfo.user.isdelegate || item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                         let url = 'url(' + item.imagePath + ')';
                         showDefaultBannerImage = false;
                         return (
@@ -57,16 +57,20 @@ class TopBannerSlider extends React.Component {
                 });
 
         let pagination = cursos.bannerContent.topBanner && cursos.bannerContent.topBanner.map(function(item, i) {
-                    if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+                    if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                         return (
                             <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
                         )
                     }
                 });
 
-        if(showDefaultBannerImage) {
-            bannerSlider = <div className="slide" style={{backgroundImage: 'url(img/home-logged/back-curso-destacado-2.jpg)'}}></div>
-            this.stopSlider();
+        if(cursos.bannerContent.topBanner) {
+            if(showDefaultBannerImage) {
+                bannerSlider = <div className="slide" style={{backgroundImage: 'url(img/home-logged/back-curso-destacado-2.jpg)'}}></div>
+                this.stopSlider();
+            } else if(bannerSlider.length === 1) {
+                this.stopSlider();
+            }
         }
 
         return (

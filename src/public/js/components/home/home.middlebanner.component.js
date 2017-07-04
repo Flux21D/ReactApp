@@ -33,7 +33,7 @@ class MiddleBannerSlider extends React.Component {
         let showDefaultBannerImage = true, middleBannerSlides = [];
 
         middleBannerSlides = homeInfo.bannerContent.middleBanner && homeInfo.bannerContent.middleBanner.map(function(item, i) {
-            if(item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+            if(userInfo.user.isdelegate || item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                 let url = 'url(' + item.imagePath + ')';
                 showDefaultBannerImage = false;
                 return (
@@ -50,18 +50,20 @@ class MiddleBannerSlider extends React.Component {
         });
 
         let middleBannerPaginator = homeInfo.bannerContent.middleBanner && homeInfo.bannerContent.middleBanner.map(function(item, i) {
-            if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+            if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                 return (
                     <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
                 )
             }
         });
 
-        if(showDefaultBannerImage) {
-            middleBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/backgrounds/historia.jpg)'}}></div>
-            this.stopSlider('slider-2');
-        } else if(middleBannerSlides.length === 1) {
-            this.stopSlider('slider-2');
+        if(homeInfo.bannerContent.middleBanner) {
+            if(showDefaultBannerImage) {
+                middleBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/backgrounds/historia.jpg)'}}></div>
+                this.stopSlider('slider-2');
+            } else if(middleBannerSlides.length === 1) {
+                this.stopSlider('slider-2');
+            }
         }
 
         return (

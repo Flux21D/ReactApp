@@ -33,7 +33,7 @@ class TopBannerSlider extends React.Component {
         let showDefaultBannerImage = true, topBannerSlides = [];
 
         topBannerSlides = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            if(item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+            if(userInfo.user.isdelegate || item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                 let url = 'url(' + item.imagePath + ')';
                 showDefaultBannerImage = false;
                 return (
@@ -59,18 +59,20 @@ class TopBannerSlider extends React.Component {
         });
 
         let topBannerPaginator = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            if(item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+            if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
                 return (
                     <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
                 )
             }
         });
 
-        if(showDefaultBannerImage) {
-            topBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/home-logged/slide.jpg)'}}></div>
-            this.stopSlider('slider-1');
-        } else if(topBannerSlides.length === 1) {
-            this.stopSlider('slider-1');
+        if(homeInfo.bannerContent.topBanner) {
+            if(showDefaultBannerImage) {
+                topBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/home-logged/slide.jpg)'}}></div>
+                this.stopSlider('slider-1');
+            } else if(topBannerSlides.length === 1) {
+                this.stopSlider('slider-1');
+            }
         }
 
         return (

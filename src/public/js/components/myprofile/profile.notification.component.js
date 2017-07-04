@@ -28,9 +28,9 @@ class ProfileNotifications extends React.Component {
         let notifications = '';
         if(profile.notifications.length > 0)
             profile.notifications.map(function(item) {
-                let startDate = new Date(item.start_date).toLocaleDateString();
+                let notificationDate = notification_date ? new Date(item.notification_date).toLocaleDateString() : '';
                 let imageIcon = item.notification_type === 'event' ? 'laptop.svg' : (item.notification_type === 'course' ? 'mortar-board.svg' : 'comments-o.svg');
-                notifications = notifications + '<div class="notification"><div class="icon aw"><span class="awcircle"><img class="svg svgR svg16" src="img/icons/' + imageIcon + '" title="Icono"/></span></div><div class="text"><span class="text-color">' + item.name + '</span> - ' + startDate + '<br/>' + item.notification_desc + '</div><div class="clear"></div></div>';
+                notifications = notifications + '<div class="notification"><div class="icon aw"><span class="awcircle"><img class="svg svgR svg16" src="img/icons/' + imageIcon + '" title="Icono"/></span></div><div class="text"><span class="text-color">' + item.name + '</span> - ' + notificationDate + '<br/>' + item.notification_desc + '</div><div class="clear"></div></div>';
             });
         const notificationElement = htmlToReactParser.parse(notifications);
 

@@ -189,7 +189,7 @@ class RegisterFormComponent extends React.Component {
                                         '<div class="col">{* professionalContactData_professionalNumber *}</div>' +
                                         '<div class="col">{* registration_password *}</div>' +
                                         '<div class="col">{* registration_passwordConfirm *}</div>' +
-                                        '<div class="col">{* termsAndCondition_termsAndConditions *}' +
+                                        '<div class="accept-sec">{* termsAndCondition_termsAndConditions *}' +
                                             '<span id="registration_termsAndConditionsLabel">' +
                                                 'He leído y acepto los <a target="_blank" href="https://www.lillypro.es/privacy"> Términos y Condiciones de Uso</a>, la <a target="_blank" href="https://www.lillypro.es/propiedad-interlectual">Política de Privacidad de datos</a>, la <a target="_blank" href="https://www.lillypro.es/cookies">Política de cookies</a> y el <a target="_blank" href="https://www.lillypro.es/aviso-legal">Copyright</a> .</br>El Usuario responde de la veracidad de los datos facilitados, reservándose LILLY, S.A. el derecho a excluirlos, caso de constatar la falsedad de los mismos.' +
                                             '</span>' +

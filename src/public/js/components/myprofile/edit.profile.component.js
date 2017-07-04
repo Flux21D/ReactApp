@@ -118,17 +118,29 @@ class EditForm extends React.Component {
                         '<div class="title-big nmt">Modifique sus datos</div>' +
                         '<div style="display:none;" id="editProfile" class="content content-form">' +
                             '<div class="capture_grid_block">' +
-                                '<div class="capture_col_4">' +
-                                    '<h3 class="janrain_traditional_account_only">{* page_edit_password_header *}</h3>' +
-                                    '<div class="janrain_traditional_account_only contentBoxWhiteShadow"><a href="#" data-capturescreen="changePassword">{* page_edit_password_change *}</a></div>' +
-                                '</div>' +
+                                
                                 '<div class="capture_col_8">' +
                                     '<h3>{* page_edit_account_header *}</h3>' +
                                     '<div class="contentBoxWhiteShadow">' +
                                         '<div class="capture_grid_block">' +
-                                            '<div class="capture_center_col capture_col_8">' +
-                                                '<div class="capture_editCol">{* editProfileForm *}{* personalData_firstName *}{* personalData_lastName *}{* personalData_secondLastName *}{* professionalData_specialty *}{* professionalData_workCenterName *}{* professionalData_workCenterType *}{* professionalData_locality *}{* professionalData_province *}{* professionalContactData_email *}{* professionalContactData_phone *}{* professionalContactData_professionalNumber *}' +
-                                                    '<div class="capture_form_item">{* saveButton *}{* savedProfileMessage *}</div>{* /editProfileForm *}</div>' +
+                                            '<div class="capture_center_col">' +
+                                                '<div class="capture_editCol">{* editProfileForm *}' +
+						'<div className="column col-4">{* personalData_firstName *}</div>' +
+						'<div className="column col-4">{* personalData_lastName *}</div>'+
+			                        '<div className="column col-4">{* personalData_secondLastName *}</div>'+
+			                        '<div className="column col-4">{* professionalData_specialty *}</div>'+
+			                        '<div className="column col-4">{* professionalData_workCenterName *}</div>'+
+			                        '<div className="column col-4">{* professionalData_workCenterType *}</div>'+
+			                        '<div className="column col-4">{* professionalData_locality *}</div>'+
+			                        '<div className="column col-4">{* professionalData_province *}</div>'+
+			                        '<div className="column col-4">{* professionalContactData_email *}</div>'+
+			                        '<div className="column col-4">{* professionalContactData_phone *}</div>'+
+			                        '<div className="column col-4">{* professionalContactData_professionalNumber *}</div>' +
+			                        '<div class="capture_form_item column col-4">{* saveButton *}{* savedProfileMessage *}</div>{* /editProfileForm *}</div>' +
+                                            '</div>' +
+                                            '<div class="forgot-password">' +
+                                    '<h3 class="janrain_traditional_account_only">{* page_edit_password_header *}</h3>' +
+                                    '<div class="janrain_traditional_account_only contentBoxWhiteShadow"><a href="#" data-capturescreen="changePassword">{* page_edit_password_change *}</a></div>' +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +

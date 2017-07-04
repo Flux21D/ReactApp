@@ -217,11 +217,20 @@ var send = require('./sendgrid-controller');
                         //         "from spainschema.course_event_info as d "+
                         //         "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[]) "+
                         //         "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
-                        query = "insert into spainschema.user_notification_map (uid,notification_type,notification_date,notification_desc,status,action,type_id)"+
-                                "(select '"+item.uid+"' as uid,type as notification_type,CAST(NOW() at time zone 'utc' AS date) as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
-                                "from spainschema.course_event_info as d "+
-                                "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[] and type in ('course','news')) "+
-                                "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
+                        if(item.user_type == 'normal'){
+                            query = "insert into spainschema.user_notification_map (uid,notification_type,notification_date,notification_desc,status,action,type_id)"+
+                                    "(select '"+item.uid+"' as uid,type as notification_type,CAST(NOW() at time zone 'utc' AS date) as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
+                                    "from spainschema.course_event_info as d "+
+                                    "where specialization  @> ARRAY['"+item.specialization.toLowerCase()+"']::varchar[] and type in ('course','news')) "+
+                                    "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";
+                        }
+                        else{
+                            query = "insert into spainschema.user_notification_map (uid,notification_type,notification_date,notification_desc,status,action,type_id)"+
+                                    "(select '"+item.uid+"' as uid,type as notification_type,CAST(NOW() at time zone 'utc' AS date) as notification_date,description as notification_desc,'unseen' as status, 'add' as action, id as type_id "+
+                                    "from spainschema.course_event_info as d "+
+                                    "where specialization  @> ARRAY[]::varchar[] and type in ('course','news')) "+
+                                    "on conflict ON CONSTRAINT user_notification_map_uid_type_id_action_key do NOTHING";        
+                        }
                         //TODO another query if user is from lilly        
                         batchQuery.push(query);
                     });

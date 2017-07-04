@@ -742,7 +742,7 @@ section.section-home header div.left-col span.aw {
   display: none !important;
 }
 div.section-home div.all {
-  background-image: url(../img/home/back-login.jpg);
+  background-image: url(../img/home/back-login.png);
   background-size: cover;
   padding-top: 150px;
   padding-bottom: 30px;
@@ -2817,5 +2817,218 @@ media all and (min-width:1100px) div.slider-header div.paginator div:hover .svg 
 @media all and (min-height: 1000px) {
   .page.section-mapa-web {
     min-height: 920px;
+  }
+}
+.my-modal-open .my-modal {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.my-modal-open .my-modal:before {
+  content: " ";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.8);
+}
+.my-modal {
+  display: none;
+  overflow: hidden;
+}
+.my-modal .my-modal-dialog {
+  position: relative;
+  left: 50%;
+  display: inline-block;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  z-index: 2;
+  background: #ffffff;
+  margin: 30px auto;
+  max-width: calc(100% - 120px);
+  min-height: 100px;
+}
+.my-modal .my-modal-dialog.full-screen {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+.my-modal .my-modal-content {
+  position: relative;
+  padding: 26px;
+}
+.my-modal .my-modal-content h3.title {
+  color: #f36c00;
+  text-align: center;
+}
+.my-modal .my-modal-content p.description {
+  color: #425464;
+  margin: 26px auto;
+  text-align: center;
+}
+.my-modal .my-modal-footer-buttons {
+  margin-top: 26px;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  justify-content: space-between;
+}
+.my-modal .my-modal-footer-buttons .btn {
+  width: 137px;
+}
+.my-modal .my-modal-close {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  cursor: pointer;
+}
+.my-modal .my-modal-close img {
+  width: 30px;
+  height: 30px;
+}
+.sd-modal {
+  z-index: 1;
+}
+.sd-modal:after {
+  z-index: 1;
+  content: " ";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+.sd-modal .sd-modal-content {
+  position: absolute;
+  background: #ffffff;
+  z-index: 2;
+}
+.sd-modal .sd-modal-content .title {
+  font-family: 'Apex New Light';
+  color: #f36c00 !important;
+  margin-top: 25px;
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+.sd-modal .close-sd-modal {
+  color: #ffffff;
+  position: absolute;
+  top: -50px;
+  right: -50px;
+}
+.fixed-box {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 2;
+}
+.fixed-box .fix-box-inner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: scroll;
+  padding: 0 50px;
+}
+.fixed-box .fix-box-inner .page-box-close {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  cursor: pointer;
+}
+.fixed-box .fix-box-inner .page-box-close img {
+  width: 30px;
+  height: 30px;
+}
+.fixed-box .fix-box-inner .title {
+  text-align: center;
+  font: 24px/1 'Apex New Light';
+  color: #f36c00 !important;
+  margin-top: 25px;
+  margin-bottom: 12px;
+}
+.login-box {
+  position: relative;
+  width: 536px;
+  padding: 52px 95px;
+  background: #ffffff;
+  margin: 150px auto 0;
+}
+#password-changed .title {
+  text-align: left;
+}
+#login .wrp-buttons {
+  margin-top: 25px;
+}
+#login .btn-cancel,
+#login .btn-login {
+  width: 135px;
+}
+#login .wrp-remember {
+  display: inline-block;
+  margin: 25px 0 0;
+}
+#login .forgot-pass {
+  margin: 25px 0 0 0;
+}
+#login .register {
+  margin-top: 10px;
+  color: #425464;
+}
+#congrats .register-info-box {
+  width: 530px;
+  min-height: 200px;
+  top: 110px;
+  left: 50%;
+  margin-left: -265px;
+  padding: 38px 0 53px;
+  text-align: center;
+}
+#congrats .reg-confirmed {
+  font-size: 12px;
+  line-height: 20px;
+  padding: 0 90px;
+}
+#congrats .wrp-btn-close {
+  margin-top: 25px;
+}
+#congrats .btn-close {
+  width: 137px;
+}
+.disable-button {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+@media print {
+  .tools.center {
+    display: none;
+  }
+  .downloadSection {
+    height: auto !important;
   }
 }

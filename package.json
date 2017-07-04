@@ -10,8 +10,7 @@
     "prestart-parallel": "npm run unit-test",
     "start-parallel": "npm-run-all --parallel build start",
     "ci_test": "gulp mocha && gulp lint",
-    "prod_test": "tests/codecheck",
-    "start": "node app.js",
+    "start": "node ./bin/www",
     "start:dev": "nodemon app.js --ignore 'src/public/js/**/*.js' --ignore 'lib/**/*.js'",
     "build:dev": "webpack --watch --progress",
     "build:prod": "node ./node_modules/gulp/bin/gulp.js build && node ./node_modules/webpack/bin/webpack.js -p --progress"

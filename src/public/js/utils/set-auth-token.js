@@ -5,6 +5,7 @@ const setAuthToken = (token) => {
     axios.defaults.headers.common["authToken"] = token;
   } else {
     delete axios.defaults.headers.common["authToken"];
+    window.location.reload();
   }
 };
 

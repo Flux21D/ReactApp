@@ -46,7 +46,8 @@ export function removeCurrentUser() {
 export function logout() {
     sessionStorage.removeItem("auth");
     const request = axios.get('/logout');
-    
+    setAuthToken();
+
     return dispatch => {
         dispatch(removeCurrentUser());
     };

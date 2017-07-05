@@ -62,6 +62,7 @@ class PreLoginBody extends React.Component {
     var that = this;
     that.loadJS('vendor/jquery-2.2.4.min.js',function(){}).then(function(){
         that.loadJS('vendor/janrain-init.js',function(){}).then(function(){
+            that.loadJS('vendor/jquery-ui.js', function() {});
             setTimeout(function(){
                 //janrain.settings.capture.screenToRender = 'signIn';
                 //janrain.settings.capture.flowName = 'lilly_pro_uk';

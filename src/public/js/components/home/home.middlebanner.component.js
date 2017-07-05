@@ -47,7 +47,7 @@ class MiddleBannerSlider extends React.Component {
                     </div>
                 )
             }
-        });
+        }).filter(function(item) {return item});
 
         let middleBannerPaginator = homeInfo.bannerContent.middleBanner && homeInfo.bannerContent.middleBanner.map(function(item, i) {
             if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {

@@ -56,7 +56,7 @@ class TopBannerSlider extends React.Component {
                     </div>
                 )
             }
-        });
+        }).filter(function(item) {return item});
 
         let topBannerPaginator = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
             if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {

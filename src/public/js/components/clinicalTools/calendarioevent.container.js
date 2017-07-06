@@ -1,9 +1,10 @@
 import React from "react";
-import {connect} from "react-redux";
-import {Link} from "react-router";
+import { connect } from "react-redux";
+import { Link } from "react-router";
 import Pagination from "../shared/pagination/pagination.component";
 import { getCalendarioInfo, sortCalenderEvents, setFavEvents, downloadICSFile } from "../../actions/calendario";
 import axios from "axios";
+import { selectDropdown } from "../../utils/custom.jquery";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -23,6 +24,7 @@ class CalendarioEventContainer extends React.Component {
     };
 
     componentDidMount() {
+        selectDropdown();
         this.refs.txtSortEvent.value = 'Fecha';
     }
 

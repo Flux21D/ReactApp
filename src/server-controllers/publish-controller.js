@@ -513,7 +513,7 @@ var send = require('./sendgrid-controller');
             box = 'toolContent';
         
         courses[box].map(function(c){
-            isNotFilterable = delegate || (c.speciality && c.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf(userSpeciality) > -1) || (typeObj.type==='tool') || (c.speciality && c.speciality === 'all');
+            isNotFilterable = delegate || (c.speciality && c.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf(userSpeciality) > -1) || (typeObj.type==='tool') || (c.speciality && c.speciality.toLowerCase() === 'all');
             if(isNotFilterable)
                 if(c.isActive)
                 {

@@ -56,7 +56,7 @@ class TopProfileContainer extends React.Component {
                 let objDate = new Date(item.start_date);
                 let dateMonth = objDate.getDate() + ' ' + objDate.toLocaleString(locale, { month: "short"});
                 
-                if(chkDuplicateEvent.indexOf(item.id) < 0) {
+                if(chkDuplicateEvent.indexOf(item.id) < 0 && chkDuplicateEvent.length < 2) {
                     chkDuplicateEvent.push(item.id);
                     myCalender = myCalender + '<div class="event"><div class="date">' + dateMonth + '</div><div class="title">' + item.name + '</div><div class="clear"></div></div>';
                 }

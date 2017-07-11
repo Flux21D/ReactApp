@@ -107,7 +107,7 @@ const getUserCalender = (uid , speciality, isDelegate, callback) => {
             query = "(select cif.* from spainschema.user_fav_map uf, spainschema.course_event_info cif where uf.uid = '"+uid+"' and uf.type in ('event') and cif.id = uf.type_id) "+
                     "UNION ALL "+
                     "(select * from spainschema.course_event_info cif where cif.type in ('event') and cif.is_active = true and cif.end_date > CAST(NOW() at time zone 'utc' AS date) and cif.start_date > CAST(NOW() at time zone 'utc' AS date) order by cif.start_date asc) "+
-                    "limit 2";
+                    "limit 3";
                                             
                     return executeQuery(userobj, query);
         })

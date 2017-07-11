@@ -50,12 +50,16 @@ class TopProfileContainer extends React.Component {
 
         let myCalender = '';
         let locale = "en-us";
+        let chkDuplicateEvent = [];
         if(profile.userCalender.length > 0)
             profile.userCalender.map(function(item) {
                 let objDate = new Date(item.start_date);
                 let dateMonth = objDate.getDate() + ' ' + objDate.toLocaleString(locale, { month: "short"});
-
-                myCalender = myCalender + '<div class="event"><div class="date">' + dateMonth + '</div><div class="title">' + item.name + '</div><div class="clear"></div></div>';
+                
+                if(chkDuplicateEvent.indexOf(item.id) < 0) {
+                    chkDuplicateEvent.push(item.id);
+                    myCalender = myCalender + '<div class="event"><div class="date">' + dateMonth + '</div><div class="title">' + item.name + '</div><div class="clear"></div></div>';
+                }
             });
         else
             myCalender = '<a href="/calendario" class="title">Calendario</a>';

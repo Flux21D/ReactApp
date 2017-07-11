@@ -3151,3 +3151,10 @@ ul#janrainProviders_1 {
     width: 92% !important;
   }
 }
+#janrainModal .capture_footer {
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+input#capture_changePassword_saveButton {
+  margin-top: 30px !important;
+}

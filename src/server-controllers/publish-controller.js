@@ -560,6 +560,10 @@ var send = require('./sendgrid-controller');
                                 filter = true;
                             if(options.endDate && new Date(options.endDate).toISOString() <  new Date(c.endDate).toISOString())
                                 filter = true;
+                            console.log(c.mainTitle.toLowerCase());
+                            console.log(new Date(options.startDate).toISOString());
+                            console.log(new Date(c.startDate).toISOString());
+                            console.log("--------------------");
                         }
                         if(!filter)
                             courseData.push(c);

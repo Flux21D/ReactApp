@@ -95,6 +95,14 @@ class MixedCourseDetails extends React.Component {
                         {/* <!-- authors of the course --> */}
                         <div className="title-big nmt">Autores del curso</div>
                         <div dangerouslySetInnerHTML={{__html:courseInfo.authorDescription}}/>
+
+                        {/* <!-- disclaimer of the course --> */}
+                        <div className="title-big">Disclaimer</div>
+                        <div>{courseInfo.disclaimer}</div>
+
+                        {/* <!-- zinc code of the course --> */}
+                        <div className="title-big">ZINC Code</div>
+                        <div>{courseInfo.zincCode}</div>
                     </div> 
                     : <CursoModulo showModulo={this.toggelModule}/>
                 }

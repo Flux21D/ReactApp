@@ -111,8 +111,11 @@ const getContent = (req,res) => {
 
                     
                 }
-                else
+                else {
+                    res.setHeader('Cache-Control', 'public, no-cache, no-store');
+                    res.header('Pragma', 'no-cache');
                     res.send(contentextract(slug, data));
+                }
             }
         });
 }
@@ -141,6 +144,8 @@ var injectContent = (res,typeObj,temp,popularity,userFav,userReg,options,search,
         //         res.send(addBanner);
         //     });
         // else
+        res.setHeader('Cache-Control', 'public, no-cache, no-store');
+        res.header('Pragma', 'no-cache');
         res.send(temp);
     });
 

@@ -61,8 +61,11 @@ const getProfileInfo = (req,res) => {
         function(err, results) {
             if(err)
                 res.send(err);
-            else
+            else{
+                res.setHeader('Cache-Control', 'public, no-cache, no-store');
+                res.header('Pragma', 'no-cache');
                 res.send(results);
+            }
         });
     }
 }

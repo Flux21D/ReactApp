@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const authHelper = require('./auth-helper');
 const path = require('path');
 const _ = require('lodash');
+const sanitizer = require('sanitizer');
 
 const print = (string) => {
   if (process.env.DISABLE_AUTH_LOGS !== 'true') {
@@ -96,7 +97,7 @@ const authenticate = (router) => {
       // we sign the cookie so we know this server gave out the cookie when verifying later
       // (prevents malicious editing on the client side)
     res.cookie(
-        'id_token', req.body.id_token,
+        'id_token', sanitizer.escape(req.body.id_token),
       {
         expires: new Date(Date.now() + (60 * 60 * 1000)),
         httpOnly: true,

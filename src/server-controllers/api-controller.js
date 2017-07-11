@@ -8,7 +8,7 @@ var ICS = require('ics');
 var sanitizer = require('sanitizer');
 
 const getContent = (req,res) => {
-	var slug = req.params.slug;
+	var slug = sanitizer.escape(req.params.slug);
         var options = {};
         var search = false;
 

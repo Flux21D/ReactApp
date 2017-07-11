@@ -5,29 +5,29 @@ var slugs = require('../../slugs.json');
 var async = require('async');
 var cache = require('memory-cache');
 var ICS = require('ics');
+var sanitizer = require('sanitizer');
 
 const getContent = (req,res) => {
 	var slug = req.params.slug;
         var options = {};
         var search = false;
-        if(req.query){
-            if(req.query.courseType)
-                {options.courseType = req.query.courseType;}
-            if (req.query.eventType) 
-                {options.eventType = req.query.eventType;}
-            if(req.query.startDate)
-                {options.startDate = req.query.startDate;}
-            if (req.query.endDate) 
-                {options.endDate = req.query.endDate;}
-            if (req.query.keyword) 
-                {options.keyword = req.query.keyword;}
-            if (req.query.accreditation)
-                {options.accreditation = req.query.accreditation;}
-            if (req.query.city)
-                {options.city = req.query.city;}
-            if (req.query.country)
-                {options.country = req.query.country;}
-        }
+
+        if(req.query.courseType)
+            options.courseType = sanitizer.escape(req.query.courseType);
+        if (req.query.eventType) 
+            options.eventType = sanitizer.escape(req.query.eventType);
+        if(req.query.startDate)
+            options.startDate = sanitizer.escape(req.query.startDate);
+        if (req.query.endDate) 
+            options.endDate = sanitizer.escape(req.query.endDate);
+        if (req.query.keyword)
+            options.keyword = sanitizer.escape(req.query.keyword);
+        if (req.query.accreditation)
+            options.accreditation = sanitizer.escape(req.query.accreditation);
+        if (req.query.city)
+            options.city = sanitizer.escape(req.query.city);
+        if (req.query.country)
+            options.country = sanitizer.escape(req.query.country);
         
         if(Object.keys(options).length > 0)
             search = true;

@@ -563,6 +563,8 @@ var send = require('./sendgrid-controller');
                             console.log(c.mainTitle.toLowerCase());
                             console.log(new Date(options.startDate).toISOString());
                             console.log(new Date(c.startDate).toISOString());
+                            console.log(new Date(options.endDate).toISOString());
+                            console.log(new Date(c.endDate).toISOString());
                             console.log("--------------------");
                         }
                         if(!filter)

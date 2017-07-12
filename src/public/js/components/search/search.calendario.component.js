@@ -46,7 +46,9 @@ class SearchPanel extends React.Component {
     };
 
     searchEvents() {
-        this.props.getCalendarioInfo(this.state.pageNo, this.refs.txtKeyword.value, this.refs.txtEventType.value, new Date(this.refs.datePicFrom.value).toISOString(), new Date(this.refs.datePicTo.value).toISOString(), this.refs.txtCity.value, this.refs.txtCountry.value).then(function() {
+        let startDt = this.refs.datePicFrom.value ? new Date(this.refs.datePicFrom.value).toISOString() : '';
+        let endDt = this.refs.datePicTo.value ? new Date(this.refs.datePicTo.value).toISOString() : '';
+        this.props.getCalendarioInfo(this.state.pageNo, this.refs.txtKeyword.value, this.refs.txtEventType.value, startDt, endDt, this.refs.txtCity.value, this.refs.txtCountry.value).then(function() {
             replaceSVGIcons();
         });
     };

@@ -39,7 +39,7 @@ class SearchPanel extends React.Component {
             pageNo: 1,
             keyword: this.refs.txtKeyword.value,
             courseType: this.refs.txtCourseType.value,
-            accreditation: this.refs.txtAcreditado.value
+            accreditation: this.refs.txtAcreditado.value !== '' ? (this.refs.txtAcreditado.value === 'Si' ? 'yes' : 'no') : ''
         }
 
         if(this.props.component === 'home') {

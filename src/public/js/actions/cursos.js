@@ -33,7 +33,7 @@ export function getCursosInfo (pageNo, searchObj) {
   if(searchObj && searchObj.courseType)
     queryParam = queryParam + (queryParam === '' ? ('?courseType=' + searchObj.courseType) : '&courseType=' + searchObj.courseType);
   if(searchObj && searchObj.accreditation)
-    queryParam = queryParam + (queryParam === '' ? ('?accreditation=' + searchObj.accreditation) : '&accreditation=' + searchObj.accreditation);
+    queryParam = queryParam + (queryParam === '' ? ('?accredited=' + searchObj.accreditation) : '&accredited=' + searchObj.accreditation);
 
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {

@@ -22,8 +22,8 @@ const getContent = (req,res) => {
             options.endDate = sanitizer.escape(req.query.endDate);
         if (req.query.keyword)
             options.keyword = sanitizer.escape(req.query.keyword);
-        if (req.query.accreditation)
-            options.accreditation = sanitizer.escape(req.query.accreditation);
+        if (req.query.accredited)
+            options.accreditation = sanitizer.escape(req.query.accredited);
         if (req.query.city)
             options.city = sanitizer.escape(req.query.city);
         if (req.query.country)

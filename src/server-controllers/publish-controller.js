@@ -465,7 +465,7 @@ var send = require('./sendgrid-controller');
                             message: "Subjected course has been sucessfully completed"
                         }
                         send.contactSalesRepresentative(mailObj,function(){});
-                        profile.addNotification(evalObj.uid,evalObj.cid,'course','add','Course completed',function(){
+                        profile.addNotification(evalObj.uid,evalObj.cid,'course','complete','Course completed',function(){
                             loadUserNotification(evalObj.uid,function(){});
                         });
                     }    

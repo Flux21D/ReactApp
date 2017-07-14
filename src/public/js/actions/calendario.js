@@ -77,12 +77,13 @@ export function sortCalenderEvents (sortBy, calEvents) {
   };
 }
 
-export function setFavEvents (uid, eventType, eventId) {
+export function setFavEvents (uid, eventType, eventId, startDt) {
   let baseUrl = '/api/saveFav';
   let data = {
             uid: uid,
             type: eventType,
-            type_id: eventId
+            type_id: eventId,
+            eventDate: startDt
         };
 
   return dispatch => {

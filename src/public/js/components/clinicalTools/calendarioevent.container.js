@@ -31,7 +31,8 @@ class CalendarioEventContainer extends React.Component {
     favEvents(eve) {
         let userInfo = JSON.parse(sessionStorage.getItem('auth'));
         let eventId = eve.sysid;
-        this.props.setFavEvents(userInfo.user.uuid, 'event', eventId);
+        let startDt = eve.startDate ? (new Date(eve.startDate).toISOString()) : '';
+        this.props.setFavEvents(userInfo.user.uuid, 'event', eventId, startDt);
         this.state.isFavouriteLocal.push(eve.sysid);
         this.setState({isFavouriteLocal: this.state.isFavouriteLocal});
     };

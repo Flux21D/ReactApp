@@ -59,12 +59,13 @@ export function getHomeCalendarioInfo (isHome) {
   };
 }
 
-export function setHomeFavEvents (uid, eventType, eventId) {
+export function setHomeFavEvents (uid, eventType, eventId, startDt) {
   let baseUrl = '/api/saveFav';
   let data = {
             uid: uid,
             type: eventType,
-            type_id: eventId
+            type_id: eventId,
+            eventDate: startDt
         };
 
   return dispatch => {

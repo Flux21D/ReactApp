@@ -14,10 +14,10 @@ const addSchedule = (uid,type_id,email_date) => {
 	let query = '';
 
 	connect().then(function(userobj){     
-        query = "insert into spainschema.schedule_mail (uid,type_id,action,email_date,status) values ('"+uid+"','"+type_id+"','reminder','"+email_date+"','pending') "+
+        query = "insert into spainschema.schedule_mail (uid,type_id,action,email_date,status) values ('"+uid+"','"+type_id+"','reminder','"+ new Date(email_date).toISOString() +"','pending') "+
 				"on conflict ON CONSTRAINT schedule_mail_uid_type_id_action_key do NOTHING";
                                         
-                return executeQuery(userobj, batchQuery);
+                return executeQuery(userobj, query);
     })
     .then(function(execResult){
         return execResult;

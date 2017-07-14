@@ -113,7 +113,7 @@ module.exports = {
 		let diff = new Date(eventDate) - new Date();
 
             if(diff > 0){
-              let schedule = (diff/1000) - 120; //convert to seconds and reduce 120 seconds;
+              let schedule = (diff/1000) - 300; //convert to seconds and reduce 120 seconds;
               if(schedule > 0){
                 //schedQueueClient.set(uid + '#' + eid, "ABC", "PX", parseInt(schedule) * 1000, redis.print);
                 //TODO check schedule greater than 86400 one day
@@ -124,10 +124,10 @@ module.exports = {
 	},
 
     run_scheduler : () =>{
-        //3hrs
+        //3hrs 10800000 milli sec
         setInterval(function(){
             poll_schedule();
-        }, 10800000);
+        }, 300000);
         
 
     }

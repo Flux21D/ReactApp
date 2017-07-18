@@ -536,7 +536,7 @@ var send = require('./sendgrid-controller');
                         if(search){
                             if(options.courseType && c.courseType && options.courseType.toLowerCase() !== c.courseType.toLowerCase())
                                 filter = true;
-                            if(options.eventType && c.typeOfEvent && options.eventType.toLowerCase() !== c.typeOfEvent.toLowerCase())
+                            if(options.eventType && c.eventType && options.eventType.toLowerCase() !== c.eventType.toLowerCase())
                                 filter = true;
                             if (options.keyword) {
                                 if(typeObj.type === 'course'){

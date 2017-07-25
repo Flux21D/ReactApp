@@ -2,6 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
 import {getHomeCalendarioInfo, setHomeFavEvents, downloadICSFile} from "../../actions/home";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 class UpcomingEventContainer extends React.Component {
     constructor(props) {

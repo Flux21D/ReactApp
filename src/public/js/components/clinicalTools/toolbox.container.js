@@ -4,6 +4,8 @@ import {Link} from "react-router";
 import Pagination from "../shared/pagination/pagination.component";
 import { getHerramientasInfo, setHerramientasFav } from "../../actions/herramientas";
 import { replaceSVGIcons } from "../../utils/custom.jquery";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();

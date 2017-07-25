@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {Link} from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
 import {logout} from "../../actions/auth";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();

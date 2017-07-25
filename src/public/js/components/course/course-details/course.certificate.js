@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
-import jsPDF from "jspdf";
+import JSPDF from "jspdf";
 import html2canvas from "html2canvas";
 import {replaceSVGIcons} from "../../../utils/custom.jquery";
 
@@ -48,7 +48,7 @@ class CourseCertificate extends React.Component {
 
         this.getCanvas(cloneArea).then(function(canvas) {
             let img = canvas.toDataURL("image/png"),
-                doc = new jsPDF({
+                doc = new JSPDF({
                     //l => landscape, p => portroit
                     orientation: 'l',
                     unit: 'px',

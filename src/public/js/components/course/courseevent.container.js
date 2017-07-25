@@ -4,6 +4,8 @@ import {Link} from "react-router";
 import Pagination from "../shared/pagination/pagination.component";
 import { getCursosInfo, sortCursos, setFavCursos } from "../../actions/cursos";
 import {replaceSVGIcons} from "../../utils/custom.jquery";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 class CourseEventContainer extends React.Component {
     constructor(props) {

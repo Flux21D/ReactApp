@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {Link} from "react-router";
 import { getCalendarioInfo } from "../../actions/calendario";
 import {selectDropdown, replaceSVGIcons} from "../../utils/custom.jquery";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 class SearchPanel extends React.Component {
     constructor(props) {

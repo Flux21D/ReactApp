@@ -5,6 +5,8 @@ import Pagination from "../shared/pagination/pagination.component";
 import { getCalendarioInfo, sortCalenderEvents, setFavEvents, downloadICSFile } from "../../actions/calendario";
 import axios from "axios";
 import { selectDropdown } from "../../utils/custom.jquery";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();

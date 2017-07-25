@@ -4,7 +4,8 @@ import {Link} from "react-router";
 import CursoModulo from "./curso.modulo";
 import { getCursosModulo } from "../../../actions/cursos.details";
 import {replaceSVGIcons} from "../../../utils/custom.jquery";
-
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 class MixedCourseDetails extends React.Component {
     constructor(props) {
         super(props);

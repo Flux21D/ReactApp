@@ -6,89 +6,89 @@ import {getHomeCalendarioInfo, setHomeFavEvents, downloadICSFile} from "../../ac
 /* eslint-env es6 */
 
 class UpcomingEventContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.favEvents = this.favEvents.bind(this);
-        this.calEvents = this.calEvents.bind(this);
-    }
+    this.favEvents = this.favEvents.bind(this);
+    this.calEvents = this.calEvents.bind(this);
+  }
 
-    state = {
-        isFavouriteLocal: []
-    };
+  state = {
+    isFavouriteLocal: []
+  };
 
-    componentDidMount() {
-        this.props.getHomeCalendarioInfo(true).then(function() {
+  componentDidMount() {
+    this.props.getHomeCalendarioInfo(true).then(function() {
             //svg icons
-            $('img.svg').each(function () {
-                var $img = $(this);
-                var imgID = $img.attr('id');
-                var imgClass = $img.attr('class');
-                var imgURL = $img.attr('src');
+      $('img.svg').each(function () {
+        var $img = $(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
 
-                $.get(imgURL, function (data) {
+        $.get(imgURL, function (data) {
                     // Get the SVG tag, ignore the rest
-                    var $svg = $(data).find('svg');
+          var $svg = $(data).find('svg');
 
                     // Add replaced image's ID to the new SVG
-                    if (typeof imgID !== 'undefined') {
-                        $svg = $svg.attr('id', imgID);
-                    }
+          if (typeof imgID !== 'undefined') {
+            $svg = $svg.attr('id', imgID);
+          }
                     // Add replaced image's classes to the new SVG
-                    if (typeof imgClass !== 'undefined') {
-                        $svg = $svg.attr('class', imgClass + ' replaced-svg');
-                    }
+          if (typeof imgClass !== 'undefined') {
+            $svg = $svg.attr('class', imgClass + ' replaced-svg');
+          }
 
                     // Remove any invalid XML tags as per http://validator.w3.org
-                    $svg = $svg.removeAttr('xmlns:a');
+          $svg = $svg.removeAttr('xmlns:a');
 
                     // Replace image with new SVG
-                    $img.replaceWith($svg);
+          $img.replaceWith($svg);
 
-                }, 'xml');
-            });
-        });
-    }
+        }, 'xml');
+      });
+    });
+  }
 
-    favEvents(eve) {
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        let eventId = eve.sysid;
-        let startDt = eve.startDate ? (new Date(eve.startDate).toISOString()) : '';
-        this.props.setHomeFavEvents(userInfo.user.uuid, 'event', eventId, startDt);
-        this.state.isFavouriteLocal.push(eve.sysid);
-        this.setState({isFavouriteLocal: this.state.isFavouriteLocal});
-    };
+  favEvents(eve) {
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    let eventId = eve.sysid;
+    let startDt = eve.startDate ? (new Date(eve.startDate).toISOString()) : '';
+    this.props.setHomeFavEvents(userInfo.user.uuid, 'event', eventId, startDt);
+    this.state.isFavouriteLocal.push(eve.sysid);
+    this.setState({isFavouriteLocal: this.state.isFavouriteLocal});
+  };
 
-    calEvents(eve) {
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        let eventId = eve.sysid;
-        this.props.downloadICSFile(userInfo.user.uuid, eve, function(err, resp) {
-            if(!err) {
-                var icselement = document.createElement('a');
-                icselement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(resp));
-                icselement.setAttribute('download', "dsds.ics");
-                icselement.style.display = 'none';
-                document.body.appendChild(icselement);
-                icselement.click();
-                document.body.removeChild(icselement);
-            }
-        });
-    };
+  calEvents(eve) {
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    let eventId = eve.sysid;
+    this.props.downloadICSFile(userInfo.user.uuid, eve, function(err, resp) {
+      if(!err) {
+        var icselement = document.createElement('a');
+        icselement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(resp));
+        icselement.setAttribute('download', "dsds.ics");
+        icselement.style.display = 'none';
+        document.body.appendChild(icselement);
+        icselement.click();
+        document.body.removeChild(icselement);
+      }
+    });
+  };
 
-    render() {
-        const {homeInfo} = this.props;
-        let locale = "en-us";
-        let that = this;
-        let favEventsFunc = this.favEvents;
-        let calEventsFunc = this.calEvents;
+  render() {
+    const {homeInfo} = this.props;
+    let locale = "en-us";
+    let that = this;
+    let favEventsFunc = this.favEvents;
+    let calEventsFunc = this.calEvents;
 
-        let calEventsElement = homeInfo.homeCalEvents.map(function(item, i) {
-            let objDate = new Date(item.startDate);
-            let date = objDate.getDate();
-            let month = objDate.toLocaleString(locale, { month: "short"});
-            let favClass = (item.isFavourite || (that.state.isFavouriteLocal.indexOf(item.sysid) !== -1)) ? "favHeherramientas" : '';
+    let calEventsElement = homeInfo.homeCalEvents.map(function(item, i) {
+      let objDate = new Date(item.startDate);
+      let date = objDate.getDate();
+      let month = objDate.toLocaleString(locale, { month: "short"});
+      let favClass = (item.isFavourite || (that.state.isFavouriteLocal.indexOf(item.sysid) !== -1)) ? "favHeherramientas" : '';
 
-            return (
+      return (
                 <div className={'event ' + (i ===  (homeInfo.homeCalEvents.length - 1) ? 'destacat' : '')} key={i}>
                     <div className="date-modalidad">
                         <div className="date">
@@ -107,10 +107,10 @@ class UpcomingEventContainer extends React.Component {
                     </div>
                     <div className="clear"></div>
                 </div>
-            )
-        });
+      )
+    });
 
-        return (
+    return (
             <div className="results-search">
                 <div className="content">
                     <div className="sort std-form">
@@ -123,21 +123,21 @@ class UpcomingEventContainer extends React.Component {
                     <div className="clear"></div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getHomeCalendarioInfo,
-    setHomeFavEvents,
-    downloadICSFile
+  getHomeCalendarioInfo,
+  setHomeFavEvents,
+  downloadICSFile
 };
 
 const mapStateToProps = (state) => {
-    return {
-        homeInfo: state.home,
-        auth: state.auth
-    };
+  return {
+    homeInfo: state.home,
+    auth: state.auth
+  };
 };
 
 

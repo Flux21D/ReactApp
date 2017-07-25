@@ -7,50 +7,50 @@ import {replaceSVGIcons} from "../../../utils/custom.jquery";
 /* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
 /* eslint-env es6 */
 class MixedCourseDetails extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.courseVisualizar = this.courseVisualizar.bind(this);
-        this.toggelModule = this.toggelModule.bind(this);
-    }
+    this.courseVisualizar = this.courseVisualizar.bind(this);
+    this.toggelModule = this.toggelModule.bind(this);
+  }
 
-    state = {
-        showModulo: false
-    };
+  state = {
+    showModulo: false
+  };
 
-    componentDidMount() {
-        replaceSVGIcons();
-    }
+  componentDidMount() {
+    replaceSVGIcons();
+  }
 
-    courseVisualizar(obj) {
-        let that = this;
-        let sysIds = obj.map(function(item) {
-            return item.sys.id;
-        });
+  courseVisualizar(obj) {
+    let that = this;
+    let sysIds = obj.map(function(item) {
+      return item.sys.id;
+    });
 
-        this.props.getCursosModulo(sysIds).then(function() {
-            that.toggelModule();
-            replaceSVGIcons();
-        });
-    };
+    this.props.getCursosModulo(sysIds).then(function() {
+      that.toggelModule();
+      replaceSVGIcons();
+    });
+  };
 
 
-    toggelModule() {
-        this.setState({
-            showModulo: !this.state.showModulo
-        });
-    };
+  toggelModule() {
+    this.setState({
+      showModulo: !this.state.showModulo
+    });
+  };
 
-    render() {
-        const {courseInfo} = this.props;
-        let visualizarFunc = this.courseVisualizar;
-        courseInfo.courseModules = courseInfo.courseModules.sort(function(a, b) {
-            return a.fields.sequence - b.fields.sequence;
-        });
+  render() {
+    const {courseInfo} = this.props;
+    let visualizarFunc = this.courseVisualizar;
+    courseInfo.courseModules = courseInfo.courseModules.sort(function(a, b) {
+      return a.fields.sequence - b.fields.sequence;
+    });
 
-        let courseModule = courseInfo.courseModules.map(function(item, i) {
-            let moduleInfo = item.fields;
-            return (
+    let courseModule = courseInfo.courseModules.map(function(item, i) {
+      let moduleInfo = item.fields;
+      return (
                 <div className="modulo" key={i}>
                     {
                         moduleInfo.moduleDetailContent ?
@@ -72,10 +72,10 @@ class MixedCourseDetails extends React.Component {
                     <div className="img"><img src="img/curso/modulo-1.jpg" alt="Módulo 1" /></div>
                     <div className="title">{moduleInfo.title}</div>
                 </div>
-            )
-        });
+      )
+    });
 
-        return (
+    return (
             <div className="col-left">
                 {/* <!-- sub page of the course --> */}
                 {
@@ -109,19 +109,19 @@ class MixedCourseDetails extends React.Component {
                 }
                 
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getCursosModulo
+  getCursosModulo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        cursosDetails: state.cursosDetails,
-        auth: state.auth
-    };
+  return {
+    cursosDetails: state.cursosDetails,
+    auth: state.auth
+  };
 };
 
 

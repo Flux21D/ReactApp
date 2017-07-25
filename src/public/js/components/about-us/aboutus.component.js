@@ -8,41 +8,41 @@ import { replaceSVGIcons, playCarousel, stopCarousel } from "../../utils/custom.
 import $ from "jquery";
 
 class AboutUs extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount () {
-        this.props.getAboutUsInfo().then(function() {
-            replaceSVGIcons();
-            playCarousel();
-        });
-    }
+  componentDidMount () {
+    this.props.getAboutUsInfo().then(function() {
+      replaceSVGIcons();
+      playCarousel();
+    });
+  }
 
-    componentWillUnmount () {
-        stopCarousel();
-    }
+  componentWillUnmount () {
+    stopCarousel();
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-quienes-somos">
                     <TopBannerSlider />
                     <AboutUsContent />
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 const actionCreators = {
-    getAboutUsInfo
+  getAboutUsInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        aboutus: state.aboutus,
-        auth: state.auth
-    };
+  return {
+    aboutus: state.aboutus,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(AboutUs);

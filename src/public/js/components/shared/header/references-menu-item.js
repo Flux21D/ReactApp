@@ -5,40 +5,40 @@ import {toggleReference} from "../../../actions/reference";
 
 class ReferencesMenu extends React.Component {
 
-    constructor (props) {
-        super (props);
+  constructor (props) {
+    super (props);
 
-        this.showReference = this.showReference.bind(this);
-    }
+    this.showReference = this.showReference.bind(this);
+  }
 
-    showReference (event) {
-        event.preventDefault();
-        this.props.handleToggleSidebarNav();
-        this.props.toggleReference({
-            showReference: true
-        });
-    }
+  showReference (event) {
+    event.preventDefault();
+    this.props.handleToggleSidebarNav();
+    this.props.toggleReference({
+      showReference: true
+    });
+  }
 
-    render () {
-        return (
+  render () {
+    return (
             <li>
                 <Link to="/references" onClick={this.showReference}>
                     <img src="svg/icons/icon_ref.svg" /> REFERENCES
                 </Link>
             </li>
-        );
-    }
+    );
+  }
 
 }
 
 const mapStateToProps = (state) => {
-    return {
-        references: state.references
-    };
+  return {
+    references: state.references
+  };
 };
 
 const actionCreators = {
-    toggleReference
+  toggleReference
 };
 
 export default connect(mapStateToProps, actionCreators)(ReferencesMenu);

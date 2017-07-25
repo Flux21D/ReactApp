@@ -8,26 +8,26 @@ let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
 
 class ProfileCourseContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.downloadCertificate = this.downloadCertificate.bind(this);
-    }
+    this.downloadCertificate = this.downloadCertificate.bind(this);
+  }
 
-    downloadCertificate(eve) {
-        eve.sourcePath = 'acreditacion';
-        this.context.router.push({ 
-            pathname: '/acreditacion',
-            state: eve
-        });
-    }
+  downloadCertificate(eve) {
+    eve.sourcePath = 'acreditacion';
+    this.context.router.push({ 
+      pathname: '/acreditacion',
+      state: eve
+    });
+  }
 
-    render() {
-        const {profile} = this.props;
-        let downloadCertiFunc = this.downloadCertificate;
+  render() {
+    const {profile} = this.props;
+    let downloadCertiFunc = this.downloadCertificate;
 
-        let completedCourseElement = profile.completedCourse.length > 0 && profile.completedCourse.map(function(item, i) {
-            return (
+    let completedCourseElement = profile.completedCourse.length > 0 && profile.completedCourse.map(function(item, i) {
+      return (
                 <div className="curso" key={i}>
                     <div className="text">
                         <div className="title">{item.name}</div>
@@ -58,24 +58,24 @@ class ProfileCourseContainer extends React.Component {
                     </div>
                     <div className="clear"></div>
                 </div>
-            )
-        });
+      )
+    });
 
-        let enrolledCourse = '';
-        if(profile.ongoingEnrolled.length > 0)
-            profile.ongoingEnrolled.map(function(item) {
-                enrolledCourse = enrolledCourse + '<div class="curso"><div class="text"><div class="title w100">' + item.name + '</div></div><div class="clear"></div></div>';
-            });
-        const enrolledCourseElement = htmlToReactParser.parse(enrolledCourse);
+    let enrolledCourse = '';
+    if(profile.ongoingEnrolled.length > 0)
+      profile.ongoingEnrolled.map(function(item) {
+        enrolledCourse = enrolledCourse + '<div class="curso"><div class="text"><div class="title w100">' + item.name + '</div></div><div class="clear"></div></div>';
+      });
+    const enrolledCourseElement = htmlToReactParser.parse(enrolledCourse);
 
-        let favouriteCourse = '';
-        if(profile.favCourse.length > 0)
-            profile.favCourse.map(function(item) {
-                favouriteCourse = favouriteCourse + '<div class="curso"><div class="text"><div class="title w100">' + item.name + '</div></div><div class="clear"></div></div>';
-            });
-        const favCourseElement = htmlToReactParser.parse(favouriteCourse);
+    let favouriteCourse = '';
+    if(profile.favCourse.length > 0)
+      profile.favCourse.map(function(item) {
+        favouriteCourse = favouriteCourse + '<div class="curso"><div class="text"><div class="title w100">' + item.name + '</div></div><div class="clear"></div></div>';
+      });
+    const favCourseElement = htmlToReactParser.parse(favouriteCourse);
         
-        return (
+    return (
             <div className="mis-cursos">
                 <div className="content"> 
                     <div>
@@ -101,16 +101,16 @@ class ProfileCourseContainer extends React.Component {
                     
                 </div>
             </div>
-        );
-    }
+    );
+  }
 
 }
 
 const mapStateToProps = (state) => {
-    return {
-        profile: state.profile,
-        auth: state.auth
-    };
+  return {
+    profile: state.profile,
+    auth: state.auth
+  };
 };
 
 ProfileCourseContainer.contextTypes = { 

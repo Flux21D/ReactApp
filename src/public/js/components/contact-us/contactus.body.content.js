@@ -7,46 +7,46 @@ let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
 
 class ContactBodyContent extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.clickHandler = this.clickHandler.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
+  componentDidMount() {
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: true,
+      smartLists: true,
+      smartypants: false
+    });
+  }
+
+  clickHandler(eve) {
+    if(eve.target.tagName.toLowerCase() === 'a') {
+      window.open(eve.target.getAttribute("href"), '_blank');
     }
+    eve.preventDefault();
+  }
 
-    componentDidMount() {
-        marked.setOptions({
-          renderer: new marked.Renderer(),
-          gfm: true,
-          tables: true,
-          breaks: false,
-          pedantic: false,
-          sanitize: true,
-          smartLists: true,
-          smartypants: false
-        });
-    }
-
-    clickHandler(eve) {
-        if(eve.target.tagName.toLowerCase() === 'a') {
-            window.open(eve.target.getAttribute("href"), '_blank');
-        }
-        eve.preventDefault();
-    }
-
-    render() {
-        var contentLeft = '';
-        var contentRight = '';
-        this.props.contactus.bodyContentLeft.map(function(item) {
-            contentLeft = contentLeft + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + item.someLongText+ '</p>';
-        });
-        this.props.contactus.bodyContentRight.map(function(item) {
-            contentRight = contentRight + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + marked(item.someLongText) + '</p>';
-        });
+  render() {
+    var contentLeft = '';
+    var contentRight = '';
+    this.props.contactus.bodyContentLeft.map(function(item) {
+      contentLeft = contentLeft + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + item.someLongText+ '</p>';
+    });
+    this.props.contactus.bodyContentRight.map(function(item) {
+      contentRight = contentRight + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + marked(item.someLongText) + '</p>';
+    });
         
-        const leftElement = htmlToReactParser.parse(contentLeft);
-        const rightElement = htmlToReactParser.parse(contentRight);
+    const leftElement = htmlToReactParser.parse(contentLeft);
+    const rightElement = htmlToReactParser.parse(contentRight);
 
-        return (
+    return (
             <div className="cols">
                 <div className="col-left">
                     <div className="half-content">
@@ -61,15 +61,15 @@ class ContactBodyContent extends React.Component {
                 </div>
                 <div className="clear"></div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        contactus: state.contactus,
-        auth: state.auth
-    };
+  return {
+    contactus: state.contactus,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps)(ContactBodyContent);

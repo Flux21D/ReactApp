@@ -13,23 +13,23 @@ import {getHomePageInfo} from "../../actions/home";
 import { replaceSVGIcons, playCarousel, stopCarousel } from "../../utils/custom.jquery";
 
 class HomeComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount () {
-        this.props.getHomePageInfo().then(function() {
-            replaceSVGIcons();
-            playCarousel();
-        });
-    }
+  componentDidMount () {
+    this.props.getHomePageInfo().then(function() {
+      replaceSVGIcons();
+      playCarousel();
+    });
+  }
 
-    componentWillUnmount () {
-        stopCarousel();
-    }
+  componentWillUnmount () {
+    stopCarousel();
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-home-logged">
                     <TopBannerSlider />
@@ -39,20 +39,20 @@ class HomeComponent extends React.Component {
                     <UpcomingClinicalToolContainer/>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 
 }
 
 const actionCreators = {
-    getHomePageInfo
+  getHomePageInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        homeInfo: state.home,
-        auth: state.auth
-    };
+  return {
+    homeInfo: state.home,
+    auth: state.auth
+  };
 };
 
 

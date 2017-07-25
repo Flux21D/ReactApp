@@ -14,30 +14,30 @@ import { replaceSVGIcons } from "../../utils/custom.jquery";
 import EditForm from "./edit.profile.component";
 
 class MyProfile extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.setEditProfile = this.setEditProfile.bind(this);
-    }
+    this.setEditProfile = this.setEditProfile.bind(this);
+  }
 
-    state = {
-        showEditProfile: false,
-    };
+  state = {
+    showEditProfile: false,
+  };
 
-    setEditProfile () {
-        this.setState({
-            showEditProfile: !this.state.showEditProfile
-        });
-    }
+  setEditProfile () {
+    this.setState({
+      showEditProfile: !this.state.showEditProfile
+    });
+  }
 
-    componentDidMount() {
-        this.props.getProfileInfo().then(function() {
-            replaceSVGIcons();
-        });
-    }
+  componentDidMount() {
+    this.props.getProfileInfo().then(function() {
+      replaceSVGIcons();
+    });
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-perfil">
                     <TopBannerImage />
@@ -59,19 +59,19 @@ class MyProfile extends React.Component {
                     }
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getProfileInfo
+  getProfileInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        profile: state.profile,
-        auth: state.auth
-    };
+  return {
+    profile: state.profile,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(MyProfile);

@@ -12,7 +12,7 @@ export default (nextState, replace, callback) => {
   	{
   		replace('/');
   		callback();
-      logout();
+    logout();
   	}
   	else
   	{

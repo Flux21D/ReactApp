@@ -9,19 +9,19 @@ import {replaceSVGIcons} from "../../utils/custom.jquery";
 import $ from "jquery";
 
 class CalendarioComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        let pageNum = 1;
-        this.props.getCalendarioInfo(pageNum).then(function() {
-            replaceSVGIcons();
-        });
-    }
+  componentDidMount() {
+    let pageNum = 1;
+    this.props.getCalendarioInfo(pageNum).then(function() {
+      replaceSVGIcons();
+    });
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-calendario">
                     <TopBannerImage />
@@ -29,19 +29,19 @@ class CalendarioComponent extends React.Component {
                     <CalendarioEventContainer />
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getCalendarioInfo
+  getCalendarioInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        calendario: state.calendario,
-        auth: state.auth
-    };
+  return {
+    calendario: state.calendario,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(CalendarioComponent);

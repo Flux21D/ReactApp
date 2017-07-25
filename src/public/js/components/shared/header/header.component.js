@@ -7,12 +7,12 @@ import PreLoginHeader from "./prelogin.header.component";
 
 class HeaderComponent extends React.Component {
 
-    constructor (props) {
-        super(props);
-    }
+  constructor (props) {
+    super(props);
+  }
 
-    render () {
-        return (
+  render () {
+    return (
             <div id="login-header" style={{display: this.props.showHeader ? 'none' : 'block'}}>
             {
                 !this.props.auth.accessToken ?
@@ -20,14 +20,14 @@ class HeaderComponent extends React.Component {
                 <PostLoginHeader />
             }
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    }
+  return {
+    auth: state.auth
+  }
 };
 
 export default connect(mapStateToProps)(HeaderComponent);

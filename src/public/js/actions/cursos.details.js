@@ -48,8 +48,8 @@ export function getCursosDetailsInfo () {
 export function getCursosModulo (sysIds) {
   let baseUrl = '/api/getsubcontent';
   let data = {
-      content: sysIds
-    };
+    content: sysIds
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {
@@ -66,11 +66,11 @@ export function getCursosModulo (sysIds) {
 export function sendTutorialsMail (fromail, tomail, msgSub, msgBody) {
   let baseUrl = '/api/sendmail';
   let data = {
-            fromail: fromail,
-            ccmail: tomail,
-            subject: msgSub,
-            message: msgBody
-        };
+    fromail: fromail,
+    ccmail: tomail,
+    subject: msgSub,
+    message: msgBody
+  };
         
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {
@@ -83,10 +83,10 @@ export function sendTutorialsMail (fromail, tomail, msgSub, msgBody) {
 export function setCursoRegister (uid, timeStamp, cid) {
   let baseUrl = '/api/couseRegister';
   let data = {
-            uid: uid,
-            timeStamp: timeStamp,
-            cid: cid
-        };
+    uid: uid,
+    timeStamp: timeStamp,
+    cid: cid
+  };
         
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {
@@ -99,8 +99,8 @@ export function setCursoRegister (uid, timeStamp, cid) {
 export function getCursosMaterial (sysIds) {
   let baseUrl = '/api/getsubcontent';
   let data = {
-      content: sysIds
-    };
+    content: sysIds
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {

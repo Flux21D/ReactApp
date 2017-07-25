@@ -5,40 +5,40 @@ import {getCursosMaterial} from "../../../actions/cursos.details";
 import {replaceSVGIcons} from "../../../utils/custom.jquery";
 
 class CourseMaterial extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        let sysIds = this.props.courseInfo.materialsUpload && this.props.courseInfo.materialsUpload.map(function(item) {
-            return item.sys.id;
-        });
+  componentDidMount() {
+    let sysIds = this.props.courseInfo.materialsUpload && this.props.courseInfo.materialsUpload.map(function(item) {
+      return item.sys.id;
+    });
 
-        this.props.getCursosMaterial(sysIds).then(function() {
-            replaceSVGIcons();
-        });
-    }
+    this.props.getCursosMaterial(sysIds).then(function() {
+      replaceSVGIcons();
+    });
+  }
 
-    render() {
-        const {cursosDetails} = this.props;
-        let materialTitle = '', materialDesc = '', materialModulesArray = [];
+  render() {
+    const {cursosDetails} = this.props;
+    let materialTitle = '', materialDesc = '', materialModulesArray = [];
 
-        cursosDetails.coursoMaterial.map(function(item) {
-            if(item.identifier) {
-                materialTitle = item.title;
-                materialDesc = item.someLongText;
-            }
-            else {
-                materialModulesArray.push(item);
-            }
-        });
+    cursosDetails.coursoMaterial.map(function(item) {
+      if(item.identifier) {
+        materialTitle = item.title;
+        materialDesc = item.someLongText;
+      }
+      else {
+        materialModulesArray.push(item);
+      }
+    });
         
-        materialModulesArray = materialModulesArray.sort(function(a, b) {
-            return a.sequence - b.sequence;
-        });
+    materialModulesArray = materialModulesArray.sort(function(a, b) {
+      return a.sequence - b.sequence;
+    });
 
-        let materialModule = materialModulesArray.map(function(item, i) {
-            return (
+    let materialModule = materialModulesArray.map(function(item, i) {
+      return (
                 <div className="material" key={i}>
                     <a title="descargar" className="entrar" href={item.fileAssetUpload} download><span className="cv"><span className="aw"><img className="svg svgW svg25" src="img/icons/cloud-download.svg" title="Icono"/></span>descargar</span></a>
                     <div className="num">{item.sequence}</div>
@@ -46,10 +46,10 @@ class CourseMaterial extends React.Component {
                     <div className="clear"></div>
                     <div className="title">{item.materialDescription}</div>
                 </div>
-            )
-        });
+      )
+    });
 
-        return (
+    return (
             <div className="col-left">
                 {/* <!-- sub page of the course --> */}
                 <div className="sub-page-material">
@@ -67,19 +67,19 @@ class CourseMaterial extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getCursosMaterial
+  getCursosMaterial
 };
 
 const mapStateToProps = (state) => {
-    return {
-        cursosDetails: state.cursosDetails,
-        auth: state.auth
-    };
+  return {
+    cursosDetails: state.cursosDetails,
+    auth: state.auth
+  };
 };
 
 

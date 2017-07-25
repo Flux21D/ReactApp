@@ -5,64 +5,64 @@ import createMarkup from "../../utils/html-text";
 
 const setStyles = (position) => {
 
-    const hotspotStyles = {
-        left: position.left,
-        top: position.top
-    };
+  const hotspotStyles = {
+    left: position.left,
+    top: position.top
+  };
 
-    return hotspotStyles;
+  return hotspotStyles;
 };
 
 class ImageMap extends React.Component {
 
-    state = {
-        activeIndex: null
-    };
+  state = {
+    activeIndex: null
+  };
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.closeHotspot = this.closeHotspot.bind(this);
-        this.openHotspot = this.openHotspot.bind(this);
+    this.closeHotspot = this.closeHotspot.bind(this);
+    this.openHotspot = this.openHotspot.bind(this);
+  }
+
+  openHotspot(key) {
+    this.setState({
+      activeIndex: key
+    });
+
+    if (this.props.callback) {
+      this.props.callback();
     }
 
-    openHotspot(key) {
-        this.setState({
-            activeIndex: key
-        });
+    this.props.showOverlay();
+  }
 
-        if (this.props.callback) {
-            this.props.callback();
-        }
+  closeHotspot(event) {
+    event.stopPropagation();
 
-        this.props.showOverlay();
-    }
+    this.setState({
+      activeIndex: null
+    });
 
-    closeHotspot(event) {
-        event.stopPropagation();
+    this.props.hideOverlay();
+  }
 
-        this.setState({
-            activeIndex: null
-        });
+  render() {
+    const {img, hotspots, data} = this.props;
 
-        this.props.hideOverlay();
-    }
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-    render() {
-        const {img, hotspots, data} = this.props;
-
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-        return (
+    return (
             <div style={{position: 'relative'}}>
 
                 {this.props.children}
 
                 {hotspots.map((hotspot, key) => {
 
-                    return <div key={key} style={setStyles(hotspot.styles)} onClick={() => {
-                        return this.openHotspot(key)
-                    }} className={"hotspot " + (this.state.activeIndex === key ? "active" : "")}>
+                  return <div key={key} style={setStyles(hotspot.styles)} onClick={() => {
+                    return this.openHotspot(key)
+                  }} className={"hotspot " + (this.state.activeIndex === key ? "active" : "")}>
                         <div className={"hotspot-circle " + (!isSafari ? "circle" : "")}>
                             <div className="hotspot-tooltip">
 
@@ -82,8 +82,8 @@ class ImageMap extends React.Component {
                 })}
 
             </div>
-        );
-    }
+    );
+  }
 
 }
 

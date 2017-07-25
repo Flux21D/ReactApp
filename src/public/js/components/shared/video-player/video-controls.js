@@ -2,61 +2,61 @@ import React from "react";
 
 class VideoControls extends React.Component {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.togglePlay = this.togglePlay.bind(this);
-        this.toggleMute = this.toggleMute.bind(this);
-        this.setVolume = this.setVolume.bind(this);
-        this.fullScreen = this.fullScreen.bind(this);
-        this.setProgress = this.setProgress.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
+    this.toggleMute = this.toggleMute.bind(this);
+    this.setVolume = this.setVolume.bind(this);
+    this.fullScreen = this.fullScreen.bind(this);
+    this.setProgress = this.setProgress.bind(this);
+  }
+
+  togglePlay() {
+    this.props.togglePlay();
+  }
+
+  fullScreen() {
+    this.props.fullScreen();
+  }
+
+  getMinutes(timeInSeconds) {
+    let date = new Date(null);
+    date.setSeconds(timeInSeconds);
+
+    return date.toISOString().substr(14, 5);
+  }
+
+  toggleMute() {
+    this.props.toggleMute();
+  }
+
+  setVolume (e) {
+    const y = e.nativeEvent.offsetY;
+
+    const volume = (50 - y) / 50;
+
+    this.props.setVolume(volume);
+  }
+
+  setProgress (e) {
+    const x = e.nativeEvent.offsetX;
+    const width = e.target.offsetWidth;
+
+    this.props.setProgress(x, width);
+  }
+
+  render() {
+
+    const {configs} = this.props;
+
+    let volume = configs.volume * 100;
+
+    if (configs.muted) {
+      volume = 0;
     }
 
-    togglePlay() {
-        this.props.togglePlay();
-    }
-
-    fullScreen() {
-        this.props.fullScreen();
-    }
-
-    getMinutes(timeInSeconds) {
-        let date = new Date(null);
-        date.setSeconds(timeInSeconds);
-
-        return date.toISOString().substr(14, 5);
-    }
-
-    toggleMute() {
-        this.props.toggleMute();
-    }
-
-    setVolume (e) {
-        const y = e.nativeEvent.offsetY;
-
-        const volume = (50 - y) / 50;
-
-        this.props.setVolume(volume);
-    }
-
-    setProgress (e) {
-        const x = e.nativeEvent.offsetX;
-        const width = e.target.offsetWidth;
-
-        this.props.setProgress(x, width);
-    }
-
-    render() {
-
-        const {configs} = this.props;
-
-        let volume = configs.volume * 100;
-
-        if (configs.muted) {
-            volume = 0;
-        }
-
-        return (
+    return (
             <div>
                 <div className="btn-play-pause-tablet" onClick={this.togglePlay}>
                     <img src={"svg/icons/icon_" + (configs.paused ? "play" : "pause") + ".svg"}
@@ -95,8 +95,8 @@ class VideoControls extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 export default VideoControls;

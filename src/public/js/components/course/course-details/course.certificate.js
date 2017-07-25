@@ -6,77 +6,77 @@ import html2canvas from "html2canvas";
 import {replaceSVGIcons} from "../../../utils/custom.jquery";
 
 class CourseCertificate extends React.Component {
-    constructor(props) {
-        super(props);
-        this.userName = '';
+  constructor(props) {
+    super(props);
+    this.userName = '';
 
-        this.goBackBtnHandler = this.goBackBtnHandler.bind(this);
-        this.downloadCertificate = this.downloadCertificate.bind(this);
-        this.createPDF = this.createPDF.bind(this);
-        this.getCanvas = this.getCanvas.bind(this);
-    }
+    this.goBackBtnHandler = this.goBackBtnHandler.bind(this);
+    this.downloadCertificate = this.downloadCertificate.bind(this);
+    this.createPDF = this.createPDF.bind(this);
+    this.getCanvas = this.getCanvas.bind(this);
+  }
 
-    componentDidMount() {
-        replaceSVGIcons();
-    }
+  componentDidMount() {
+    replaceSVGIcons();
+  }
 
-    componentWillMount() {
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        this.userName = userInfo.user.personalData_firstName + ' ' + userInfo.user.personalData_lastName
-    }
+  componentWillMount() {
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    this.userName = userInfo.user.personalData_firstName + ' ' + userInfo.user.personalData_lastName
+  }
 
-    goBackBtnHandler() {
-        let courseObj = this.props.location.state; 
-        let pathName = (courseObj.sourcePath && courseObj.sourcePath === 'course') ? '/coursedetail' : '/myprofile';
-        this.context.router.push({ 
-            pathname: pathName,
-            state: courseObj
-        });
-    }
+  goBackBtnHandler() {
+    let courseObj = this.props.location.state; 
+    let pathName = (courseObj.sourcePath && courseObj.sourcePath === 'course') ? '/coursedetail' : '/myprofile';
+    this.context.router.push({ 
+      pathname: pathName,
+      state: courseObj
+    });
+  }
 
-    downloadCertificate() {
-        $('body').scrollTop(0);
-        this.createPDF();
-    }
+  downloadCertificate() {
+    $('body').scrollTop(0);
+    this.createPDF();
+  }
 
-    createPDF() {
-        let that = this;
-        let downloadArea = $('.downloadSection');
-        $('.downloadSection').clone().appendTo($('.cloneArea'));
-        let cloneArea = $('.cloneArea');
-        let cache_width = downloadArea.width();
+  createPDF() {
+    let that = this;
+    let downloadArea = $('.downloadSection');
+    $('.downloadSection').clone().appendTo($('.cloneArea'));
+    let cloneArea = $('.cloneArea');
+    let cache_width = downloadArea.width();
 
-        this.getCanvas(cloneArea).then(function(canvas) {
-            let img = canvas.toDataURL("image/png"),
-                doc = new JSPDF({
+    this.getCanvas(cloneArea).then(function(canvas) {
+      let img = canvas.toDataURL("image/png"),
+        doc = new JSPDF({
                     //l => landscape, p => portroit
-                    orientation: 'l',
-                    unit: 'px',
-                    format: 'a4'
-                });
-            doc.addImage(img, 'JPEG', 20, 20);
-            doc.save('certificate.pdf');
-            cloneArea.width(cache_width);
+          orientation: 'l',
+          unit: 'px',
+          format: 'a4'
         });
-    }
+      doc.addImage(img, 'JPEG', 20, 20);
+      doc.save('certificate.pdf');
+      cloneArea.width(cache_width);
+    });
+  }
 
-    getCanvas(cloneArea) {
+  getCanvas(cloneArea) {
         //let a4 = [595.28, 841.89]; // for portroit mode
-        let a4 = [841.89, 595.28]; // for landscape mode
-        cloneArea.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-        return html2canvas(cloneArea, {
-            onrendered: function(canvas) {},
-            timeout: 0,
-            removeContainer: true
-        });
-    }
+    let a4 = [841.89, 595.28]; // for landscape mode
+    cloneArea.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+    return html2canvas(cloneArea, {
+      onrendered: function(canvas) {},
+      timeout: 0,
+      removeContainer: true
+    });
+  }
 
-    render() {
-        const {location} = this.props;
-        let courseName = location.state.sourcePath === 'course' ? location.state.courseTitle : location.state.name;
-        let courseDate = location.state.sourcePath === 'course' ? location.state.courseCompletionDate : (new Date(location.state.date_performed).toLocaleDateString());
+  render() {
+    const {location} = this.props;
+    let courseName = location.state.sourcePath === 'course' ? location.state.courseTitle : location.state.name;
+    let courseDate = location.state.sourcePath === 'course' ? location.state.courseCompletionDate : (new Date(location.state.date_performed).toLocaleDateString());
         
-        return (
+    return (
             <section className="section-acreditacion">
                 <div className="page section-acreditacion downloadSection" style={{zIndex: 1, position: "absolute", top: "0px", left: "0px", width: "100%", height: "600px"}}>
                     {/* <!-- user diploma --> */}
@@ -111,14 +111,14 @@ class CourseCertificate extends React.Component {
                 <div className="cloneArea" style={{zIndex: -1, opacity: "0", position: "absolute", top: "0px", left: "0px", width: "100%", height: "600px"}}></div>
                 {/* <!-- Ended --> */}
             </section>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    };
+  return {
+    auth: state.auth
+  };
 };
 
 CourseCertificate.contextTypes = { 

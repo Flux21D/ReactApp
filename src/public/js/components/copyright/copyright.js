@@ -2,13 +2,13 @@ import React from "react";
 
 class Copyright extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
+  render() {
 
-        return (
+    return (
             <div id="terms" className="bg-grey">
                 <div className="terms-content">
                     <h2 className="content-title">Copyright</h2>
@@ -32,9 +32,9 @@ class Copyright extends React.Component {
                 </div>
 
             </div>
-        );
+    );
 
-    }
+  }
 
 }
 

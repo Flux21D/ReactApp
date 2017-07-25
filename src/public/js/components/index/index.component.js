@@ -13,19 +13,19 @@ import ThanksComponent from '../register/thanks.component';
 import {removeNewUser} from "../../actions/auth";
 
 class IndexComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
+  componentDidMount() {
 
-    }
+  }
 
-    componentWillUnmount() {}
+  componentWillUnmount() {}
 
-    render() {
+  render() {
             
-        return (
+    return (
             <div>
                 {
                  this.props.auth.accessToken ?
@@ -34,24 +34,24 @@ class IndexComponent extends React.Component {
                 }
                 { this.props.children }                
            </div>
-        );
-    }
+    );
+  }
 }
 
 IndexComponent.contextTypes = {
-    router: React.PropTypes.object.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
-    return {
-        auth:state.auth,
-        modal: state.modal
-    }
+  return {
+    auth:state.auth,
+    modal: state.modal
+  }
 };
 
 const actionCreators = {
-    openModal,
-    removeNewUser
+  openModal,
+  removeNewUser
 };
 
 export default connect(mapStateToProps,actionCreators)(IndexComponent);

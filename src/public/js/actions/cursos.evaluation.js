@@ -25,15 +25,15 @@ export function cursosEvaluationResult (obj) {
   let baseUrl = '/api/courseval';
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let data = {
-            uid: userInfo.user.uuid,
-            score: obj.percentage,
-            cid: obj.courseId,
-            status: obj.status,
-            credits: obj.credits,
-            accredited: obj.accreditation,
-            courseTitle: obj.courseTitle,
-            toEmail: userInfo.user.professionalContactData_emailAddress
-        };
+    uid: userInfo.user.uuid,
+    score: obj.percentage,
+    cid: obj.courseId,
+    status: obj.status,
+    credits: obj.credits,
+    accredited: obj.accreditation,
+    courseTitle: obj.courseTitle,
+    toEmail: userInfo.user.professionalContactData_emailAddress
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {

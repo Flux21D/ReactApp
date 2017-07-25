@@ -5,21 +5,21 @@ import {Link} from "react-router";
 /* eslint-env es6 */
 
 class CourseTools extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.setCourseScreen = this.setCourseScreen.bind(this);
-    }
+    this.setCourseScreen = this.setCourseScreen.bind(this);
+  }
 
-    setCourseScreen(screen) {
-        this.props.setScreen(screen);
-    }
+  setCourseScreen(screen) {
+    this.props.setScreen(screen);
+  }
 
-    render() {
-        const {courseType, courseInfo} = this.props;
-        let credit = courseInfo.credits && courseInfo.credits.split(' ');
+  render() {
+    const {courseType, courseInfo} = this.props;
+    let credit = courseInfo.credits && courseInfo.credits.split(' ');
 
-        return (
+    return (
             <div className="col-tools" id="col-tools">
                 {/* <!-- tools always visible --> */}
                 <a className={'tool ' + (courseType === 'mixedCourse' ? 'active' : '')} title={'Curso ' + courseInfo.courseType} onClick={() => this.setCourseScreen('mixedCourse')}><span className="aw awcircle"><img className="svg svgR svg16" src="img/icons/laptop.svg" title="Icono"/><small>+</small></span><span className="text"> Curso {courseInfo.courseType}</span></a>
@@ -50,14 +50,14 @@ class CourseTools extends React.Component {
                     : null
                 }
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    };
+  return {
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps)(CourseTools);

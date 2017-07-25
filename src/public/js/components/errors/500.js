@@ -2,12 +2,12 @@ import React from "react";
 
 class Error500 extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div id="error">
                 <div className="error-500">
                     <div className="robot-image-container">
@@ -20,8 +20,8 @@ class Error500 extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 
 }
 

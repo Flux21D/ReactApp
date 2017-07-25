@@ -46,11 +46,11 @@ export function setHerramientasFav (uid, courseType, herramientasId, url) {
   console.log('set');
   let baseUrl = '/api/saveFav';
   let data = {
-            uid: uid,
-            type: courseType,
-            type_id: herramientasId,
-            url: url
-        };
+    uid: uid,
+    type: courseType,
+    type_id: herramientasId,
+    url: url
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {

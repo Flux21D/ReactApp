@@ -9,27 +9,27 @@ import {customClick} from "./utils/gtm";
 import Modal from "./components/shared/modal/modal";
 
 const webTab = [ '/:Login:Home',
-                 '/home:Home',
-                 '/cursos:Cursos',
-                 '/coursedetail:Curso',
-                 '/calendario:Calendario',
-                 '/herramientas:Herramientas clínicas',
-                 '/faq:Preguntas Frecuentes',
-                 '/contact:Contactar',
-                 '/myprofile:Mi perfil',
-                 '/about:Quiénes somos',
-                 '/webMap:Mapa Web',
-                 '/acreditacion:Acreditación'
-                ];
+  '/home:Home',
+  '/cursos:Cursos',
+  '/coursedetail:Curso',
+  '/calendario:Calendario',
+  '/herramientas:Herramientas clï¿½nicas',
+  '/faq:Preguntas Frecuentes',
+  '/contact:Contactar',
+  '/myprofile:Mi perfil',
+  '/about:Quiï¿½nes somos',
+  '/webMap:Mapa Web',
+  '/acreditacion:Acreditaciï¿½n'
+];
 
 function getTitle(path, auth) {
   for(let k = 0; k < webTab.length; k++) {
     let entry = webTab[k].split(':');
     
     if(entry[0].toLowerCase() == path.toLowerCase()) {
-        if(path.toLowerCase() === '/' && auth)
-            return entry[2]
-        else
+      if(path.toLowerCase() === '/' && auth)
+        return entry[2]
+      else
             return entry[1];
     }
   }
@@ -37,35 +37,35 @@ function getTitle(path, auth) {
 
 class AppComponent extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount () {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount () {
         // customClick({
         //   'test' : 'abc'
         // });
-    }
-    render() {
-        const {modal, location, auth} = this.props;
-        document.title = 'Aula Diabetes - ' + getTitle(location.pathname, auth.accessToken);
-        let classes = modal.Component ? 'my-modal-open' : ' ';
+  }
+  render() {
+    const {modal, location, auth} = this.props;
+    document.title = 'Aula Diabetes - ' + getTitle(location.pathname, auth.accessToken);
+    let classes = modal.Component ? 'my-modal-open' : ' ';
 
-        return (
+    return (
             <div id="main-content" className={classes}>
                 {modal.Component ? <Modal /> : null}
                 <HeaderComponent showHeader={location.pathname === '/acreditacion' ? true : false}/>
                     {this.props.children}
                 <FooterComponent showFooter={location.pathname === '/acreditacion' ? true : false}/>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth:state.auth,
-        modal:state.modal
-    }
+  return {
+    auth:state.auth,
+    modal:state.modal
+  }
 };
 
 export default withRouter(connect(mapStateToProps)(AppComponent));

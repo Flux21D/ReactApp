@@ -71,20 +71,20 @@ export function sortCalenderEvents (sortBy, calEvents) {
   });
 
   return dispatch => {      
-      dispatch(setCalendarioInfo({
-        calendarEvents: calEvents
-      }));
+    dispatch(setCalendarioInfo({
+      calendarEvents: calEvents
+    }));
   };
 }
 
 export function setFavEvents (uid, eventType, eventId, startDt) {
   let baseUrl = '/api/saveFav';
   let data = {
-            uid: uid,
-            type: eventType,
-            type_id: eventId,
-            eventDate: startDt
-        };
+    uid: uid,
+    type: eventType,
+    type_id: eventId,
+    eventDate: startDt
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {
@@ -97,9 +97,9 @@ export function setFavEvents (uid, eventType, eventId, startDt) {
 export function downloadICSFile (uid, eve, callback) {
   let baseUrl = '/api/geticsfile';
   let data = {
-            uid: uid,
-            eventObj: eve
-        };
+    uid: uid,
+    eventObj: eve
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {

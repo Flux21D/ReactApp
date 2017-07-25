@@ -7,77 +7,77 @@ import {selectDropdown, replaceSVGIcons} from "../../utils/custom.jquery";
 /* eslint-env es6 */
 
 class SearchPanel extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.searchEvents = this.searchEvents.bind(this);
-        this.toggleDP = this.toggleDP.bind(this);
-    }
+    this.searchEvents = this.searchEvents.bind(this);
+    this.toggleDP = this.toggleDP.bind(this);
+  }
 
-    state = {
-        pageNo: 1,
-        openEventDP: false,
-        openCityDP: false,
-        openCountryDP: false
-    };
+  state = {
+    pageNo: 1,
+    openEventDP: false,
+    openCityDP: false,
+    openCountryDP: false
+  };
 
-    componentDidMount() { };
+  componentDidMount() { };
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.calendario.searchPanel !== this.props.calendario.searchPanel) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.calendario.searchPanel !== this.props.calendario.searchPanel) {
             //datapicker code
-            $("#dateFrom, #dateTo").datepicker();
-            selectDropdown();
-        }
+      $("#dateFrom, #dateTo").datepicker();
+      selectDropdown();
     }
+  }
 
-    eventTypeHandleChange(eve) {
-        this.refs.txtEventType.value = eve;
-    };
+  eventTypeHandleChange(eve) {
+    this.refs.txtEventType.value = eve;
+  };
 
-    cityHandleChange(eve) {
-        this.refs.txtCity.value = eve;
-    };
+  cityHandleChange(eve) {
+    this.refs.txtCity.value = eve;
+  };
 
-    countryHandleChange(eve) {
-        this.refs.txtCountry.value = eve;
-    };
+  countryHandleChange(eve) {
+    this.refs.txtCountry.value = eve;
+  };
 
-    toggleDP(eve) {
-        this.setState({[eve]: !this.state[eve]});
-    };
+  toggleDP(eve) {
+    this.setState({[eve]: !this.state[eve]});
+  };
 
-    searchEvents() {
-        let startDt = this.refs.datePicFrom.value ? new Date(this.refs.datePicFrom.value).toISOString() : '';
-        let endDt = this.refs.datePicTo.value ? new Date(this.refs.datePicTo.value).toISOString() : '';
-        this.props.getCalendarioInfo(this.state.pageNo, this.refs.txtKeyword.value, this.refs.txtEventType.value, startDt, endDt, this.refs.txtCity.value, this.refs.txtCountry.value).then(function() {
-            replaceSVGIcons();
-        });
-    };
+  searchEvents() {
+    let startDt = this.refs.datePicFrom.value ? new Date(this.refs.datePicFrom.value).toISOString() : '';
+    let endDt = this.refs.datePicTo.value ? new Date(this.refs.datePicTo.value).toISOString() : '';
+    this.props.getCalendarioInfo(this.state.pageNo, this.refs.txtKeyword.value, this.refs.txtEventType.value, startDt, endDt, this.refs.txtCity.value, this.refs.txtCountry.value).then(function() {
+      replaceSVGIcons();
+    });
+  };
 
-    render() {
-        const {calendario} = this.props;
-        let that = this;
+  render() {
+    const {calendario} = this.props;
+    let that = this;
 
-        let eventTypeDP = calendario.searchPanel.Type && calendario.searchPanel.Type.map(function(item, i) {
-            return (
+    let eventTypeDP = calendario.searchPanel.Type && calendario.searchPanel.Type.map(function(item, i) {
+      return (
                 <div onClick={that.eventTypeHandleChange.bind(that, item)} key={i}>{item}</div>
-            )
-        });
+      )
+    });
 
-        let cityTypeDP = calendario.searchPanel.city && calendario.searchPanel.city.map(function(item, i) {
-            return (
+    let cityTypeDP = calendario.searchPanel.city && calendario.searchPanel.city.map(function(item, i) {
+      return (
                 <div onClick={that.cityHandleChange.bind(that, item)} key={i}>{item}</div>
-            )
-        });
+      )
+    });
 
-        let countryTypeDP = calendario.searchPanel.country && calendario.searchPanel.country.map(function(item, i) {
-            return (
+    let countryTypeDP = calendario.searchPanel.country && calendario.searchPanel.country.map(function(item, i) {
+      return (
                 <div onClick={that.countryHandleChange.bind(that, item)} key={i}>{item}</div>
-            )
-        });
+      )
+    });
 
-        return (
+    return (
             <div className="search-cursos search-eventos">
                 <div className="content">
                     <h2 className="title-big-grey"><span className="aw"><img className="svg svgR svg18" src="img/icons/mortar-board.svg" title="Icono"/></span> Buscador de eventos</h2>
@@ -118,19 +118,19 @@ class SearchPanel extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getCalendarioInfo
+  getCalendarioInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        calendario: state.calendario,
-        auth: state.auth
-    };
+  return {
+    calendario: state.calendario,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(SearchPanel);

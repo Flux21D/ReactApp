@@ -11,38 +11,38 @@ let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
 
 class ToolBoxContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.pageNumber = this.pageNumber.bind(this);
-        this.favTools = this.favTools.bind(this);
-    }
+    this.pageNumber = this.pageNumber.bind(this);
+    this.favTools = this.favTools.bind(this);
+  }
 
-    state = {
-        isFavouriteLocal: []
-    };
+  state = {
+    isFavouriteLocal: []
+  };
 
-    favTools(eve) {
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        this.props.setHerramientasFav(userInfo.user.uuid, 'tool', eve.sysid, eve.externalUrl);
-        this.state.isFavouriteLocal.push(eve.sysid);
-        this.setState({isFavouriteLocal: this.state.isFavouriteLocal});
-    };
+  favTools(eve) {
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    this.props.setHerramientasFav(userInfo.user.uuid, 'tool', eve.sysid, eve.externalUrl);
+    this.state.isFavouriteLocal.push(eve.sysid);
+    this.setState({isFavouriteLocal: this.state.isFavouriteLocal});
+  };
 
-    pageNumber(pageNo) {
-        this.props.getHerramientasInfo(pageNo).then(function() {
-            replaceSVGIcons();
-        });
-    };
+  pageNumber(pageNo) {
+    this.props.getHerramientasInfo(pageNo).then(function() {
+      replaceSVGIcons();
+    });
+  };
 
-    render() {
-        const {herramientas} = this.props;
-        let that = this;
-        let favToolsFunc = this.favTools;
+  render() {
+    const {herramientas} = this.props;
+    let that = this;
+    let favToolsFunc = this.favTools;
 
-        let toolsElement = herramientas.herramientasEvents.length > 0 && herramientas.herramientasEvents.map(function(item, i) {
-            let favClass = (item.isFavourite || (that.state.isFavouriteLocal.indexOf(item.sysid) !== -1)) ? 'favHeherramientas' : '';
-            return (
+    let toolsElement = herramientas.herramientasEvents.length > 0 && herramientas.herramientasEvents.map(function(item, i) {
+      let favClass = (item.isFavourite || (that.state.isFavouriteLocal.indexOf(item.sysid) !== -1)) ? 'favHeherramientas' : '';
+      return (
                 <div className="event" key={i}>
                     <div className="date-modalidad external_link" title={item.externalUrl}>
                         <div className="icon aw nmt"><img className="svg svgG" src="img/icons/external-link-square.svg" title="Icono" /></div>
@@ -54,10 +54,10 @@ class ToolBoxContainer extends React.Component {
                     </div>
                     <div className="clear"></div>
                 </div>
-            )
-        });
+      )
+    });
 
-        return (
+    return (
             <div>
                 <div className="results-search">
                     <div className="content">
@@ -88,20 +88,20 @@ class ToolBoxContainer extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getHerramientasInfo,
-    setHerramientasFav
+  getHerramientasInfo,
+  setHerramientasFav
 };
 
 const mapStateToProps = (state) => {
-    return {
-        herramientas: state.herramientas,
-        auth: state.auth
-    };
+  return {
+    herramientas: state.herramientas,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(ToolBoxContainer);

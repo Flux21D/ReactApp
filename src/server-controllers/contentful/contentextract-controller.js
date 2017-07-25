@@ -231,7 +231,7 @@ const getCourseValues = function(item , includes) {
 		courseEvaluators : []
 	};
 
-	let cBannerId = item.fields.couserMainBannerImage.sys.id;
+	let cBannerId = item.fields.couserMainBannerImage ? item.fields.couserMainBannerImage.sys.id: "";
 	obj.couserMainBannerImage = assets[cBannerId] ? assets[cBannerId] : "";
 
 	if(item.fields['courseEvaluators'])
@@ -240,18 +240,19 @@ const getCourseValues = function(item , includes) {
 				obj.courseEvaluators.push({sysid:item.sys.id,fields:questions[item.sys.id]});
 			}
 		});
-	item.fields['courseModules'].forEach(function (item) {
-		if (courseModules[item.sys.id]) {
-			let thumbnail = courseModules[item.sys.id].thumbnailImage ? courseModules[item.sys.id].thumbnailImage.sys.id : "";
-			let download = courseModules[item.sys.id].asset ? courseModules[item.sys.id].asset.sys.id : "";
-			let tempContent = Object.assign({},courseModules[item.sys.id]);
-			Object.assign(tempContent,{
-				thumbnailImage: assets[thumbnail] ? assets[thumbnail] : "",
-				asset: assets[download] ? assets[download] : "",
-			});
-			obj.courseModules.push({ sysid: item.sys.id, fields: tempContent });
-		}
-	});
+	if(item.fields['courseModules'])
+		item.fields['courseModules'].forEach(function (item) {
+			if (courseModules[item.sys.id]) {
+				let thumbnail = courseModules[item.sys.id].thumbnailImage ? courseModules[item.sys.id].thumbnailImage.sys.id : "";
+				let download = courseModules[item.sys.id].asset ? courseModules[item.sys.id].asset.sys.id : "";
+				let tempContent = Object.assign({},courseModules[item.sys.id]);
+				Object.assign(tempContent,{
+					thumbnailImage: assets[thumbnail] ? assets[thumbnail] : "",
+					asset: assets[download] ? assets[download] : "",
+				});
+				obj.courseModules.push({ sysid: item.sys.id, fields: tempContent });
+			}
+		});
 
 	return obj;
 }

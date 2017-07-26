@@ -5,47 +5,47 @@ import {setCursoRegister} from "../../../actions/cursos.details";
 import {replaceSVGIcons, closeModalWindow} from "../../../utils/custom.jquery";
 
 class TopBannerImage extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.registerCourse = this.registerCourse.bind(this);
-    }
+    this.registerCourse = this.registerCourse.bind(this);
+  }
 
-    state = {
-        isCourseRegistered: false
-    };
+  state = {
+    isCourseRegistered: false
+  };
 
-    componentDidMount() {
-        let that = this;
+  componentDidMount() {
+    let that = this;
         //course-register ok window
-        $('a.inscribirse').click(function () {
-            if (confirm('¿Seguro que deseas inscribirte a este curso?')) {
-                that.registerCourse();
-                $('#modal-ok').fadeIn();
-            }
-        });
-        closeModalWindow();
-        replaceSVGIcons();
-    }
+    $('a.inscribirse').click(function () {
+      if (confirm('Â¿Seguro que deseas inscribirte a este curso?')) {
+        that.registerCourse();
+        $('#modal-ok').fadeIn();
+      }
+    });
+    closeModalWindow();
+    replaceSVGIcons();
+  }
 
-    registerCourse() {
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        let dateNow = new Date();
-        this.props.bannerInfo.isRegistered = true;
-        this.setState({isCourseRegistered: true});
-        this.props.toggleCourseRegister();
-        this.props.setCursoRegister(userInfo.user.uuid, dateNow, this.props.bannerInfo.sysid).then(function() {
-            replaceSVGIcons();
-        });
-    }
+  registerCourse() {
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    let dateNow = new Date();
+    this.props.bannerInfo.isRegistered = true;
+    this.setState({isCourseRegistered: true});
+    this.props.toggleCourseRegister();
+    this.props.setCursoRegister(userInfo.user.uuid, dateNow, this.props.bannerInfo.sysid).then(function() {
+      replaceSVGIcons();
+    });
+  }
 
-    render() {
-        const {bannerInfo} = this.props;
-        let url = 'url(' + bannerInfo.couserMainBannerImage + ')';
-        let startDate = new Date(bannerInfo.startDate).toLocaleDateString();
-        let endDate = new Date(bannerInfo.endDate).toLocaleDateString();
+  render() {
+    const {bannerInfo} = this.props;
+    let url = 'url(' + bannerInfo.couserMainBannerImage + ')';
+    let startDate = new Date(bannerInfo.startDate).toLocaleDateString();
+    let endDate = new Date(bannerInfo.endDate).toLocaleDateString();
 
-        return (
+    return (
                 <div className="section-header" style={{backgroundImage: url}}>
                     <div className="content">
                         <h1 className="size1">{bannerInfo.courseTitle}</h1>
@@ -76,24 +76,24 @@ class TopBannerImage extends React.Component {
                     <div className="modal-wrapper" id="modal-ok">
                         <div className="window cv">
                             <div className="close aw close_window"><img className="svg svgR  " src="img/icons/close.svg" title="Icono"/></div>
-                            <div className="title">¡Felicidades!</div>
-                            <div className="intro center">Te has inscrito correctamente al curso <strong>"Etiam purus tortor, vehicula nec turpis vel, dictum scelerisque leo"</strong>. Te hemos enviado un email con los datos de tu inscripción.</div>
+                            <div className="title">Â¡Felicidades!</div>
+                            <div className="intro center">Te has inscrito correctamente al curso <strong>"Etiam purus tortor, vehicula nec turpis vel, dictum scelerisque leo"</strong>. Te hemos enviado un email con los datos de tu inscripciÃ³n.</div>
                         </div>
                     </div> 
                 </div>
-        );
-    }
+    );
+  }
 
 }
 
 const actionCreators = {
-    setCursoRegister
+  setCursoRegister
 };
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    };
+  return {
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(TopBannerImage);

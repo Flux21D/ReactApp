@@ -6,32 +6,32 @@ let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
 
 class TopBannerImage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        let bannerImage = '';
-        const {faq} = this.props;
-        if(faq.bannerContent.topBanner)
-            faq.bannerContent.topBanner.map(function(item) {
-                bannerImage = bannerImage + '<div className="section-header" style="background-image: url(' + item.imagePath + ')"><div className="content"><h1 className="size1">' + item.title + '</h1><p className="size3">' + item.description + '</p></div></div>';
-            });
-        const reactElement = htmlToReactParser.parse(bannerImage);
+  render() {
+    let bannerImage = '';
+    const {faq} = this.props;
+    if(faq.bannerContent.topBanner)
+      faq.bannerContent.topBanner.map(function(item) {
+        bannerImage = bannerImage + '<div className="section-header" style="background-image: url(' + item.imagePath + ')"><div className="content"><h1 className="size1">' + item.title + '</h1><p className="size3">' + item.description + '</p></div></div>';
+      });
+    const reactElement = htmlToReactParser.parse(bannerImage);
 
-        return (
+    return (
             <div>
                 {reactElement}
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        faq: state.faq,
-        auth: state.auth
-    };
+  return {
+    faq: state.faq,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps)(TopBannerImage);

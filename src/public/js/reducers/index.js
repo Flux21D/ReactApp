@@ -15,20 +15,20 @@ import profile from "./myprofile";
 import home from "./home";
 
 const rootReducer = combineReducers({
-	modal,
-	footer,
-	auth,
-	aboutus,
-	contactus,
-	faq,
-	calendario,
-	cursos,
-	cursosDetails,
-	cursosTutorials,
-	cursosEvaluation,
-	herramientas,
-	profile,
-	home
+  modal,
+  footer,
+  auth,
+  aboutus,
+  contactus,
+  faq,
+  calendario,
+  cursos,
+  cursosDetails,
+  cursosTutorials,
+  cursosEvaluation,
+  herramientas,
+  profile,
+  home
 });
 
 export default rootReducer;

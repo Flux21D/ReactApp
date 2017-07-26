@@ -8,18 +8,18 @@ import { postLoginFunctionality } from "../../../utils/custom.jquery";
 
 class PostLoginHeader extends React.Component {
 
-    constructor (props) {
-        super(props);
-    }
+  constructor (props) {
+    super(props);
+  }
 
-    componentDidMount()
+  componentDidMount()
     {
-        postLoginFunctionality();
-    }
+    postLoginFunctionality();
+  }
 
-    render () {
-        const {location} = this.props;
-        return ( 
+  render () {
+    const {location} = this.props;
+    return ( 
             <section className="section-home-logged">
                 <header>
                     {/* link to user profile */}
@@ -75,14 +75,14 @@ class PostLoginHeader extends React.Component {
                     <div className="back-submenu-responsive"></div>
                 </header>
             </section>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    }
+  return {
+    auth: state.auth
+  }
 };
 
 export default withRouter(connect(mapStateToProps)(PostLoginHeader));

@@ -8,16 +8,16 @@ import { getFAQInfo } from "../../actions/faq";
 import $ from "jquery";
 
 class Questions extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount() {
-        this.props.getFAQInfo();
-    }
+  componentDidMount() {
+    this.props.getFAQInfo();
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-faq">
                     <TopBannerImage />
@@ -25,19 +25,19 @@ class Questions extends React.Component {
                     <FaqFooterImage />
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getFAQInfo
+  getFAQInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        faq: state.faq,
-        auth: state.auth
-    };
+  return {
+    faq: state.faq,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(Questions);

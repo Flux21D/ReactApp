@@ -9,24 +9,24 @@ import {replaceSVGIcons, playCarousel, stopCarousel} from "../../utils/custom.jq
 import $ from "jquery";
 
 class CourseComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount () {
-        let pageNum = 1;
-        this.props.getCursosInfo(pageNum, this.props.location.state).then(function() {
-            replaceSVGIcons();
-            playCarousel();
-        });
-    }
+  componentDidMount () {
+    let pageNum = 1;
+    this.props.getCursosInfo(pageNum, this.props.location.state).then(function() {
+      replaceSVGIcons();
+      playCarousel();
+    });
+  }
 
-    componentWillUnmount () {
-        stopCarousel();
-    }
+  componentWillUnmount () {
+    stopCarousel();
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-cursos">
                     <TopBannerSlider />
@@ -34,19 +34,19 @@ class CourseComponent extends React.Component {
                     <CourseEventContainer />
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getCursosInfo
+  getCursosInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        cursos: state.cursos,
-        auth: state.auth
-    };
+  return {
+    cursos: state.cursos,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(CourseComponent);

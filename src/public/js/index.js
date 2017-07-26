@@ -8,23 +8,23 @@ require('es6-promise').polyfill();
 import axios from "axios";
 
 window.GLOBALS = {
-    kalturaConfigs: {
-        partnerId: "1759891",
-        uiConfigId: "37835012"
-    }
+  kalturaConfigs: {
+    partnerId: "1759891",
+    uiConfigId: "37835012"
+  }
 };
 
 axios.interceptors.response.use(response => {
     // Do something with response data
-    return response;
+  return response;
 }, error => {
     // Do something with response error
-    if (error.response.status === 401) {
-        store.dispatch(logout());
-        browserHistory.push("login");
-    }
+  if (error.response.status === 401) {
+    store.dispatch(logout());
+    browserHistory.push("login");
+  }
 
-    return error;
+  return error;
 });
 
 // setAuthData();

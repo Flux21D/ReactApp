@@ -6,27 +6,27 @@ import HomeComponent from "../../home/home.component";
 
 class PostLoginBody extends React.Component {
 
-    constructor (props) {
-        super(props);
-    }
+  constructor (props) {
+    super(props);
+  }
 
-    render () {
-        return (
+  render () {
+    return (
             <div>
                 <HomeComponent />
                 {this.props.children}
             </div>
-        );
-    }
+    );
+  }
 }
 PostLoginBody.contextTypes = {
-    router: React.PropTypes.object.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    }
+  return {
+    auth: state.auth
+  }
 };
 
 export default connect(mapStateToProps)(PostLoginBody);

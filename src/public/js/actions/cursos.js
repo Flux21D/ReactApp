@@ -33,7 +33,7 @@ export function getCursosInfo (pageNo, searchObj) {
   if(searchObj && searchObj.courseType)
     queryParam = queryParam + (queryParam === '' ? ('?courseType=' + searchObj.courseType) : '&courseType=' + searchObj.courseType);
   if(searchObj && searchObj.accreditation)
-    queryParam = queryParam + (queryParam === '' ? ('?accredited=' + searchObj.accreditation) : '&accredited=' + searchObj.accreditation);
+    queryParam = queryParam + (queryParam === '' ? ('?accredted=' + searchObj.accreditation) : '&accredted=' + searchObj.accreditation);
 
   let userInfo = JSON.parse(sessionStorage.getItem('auth'));
   let config = {
@@ -81,19 +81,19 @@ export function sortCursos (sortBy, cursosObj) {
   });
 
   return dispatch => {      
-      dispatch(setCursosInfo({
-        courses: cursosObj
-      }));
+    dispatch(setCursosInfo({
+      courses: cursosObj
+    }));
   };
 }
 
 export function setFavCursos (uid, courseType, courseId) {
   let baseUrl = '/api/saveFav';
   let data = {
-            uid: uid,
-            type: courseType,
-            type_id: courseId
-        };
+    uid: uid,
+    type: courseType,
+    type_id: courseId
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {
@@ -120,9 +120,9 @@ export function setFavCursos (uid, courseType, courseId) {
 export function getProfileCursosDetail (courseId) {
   let baseUrl = '/api/getsubcontent';
   let data = {
-      content: courseId,
-      mockSlug: 'profileCourse'
-    };
+    content: courseId,
+    mockSlug: 'profileCourse'
+  };
 
   return dispatch => {
     return axios.post(baseUrl, data).then(response => {

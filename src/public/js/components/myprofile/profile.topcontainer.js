@@ -3,70 +3,72 @@ import {connect} from "react-redux";
 import {Link} from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
 import {logout} from "../../actions/auth";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
 
 class TopProfileContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.courseDetails = this.courseDetails.bind(this);
-        this.handleLogout = this.handleLogout.bind(this);
-    }
+    this.courseDetails = this.courseDetails.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
 
-    courseDetails(eve) {
-        let that = this;
-        this.props.getProfileCursosDetail([eve.id]).then(function() {
-            that.context.router.push({ 
-            pathname: '/coursedetail',
-            state: that.props.cursos.coursoDetailObj
-          });
-        });
-    }
+  courseDetails(eve) {
+    let that = this;
+    this.props.getProfileCursosDetail([eve.id]).then(function() {
+      that.context.router.push({ 
+        pathname: '/coursedetail',
+        state: that.props.cursos.coursoDetailObj
+      });
+    });
+  }
 
-    handleLogout () {
+  handleLogout () {
     janrain.capture.ui.endCaptureSession();
-        this.props.logout();
-        this.context.router.push("/");
-        window.location.reload();
-    }
+    this.props.logout();
+    this.context.router.push("/");
+    window.location.reload();
+  }
 
-    render() {
-        const {profile} = this.props;
-        let courseDetailsFunc = this.courseDetails;
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        let userName = userInfo.user.personalData_firstName + ' ' + userInfo.user.personalData_lastName;
+  render() {
+    const {profile} = this.props;
+    let courseDetailsFunc = this.courseDetails;
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    let userName = userInfo.user.personalData_firstName + ' ' + userInfo.user.personalData_lastName;
 
-        let myCourses;
-        if(profile.specialityCourses.length > 0)
-            myCourses = profile.specialityCourses.map(function(item, i) {
-                return (
+    let myCourses;
+    if(profile.specialityCourses.length > 0)
+      myCourses = profile.specialityCourses.map(function(item, i) {
+        return (
                     <Link id={i} title={item.name} className="curso"  onClick={() => courseDetailsFunc(item)} key={i}>{item.name}</Link>
-                )
-            });
-        else
+        )
+      });
+    else
             myCourses = [<p key='msg'>Todavía no has completado ningún curso</p>];
 
-        let myCalender = '';
-        let locale = "en-us";
-        let chkDuplicateEvent = [];
-        if(profile.userCalender.length > 0)
-            profile.userCalender.map(function(item) {
-                let objDate = new Date(item.start_date);
-                let dateMonth = objDate.getDate() + ' ' + objDate.toLocaleString(locale, { month: "short"});
+    let myCalender = '';
+    let locale = "en-us";
+    let chkDuplicateEvent = [];
+    if(profile.userCalender.length > 0)
+      profile.userCalender.map(function(item) {
+        let objDate = new Date(item.start_date);
+        let dateMonth = objDate.getDate() + ' ' + objDate.toLocaleString(locale, { month: "short"});
                 
-                if(chkDuplicateEvent.indexOf(item.id) < 0 && chkDuplicateEvent.length < 2) {
-                    chkDuplicateEvent.push(item.id);
-                    myCalender = myCalender + '<div class="event"><div class="date">' + dateMonth + '</div><div class="title">' + item.name + '</div><div class="clear"></div></div>';
-                }
-            });
-        else
+        if(chkDuplicateEvent.indexOf(item.id) < 0 && chkDuplicateEvent.length < 2) {
+          chkDuplicateEvent.push(item.id);
+          myCalender = myCalender + '<div class="event"><div class="date">' + dateMonth + '</div><div class="title">' + item.name + '</div><div class="clear"></div></div>';
+        }
+      });
+    else
             myCalender = '<a href="/calendario" class="title">Calendario</a>';
 
-        const myCalenderElement = htmlToReactParser.parse(myCalender);
+    const myCalenderElement = htmlToReactParser.parse(myCalender);
 
-        return (
+    return (
             <div className="content">
                 <div className="columns">
                     <div className="column col-3">
@@ -94,22 +96,22 @@ class TopProfileContainer extends React.Component {
                     <div className="clear"></div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 
 }
 
 const actionCreators = {
-    getProfileCursosDetail,
-    logout
+  getProfileCursosDetail,
+  logout
 };
 
 const mapStateToProps = (state) => {
-    return {
-        profile: state.profile,
-        cursos: state.cursos,
-        auth: state.auth
-    };
+  return {
+    profile: state.profile,
+    cursos: state.cursos,
+    auth: state.auth
+  };
 };
 
 TopProfileContainer.contextTypes = { 

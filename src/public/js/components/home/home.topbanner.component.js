@@ -3,40 +3,42 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 import { getProfileCursosDetail } from "../../actions/cursos";
 import { stopSliderCarousel } from "../../utils/custom.jquery";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 class TopBannerSlider extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.courseDetails = this.courseDetails.bind(this);
-        this.stopSlider = this.stopSlider.bind(this);
-    }
+    this.courseDetails = this.courseDetails.bind(this);
+    this.stopSlider = this.stopSlider.bind(this);
+  }
 
-    courseDetails(eve) {
-        let that = this;
-        this.props.getProfileCursosDetail(['2LZi5fjMHCg022wO4aeMMC']).then(function() {
-            that.context.router.push({ 
-            pathname: '/coursedetail',
-            state: that.props.cursos.coursoDetailObj
-          });
-        });
-    }
+  courseDetails(eve) {
+    let that = this;
+    this.props.getProfileCursosDetail(['2LZi5fjMHCg022wO4aeMMC']).then(function() {
+      that.context.router.push({ 
+        pathname: '/coursedetail',
+        state: that.props.cursos.coursoDetailObj
+      });
+    });
+  }
 
-    stopSlider(divId) {
-        setTimeout(function() { stopSliderCarousel(divId); }, 2000);
-    }
+  stopSlider(divId) {
+    setTimeout(function() { stopSliderCarousel(divId); }, 2000);
+  }
 
-    render() {
-        const {homeInfo} = this.props;
-        let courseDetailsFunc = this.courseDetails;
-        let userInfo = JSON.parse(sessionStorage.getItem('auth'));
-        let showDefaultBannerImage = true, topBannerSlides = [];
+  render() {
+    const {homeInfo} = this.props;
+    let courseDetailsFunc = this.courseDetails;
+    let userInfo = JSON.parse(sessionStorage.getItem('auth'));
+    let showDefaultBannerImage = true, topBannerSlides = [];
 
-        topBannerSlides = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            if(userInfo.user.isdelegate || item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
-                let url = 'url(' + item.imagePath + ')';
-                showDefaultBannerImage = false;
-                return (
+    topBannerSlides = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
+      if(userInfo.user.isdelegate || item.speciality.trim().toLowerCase().split(/\s*,\s*/).indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
+        let url = 'url(' + item.imagePath + ')';
+        showDefaultBannerImage = false;
+        return (
                     <div className="slide" style={{backgroundImage: url}} key={i}>
                         {
                             item.buttonLinks ? 
@@ -54,28 +56,28 @@ class TopBannerSlider extends React.Component {
                             </div>
                         }
                     </div>
-                )
-            }
-        }).filter(function(item) {return item});
+        )
+      }
+    }).filter(function(item) {return item});
 
-        let topBannerPaginator = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
-            if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
-                return (
-                    <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
-                )
-            }
-        });
-
-        if(homeInfo.bannerContent.topBanner) {
-            if(showDefaultBannerImage) {
-                topBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/home-logged/slide.jpg)'}}></div>
-                this.stopSlider('slider-1');
-            } else if(topBannerSlides.length === 1) {
-                this.stopSlider('slider-1');
-            }
-        }
-
+    let topBannerPaginator = homeInfo.bannerContent.topBanner && homeInfo.bannerContent.topBanner.map(function(item, i) {
+      if(userInfo.user.isdelegate || item.speciality.toLowerCase().indexOf((userInfo.user.professionalData_specialty).toLowerCase()) > -1) {
         return (
+                    <div key={i}><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>
+        )
+      }
+    });
+
+    if(homeInfo.bannerContent.topBanner) {
+      if(showDefaultBannerImage) {
+        topBannerSlides = <div className="slide" style={{backgroundImage: 'url(img/home-logged/slide.jpg)'}}></div>
+        this.stopSlider('slider-1');
+      } else if(topBannerSlides.length === 1) {
+        this.stopSlider('slider-1');
+      }
+    }
+
+    return (
             <div className="slider-header" id="slider-1">
                 <div className="slides">
                     {topBannerSlides}
@@ -84,20 +86,20 @@ class TopBannerSlider extends React.Component {
                     {topBannerPaginator}
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getProfileCursosDetail
+  getProfileCursosDetail
 };
 
 const mapStateToProps = (state) => {
-    return {
-        homeInfo: state.home,
-        cursos: state.cursos,
-        auth: state.auth
-    };
+  return {
+    homeInfo: state.home,
+    cursos: state.cursos,
+    auth: state.auth
+  };
 };
 
 TopBannerSlider.contextTypes = { 

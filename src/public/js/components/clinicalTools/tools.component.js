@@ -8,40 +8,40 @@ import { replaceSVGIcons, openHerramientasPopup, closeHerramientasPopup } from "
 import $ from "jquery";
 
 class ToolsComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount () {
-        let pageNum = 1;
-        this.props.getHerramientasInfo(pageNum).then(function() {
-            replaceSVGIcons();
-            openHerramientasPopup();
-            closeHerramientasPopup();
-        });
-    }
+  componentDidMount () {
+    let pageNum = 1;
+    this.props.getHerramientasInfo(pageNum).then(function() {
+      replaceSVGIcons();
+      openHerramientasPopup();
+      closeHerramientasPopup();
+    });
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div>
                 <div className="page section-herramientas">
                     <TopBannerImage />
                     <ToolBoxContainer />
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getHerramientasInfo
+  getHerramientasInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        herramientas: state.herramientas,
-        auth: state.auth
-    };
+  return {
+    herramientas: state.herramientas,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps, actionCreators)(ToolsComponent);

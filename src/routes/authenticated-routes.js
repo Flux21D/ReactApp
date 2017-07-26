@@ -14,16 +14,16 @@ auth.authenticate(router);
 
 router.get('*', (req, res) => {
   return res.render('index', {
-        layout: false,
-        gtmContainerId: GTMConfigs.CONTAINER_ID
-      });
+    layout: false,
+    gtmContainerId: GTMConfigs.CONTAINER_ID
+  });
 });
 
 router.get('/', (req, res) => {
   return res.render('index', {
-        layout: false,
-        gtmContainerId: GTMConfigs.CONTAINER_ID
-      });
+    layout: false,
+    gtmContainerId: GTMConfigs.CONTAINER_ID
+  });
 });
 
 // index route

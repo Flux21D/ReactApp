@@ -8,28 +8,28 @@ import FooterComponent from "../shared/footer/footer.component";
 import $ from "jquery";
 
 class TermsConditions extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentDidMount () {
+  componentDidMount () {
 
-    }
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div className="page section-texto-legal">
                 <TopBannerImage />
                 <PrivacyPolicy />
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    };
+  return {
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps)(TermsConditions);

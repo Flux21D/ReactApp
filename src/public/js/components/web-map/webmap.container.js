@@ -3,12 +3,12 @@ import {Link} from "react-router";
 import {connect} from "react-redux";
 
 class WebmapContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <div className="content html-text padding-sides-responsive">
                 <ul>
                     <li><Link title="Home" to="/home">Home</Link>        
@@ -31,15 +31,15 @@ class WebmapContainer extends React.Component {
                 </ul>
                 
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        calendario: state.calendario,
-        auth: state.auth
-    };
+  return {
+    calendario: state.calendario,
+    auth: state.auth
+  };
 };
 
 export default connect(mapStateToProps)(WebmapContainer);

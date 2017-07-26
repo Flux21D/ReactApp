@@ -12,35 +12,35 @@ import $ from "jquery";
 
 class CourseDetailsComponent extends React.Component {
     
-    state = {
-        courseType: 'mixedCourse',
-        isCourseRegistered: false
-    };
+  state = {
+    courseType: 'mixedCourse',
+    isCourseRegistered: false
+  };
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.setScreen = this.setScreen.bind(this);
-        this.toggleCourseRegister = this.toggleCourseRegister.bind(this);
-    }
+    this.setScreen = this.setScreen.bind(this);
+    this.toggleCourseRegister = this.toggleCourseRegister.bind(this);
+  }
 
-    componentDidMount () {
+  componentDidMount () {
         //this.props.getCursosDetailsInfo();
-    }
+  }
 
-    setScreen (screen) {
-        this.setState({
-            courseType: screen
-        });
-    }
+  setScreen (screen) {
+    this.setState({
+      courseType: screen
+    });
+  }
 
-    toggleCourseRegister() {
-        this.setState({isCourseRegistered: true});
-    }
+  toggleCourseRegister() {
+    this.setState({isCourseRegistered: true});
+  }
 
-    render() {
-        const {cursosDetails, location} = this.props;
-        return (
+  render() {
+    const {cursosDetails, location} = this.props;
+    return (
             <div>
                 <div className="page section-curso">
                     <TopBannerImage toggleCourseRegister={this.toggleCourseRegister} bannerInfo={location.state}/>
@@ -54,19 +54,19 @@ class CourseDetailsComponent extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    getCursosDetailsInfo
+  getCursosDetailsInfo
 };
 
 const mapStateToProps = (state) => {
-    return {
-        cursosDetails: state.cursosDetails,
-        auth: state.auth
-    };
+  return {
+    cursosDetails: state.cursosDetails,
+    auth: state.auth
+  };
 };
 
 

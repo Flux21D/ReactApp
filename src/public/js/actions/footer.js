@@ -18,7 +18,7 @@ export function setTermsInfo (footerTerms) {
 
 function extractTermsInfo(val)
 {
-	return val['identifier'] ? {'title':val['someShortText'] , 'description':val['someLontText']} : null
+  return val['identifier'] ? {'title':val['someShortText'] , 'description':val['someLontText']} : null
 }
 
 export function getFooterInfo () {

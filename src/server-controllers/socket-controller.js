@@ -3,17 +3,17 @@ var io = null;
 
 const initSocket = (app) => {
 	//var http = require('http').Server(app);
-	io = require('socket.io').listen(app);
+  io = require('socket.io').listen(app);
 
-	io.on('connection', function(socket){
+  io.on('connection', function(socket){
 	  	console.log('a user connected');
 	   	socket.on('uuid', function(uuid) {
 	        socket.join(uuid,function(){
 	 			console.log('rooms', socket.rooms); // here you'll see two rooms: one with socket.id and another with data.newroom
-				console.log(cache.get(uuid));
-				if(cache.get(uuid))
-					socket.emit('count',cache.get(uuid));	
-			});
+          console.log(cache.get(uuid));
+          if(cache.get(uuid))
+            socket.emit('count',cache.get(uuid));	
+        });
 	    });
 
    		socket.on('disconnect', function() {
@@ -22,15 +22,15 @@ const initSocket = (app) => {
      			//io.in(room).emit('user:disconnect', {id: socket.id});
      			console.dir(socket.rooms);
  			//});
-		});
-	});
+   });
+  });
 }
 
 const sendNotification = (uid,count)=>{
-	io.sockets.in(uid).emit('count', count);
+  io.sockets.in(uid).emit('count', count);
 }
 
 module.exports = {
-	initSocket,
-	sendNotification
+  initSocket,
+  sendNotification
 }

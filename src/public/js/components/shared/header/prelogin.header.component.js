@@ -3,12 +3,12 @@ import {Link} from "react-router";
 import $ from "jquery";
 
 class PreLoginHeader extends React.Component {
-    constructor (props) {
-        super(props);
-    }
+  constructor (props) {
+    super(props);
+  }
 
-    render () {
-        return (
+  render () {
+    return (
             <section className="section-home">
                 <header>
                     <div className="content">
@@ -30,12 +30,12 @@ class PreLoginHeader extends React.Component {
                     </div>
                 </header>
             </section>
-        );
-    }
+    );
+  }
 }
 
 PreLoginHeader.contextTypes = {
-    router: React.PropTypes.object.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 export default PreLoginHeader;

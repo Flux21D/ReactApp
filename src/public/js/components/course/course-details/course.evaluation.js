@@ -3,115 +3,117 @@ import {connect} from "react-redux";
 import {Link} from "react-router";
 import { cursosEvaluationResult } from "../../../actions/cursos.evaluation";
 import {replaceSVGIcons} from "../../../utils/custom.jquery";
+/* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
+/* eslint-env es6 */
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
 
 class CourseEvaluation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.tempObj = {};
+  constructor(props) {
+    super(props);
+    this.tempObj = {};
 
-        this.evaluateCourse = this.evaluateCourse.bind(this);
-        this.checkBoxHandler = this.checkBoxHandler.bind(this);
-        this.evaluateBtnHandler = this.evaluateBtnHandler.bind(this);
-        this.certificateBtnHandler = this.certificateBtnHandler.bind(this);
-    }
+    this.evaluateCourse = this.evaluateCourse.bind(this);
+    this.checkBoxHandler = this.checkBoxHandler.bind(this);
+    this.evaluateBtnHandler = this.evaluateBtnHandler.bind(this);
+    this.certificateBtnHandler = this.certificateBtnHandler.bind(this);
+  }
 
-    state = {
-        isEvaluate: false
+  state = {
+    isEvaluate: false
+  };
+
+  componentDidMount () {
+    this.componentDidUpdate();
+  }
+
+  componentDidUpdate() {
+    let questionsObj = this.props.courseInfo.courseEvaluators;
+    for (let i = 1; i <= questionsObj.length; i++) {
+      this.tempObj[i] = {correctAns: questionsObj[i-1].fields.correctAnswer, resp: ''};
+      let a = document.getElementById(i+'.A');
+      a ? a.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
+      let b = document.getElementById(i+'.B');
+      b ? b.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
+      let c = document.getElementById(i+'.C');
+      c ? c.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
+      let d = document.getElementById(i+'.D');
+      d ? d.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
     };
 
-    componentDidMount () {
-        this.componentDidUpdate();
+    if(this.state.isEvaluate) {
+      replaceSVGIcons();
     }
+  };
 
-    componentDidUpdate() {
-        let questionsObj = this.props.courseInfo.courseEvaluators;
-        for (let i = 1; i <= questionsObj.length; i++) {
-            this.tempObj[i] = {correctAns: questionsObj[i-1].fields.correctAnswer, resp: ''};
-            let a = document.getElementById(i+'.A');
-            a ? a.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
-            let b = document.getElementById(i+'.B');
-            b ? b.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
-            let c = document.getElementById(i+'.C');
-            c ? c.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
-            let d = document.getElementById(i+'.D');
-            d ? d.addEventListener('click', this.checkBoxHandler.bind(this)) : '';
-        };
+  checkBoxHandler(eve) {
+    let option = eve.target.id.split('.');
+    let evalObject = this.tempObj[option[0]];
+    if(eve.target.checked) {
+      evalObject.resp = option[1];
+    }
+    eve.stopImmediatePropagation();
+  }
 
-        if(this.state.isEvaluate) {
-            replaceSVGIcons();
-        }
+  evaluateBtnHandler(evaluate) {
+    this.setState({isEvaluate: evaluate});
+  }
+
+  evaluateCourse(percentage) {
+    let status = percentage < 70 ? 'fail' : 'pass';
+    let credits = this.props.courseInfo.credits ? this.props.courseInfo.credits.split(' ')[0] : '';
+    let evaluationObj = {
+      percentage: percentage,
+      courseId: this.props.courseInfo.sysid,
+      status: status,
+      credits: credits,
+      accreditation: this.props.courseInfo.officialAccreditation,
+      courseTitle: this.props.courseInfo.courseTitle
     };
+    this.props.cursosEvaluationResult(evaluationObj);
+  }
 
-    checkBoxHandler(eve) {
-        let option = eve.target.id.split('.');
-        let evalObject = this.tempObj[option[0]];
-        if(eve.target.checked) {
-            evalObject.resp = option[1];
+  certificateBtnHandler() {
+    this.props.courseInfo.sourcePath = 'course';
+    this.props.courseInfo.courseCompletionDate = new Date().toLocaleDateString();
+    this.context.router.push({ 
+      pathname: '/acreditacion',
+      state: this.props.courseInfo
+    });
+  }
+
+  render() {
+    const {courseInfo} = this.props;
+    let question = '';
+    let that = this;
+    let totalQuestions = courseInfo.courseEvaluators.length;
+    let totlMarksObtained = 0, percentageObtained = 0;
+    courseInfo.courseEvaluators.map(function(item, index) {
+      let evalInfo = item.fields;
+      let quesNo = index + 1;
+      if(that.state.isEvaluate) {
+        let evalObj = that.tempObj[quesNo];
+        (evalObj.resp === evalInfo.correctAnswer) ? ++totlMarksObtained : '';
+        let quesClass = (evalObj.resp !== evalInfo.correctAnswer) ? 'question question-ko' : 'question question-ok';
+        let optAclass = evalInfo.correctAnswer === 'A' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'A') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
+        let optBclass = evalInfo.correctAnswer === 'B' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'B') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
+        let optCclass = evalInfo.correctAnswer === 'C' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'C') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
+        let optDclass = evalInfo.correctAnswer === 'D' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'D') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
+        question = question + '<div class="qa"><div class="' + quesClass  + '"><div class="num">' + quesNo + '</div><div class="text">' + evalInfo.question + '</div><div class="clear"></div></div><div class="answer"><div class="' + optAclass[0] + '"><div class="input"><span class="aw"><img class="' + optAclass[1] + '" src="img/icons/' + optAclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.A + '</label></div><div class="clear"></div></div><div class="' + optBclass[0] + '"><div class="input"><span class="aw"><img class="' + optBclass[1] + '" src="img/icons/' + optBclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.B + '</label></div><div class="clear"></div></div><div class="' + optCclass[0] + '"><div class="input"><span class="aw"><img class="' + optCclass[1] + '" src="img/icons/' + optCclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.C + '</label></div><div class="clear"></div></div><div class="' + optDclass[0] + '"><div class="input"><span class="aw"><img class="' + optDclass[1] + '" src="img/icons/' + optDclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.D + '</label></div><div class="clear"></div></div><div class="clear"></div></div></div>';
+
+        if(quesNo === totalQuestions) {
+          percentageObtained = (totlMarksObtained / totalQuestions) * 100;
+          that.evaluateCourse(percentageObtained.toFixed(2));
         }
-        eve.stopImmediatePropagation();
-    }
+      } else {
+        question = question + '<div class="qa"><div class="question"><div class="num">' + quesNo + '</div><div class="text">' + evalInfo.question + '</div><div class="clear"></div></div><div class="answer"><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.A" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.A">' + evalInfo.A + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.B" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.B">' + evalInfo.B + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.C" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.C">' + evalInfo.C + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.D" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.D">' + evalInfo.D + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="clear"></div></div></div>';
+      }
+    });
 
-    evaluateBtnHandler(evaluate) {
-        this.setState({isEvaluate: evaluate});
-    }
+    const questionElement = htmlToReactParser.parse(question);
 
-    evaluateCourse(percentage) {
-        let status = percentage < 70 ? 'fail' : 'pass';
-        let credits = this.props.courseInfo.credits ? this.props.courseInfo.credits.split(' ')[0] : '';
-        let evaluationObj = {
-            percentage: percentage,
-            courseId: this.props.courseInfo.sysid,
-            status: status,
-            credits: credits,
-            accreditation: this.props.courseInfo.officialAccreditation,
-            courseTitle: this.props.courseInfo.courseTitle
-        };
-        this.props.cursosEvaluationResult(evaluationObj);
-    }
-
-    certificateBtnHandler() {
-        this.props.courseInfo.sourcePath = 'course';
-        this.props.courseInfo.courseCompletionDate = new Date().toLocaleDateString();
-        this.context.router.push({ 
-            pathname: '/acreditacion',
-            state: this.props.courseInfo
-        });
-    }
-
-    render() {
-        const {courseInfo} = this.props;
-        let question = '';
-        let that = this;
-        let totalQuestions = courseInfo.courseEvaluators.length;
-        let totlMarksObtained = 0, percentageObtained = 0;
-        courseInfo.courseEvaluators.map(function(item, index) {
-            let evalInfo = item.fields;
-            let quesNo = index + 1;
-            if(that.state.isEvaluate) {
-                let evalObj = that.tempObj[quesNo];
-                (evalObj.resp === evalInfo.correctAnswer) ? ++totlMarksObtained : '';
-                let quesClass = (evalObj.resp !== evalInfo.correctAnswer) ? 'question question-ko' : 'question question-ok';
-                let optAclass = evalInfo.correctAnswer === 'A' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'A') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
-                let optBclass = evalInfo.correctAnswer === 'B' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'B') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
-                let optCclass = evalInfo.correctAnswer === 'C' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'C') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
-                let optDclass = evalInfo.correctAnswer === 'D' ? ['option option-ok', 'svg svgV', 'check-circle.svg'] : ((evalObj.resp !== 'D') ? ['option', 'svg svgG', 'circle.svg'] : ['option option-ko', 'svg svgR', 'times-circle.svg']);
-                question = question + '<div class="qa"><div class="' + quesClass  + '"><div class="num">' + quesNo + '</div><div class="text">' + evalInfo.question + '</div><div class="clear"></div></div><div class="answer"><div class="' + optAclass[0] + '"><div class="input"><span class="aw"><img class="' + optAclass[1] + '" src="img/icons/' + optAclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.A + '</label></div><div class="clear"></div></div><div class="' + optBclass[0] + '"><div class="input"><span class="aw"><img class="' + optBclass[1] + '" src="img/icons/' + optBclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.B + '</label></div><div class="clear"></div></div><div class="' + optCclass[0] + '"><div class="input"><span class="aw"><img class="' + optCclass[1] + '" src="img/icons/' + optCclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.C + '</label></div><div class="clear"></div></div><div class="' + optDclass[0] + '"><div class="input"><span class="aw"><img class="' + optDclass[1] + '" src="img/icons/' + optDclass[2] + '" title="Icono"/></span></div><div class="text"><label>' + evalInfo.D + '</label></div><div class="clear"></div></div><div class="clear"></div></div></div>';
-
-                if(quesNo === totalQuestions) {
-                    percentageObtained = (totlMarksObtained / totalQuestions) * 100;
-                    that.evaluateCourse(percentageObtained.toFixed(2));
-                }
-            } else {
-                question = question + '<div class="qa"><div class="question"><div class="num">' + quesNo + '</div><div class="text">' + evalInfo.question + '</div><div class="clear"></div></div><div class="answer"><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.A" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.A">' + evalInfo.A + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.B" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.B">' + evalInfo.B + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.C" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.C">' + evalInfo.C + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="option"><div class="input"><input type="radio" value="1" id="' + quesNo + '.D" name="' + quesNo + '" /></div><div class="text"><label htmlFor="' + quesNo + '.D">' + evalInfo.D + '</label></div><div class="clear"></div></div><div class="clear"></div><div class="clear"></div></div></div>';
-            }
-        });
-
-        const questionElement = htmlToReactParser.parse(question);
-
-        return (
+    return (
             <div className="col-left">
                 <div className="sub-page-evaluacion">
                     <h2 className="title-big nmt"><strong>Evaluación</strong></h2>
@@ -161,19 +163,19 @@ class CourseEvaluation extends React.Component {
                     </div>
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const actionCreators = {
-    cursosEvaluationResult
+  cursosEvaluationResult
 };
 
 const mapStateToProps = (state) => {
-    return {
-        cursosEvaluation: state.cursosEvaluation,
-        auth: state.auth
-    };
+  return {
+    cursosEvaluation: state.cursosEvaluation,
+    auth: state.auth
+  };
 };
 
 CourseEvaluation.contextTypes = { 

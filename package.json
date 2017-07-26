@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts":{
-    "test": "./tests/codecheck",
+    "test": "./tests/codecheck gulp mocha && gulp lint",
     "gulp": "./gulpfile.js",
     "unit-test": "gulp mocha",
     "prestart-parallel": "npm run unit-test",

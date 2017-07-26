@@ -550,7 +550,7 @@ const modifyCourseData = (typeObj,courses,popularity,fav,reg,options = {},search
                 } else filter = true;
               }    
             }
-            if(options.accreditation && ((options.accreditation.toLowerCase() === 'yes' && !c.officialAccreditation) || (options.accreditation.toLowerCase() === 'no' && c.officialAccreditation) ))
+            if(options.accredted && ((options.accredted.toLowerCase() === 'yes' && !c.officialAccreditation) || (options.accredted.toLowerCase() === 'no' && c.officialAccreditation) ))
               filter = true;
             if(options.city && c.city && options.city.toLowerCase() !== c.city.toLowerCase())
               filter = true;

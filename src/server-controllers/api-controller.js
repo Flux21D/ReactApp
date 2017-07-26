@@ -23,7 +23,7 @@ const getContent = (req,res) => {
   if (req.query.keyword)
     options.keyword = sanitizer.escape(req.query.keyword);
   if (req.query.accredted)
-    options.accreditation = sanitizer.escape(req.query.accredted);
+    options.accredted = sanitizer.escape(req.query.accredted);
   if (req.query.city)
     options.city = sanitizer.escape(req.query.city);
   if (req.query.country)

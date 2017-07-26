@@ -13,7 +13,7 @@
       }
     ],
     "no-param-reassign": [
-      2,
+      "error",
       {
         "props": false
       }

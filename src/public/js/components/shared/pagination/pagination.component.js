@@ -104,7 +104,7 @@ class Pagination extends React.Component {
     let paginationElement = '';
     for (var i = this.state.firstPage; i <= this.state.lastPage; i++) {
       let activeClass = this.props.activePageNo === i ? "page active" : "page";
-      paginationElement = paginationElement + '<a id="' + i + '" title="P�gina ' + i + '" className="' + activeClass + '">' + i + '</a>';
+      paginationElement = paginationElement + '<a id="' + i + '" title="Página ' + i + '" className="' + activeClass + '">' + i + '</a>';
     }
     const reactElement = htmlToReactParser.parse(paginationElement);
         

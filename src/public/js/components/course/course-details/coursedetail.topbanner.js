@@ -19,7 +19,7 @@ class TopBannerImage extends React.Component {
     let that = this;
         //course-register ok window
     $('a.inscribirse').click(function () {
-      if (confirm('�Seguro que deseas inscribirte a este curso?')) {
+      if (confirm('¿Seguro que deseas inscribirte a este curso?')) {
         that.registerCourse();
         $('#modal-ok').fadeIn();
       }
@@ -76,8 +76,8 @@ class TopBannerImage extends React.Component {
                     <div className="modal-wrapper" id="modal-ok">
                         <div className="window cv">
                             <div className="close aw close_window"><img className="svg svgR  " src="img/icons/close.svg" title="Icono"/></div>
-                            <div className="title">�Felicidades!</div>
-                            <div className="intro center">Te has inscrito correctamente al curso <strong>"Etiam purus tortor, vehicula nec turpis vel, dictum scelerisque leo"</strong>. Te hemos enviado un email con los datos de tu inscripci�n.</div>
+                            <div className="title">¡Felicidades!</div>
+                            <div className="intro center">Te has inscrito correctamente al curso <strong>"Etiam purus tortor, vehicula nec turpis vel, dictum scelerisque leo"</strong>. Te hemos enviado un email con los datos de tu inscripción.</div>
                         </div>
                     </div> 
                 </div>

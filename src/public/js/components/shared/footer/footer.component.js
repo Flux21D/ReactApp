@@ -24,9 +24,9 @@ class FooterComponent extends React.Component {
                             <br className="only-desktop" /> Esta p&#225;gina Web ha sido publicada por Lilly, S.A.U. Enero de 2017 &#8211; ESXXXXXXXX</p>
                     </div>
                     <div className="right-col">
-                        <span className="nobreak"><a target="_blank" title="T�rminos y condiciones" href="https://pages.mc.lilly.com/page.aspx?QS=472529ec60bdf32a0b05d7aed00dc392aad7b41b0f5a85bccd5b72cc006e0ded">T&#233;rminos y condiciones</a></span> |
-                        <span className="nobreak"><a target="_blank" title="Pol�tica de privacidad" href="https://pages.mc.lilly.com/page.aspx?QS=472529ec60bdf32a6b7c20d354e562edbb0aaee1b1b2bd088d2337a7429c1be1"> Pol&#237;tica de privacidad</a></span> |
-                        <span className="nobreak"><a target="_blank" title="Pol�tica de cookies" href="https://pages.mc.lilly.com/page.aspx?QS=472529ec60bdf32a93981243b38aec88fd2b25d88a5743cb6a319f6361880642"> Pol&#237;tica de cookies</a></span>
+                        <span className="nobreak"><a target="_blank" title="Términos y condiciones" href="https://pages.mc.lilly.com/page.aspx?QS=472529ec60bdf32a0b05d7aed00dc392aad7b41b0f5a85bccd5b72cc006e0ded">T&#233;rminos y condiciones</a></span> |
+                        <span className="nobreak"><a target="_blank" title="Política de privacidad" href="https://pages.mc.lilly.com/page.aspx?QS=472529ec60bdf32a6b7c20d354e562edbb0aaee1b1b2bd088d2337a7429c1be1"> Pol&#237;tica de privacidad</a></span> |
+                        <span className="nobreak"><a target="_blank" title="Política de cookies" href="https://pages.mc.lilly.com/page.aspx?QS=472529ec60bdf32a93981243b38aec88fd2b25d88a5743cb6a319f6361880642"> Pol&#237;tica de cookies</a></span>
                         { this.props.auth.accessToken ? (<span className="nobreak"><Link to="/webMap"> | Mapa web</Link></span> ) : '' } 
                         { this.props.auth.accessToken ? <span className="nobreak"><Link to="/about"> | Qui&#233;nes somos</Link></span> : '' }
                     </div>

@@ -13,13 +13,13 @@ const webTab = [ '/:Login:Home',
   '/cursos:Cursos',
   '/coursedetail:Curso',
   '/calendario:Calendario',
-  '/herramientas:Herramientas cl�nicas',
+  '/herramientas:Herramientas clínicas',
   '/faq:Preguntas Frecuentes',
   '/contact:Contactar',
   '/myprofile:Mi perfil',
-  '/about:Qui�nes somos',
+  '/about:Quiénes somos',
   '/webMap:Mapa Web',
-  '/acreditacion:Acreditaci�n'
+  '/acreditacion:Acreditación'
 ];
 
 function getTitle(path, auth) {

@@ -50,7 +50,7 @@ export function selectDropdown() {
 //course-register ok window
 export function courseRegisterOkWindow() {
   $('a.inscribirse').click(function () {
-    if (confirm('�Seguro que deseas inscribirte a este curso?')) {
+    if (confirm('¿Seguro que deseas inscribirte a este curso?')) {
       $('#modal-ok').fadeIn();
     }
   });

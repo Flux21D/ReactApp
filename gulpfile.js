@@ -48,11 +48,11 @@ gulp.task('babelify-web', () => {
 });
 
 gulp.task('babelify', () => {
-    return gulp.src(['./src/**/*.js', '!./src/public/**/*.js'])
-        .pipe(babel({
-            presets: ['es2015', 'stage-2'],
-        }))
-        .pipe(gulp.dest('./lib'));
+  return gulp.src(['./src/**/*.js', '!./src/public/**/*.js'])
+    .pipe(babel({
+      presets: ['es2015', 'stage-2'],
+    }))
+    .pipe(gulp.dest('./lib'));
 });
 
 /*  -----------------------  */
@@ -64,10 +64,10 @@ gulp.task('babelify', () => {
     public/js to in the lib be rendered on the browser. */
 gulp.task('browserify', () => {
   return browserify('src/client-controllers/main.js')
-        .transform('babelify')
-        .bundle()
-        .pipe(source('bundle.js')) // this is the output file name
-        .pipe(gulp.dest('./lib/public/js/')); // and this is where it ends up
+    .transform('babelify')
+    .bundle()
+    .pipe(source('bundle.js')) // this is the output file name
+    .pipe(gulp.dest('./lib/public/js/')); // and this is where it ends up
 });
 
 /*  -----------------------  */
@@ -78,30 +78,30 @@ gulp.task('browserify', () => {
     If no compression is possible it simply copies the file from src to lib.*/
 gulp.task('image', () => {
   return gulp.src('./src/public/img/**/*')
-        .pipe(imagemin())
-        .pipe(gulp.dest('lib/public/img/'));
+    .pipe(imagemin())
+    .pipe(gulp.dest('lib/public/img/'));
 });
 
 /*  -----------------------  */
 
 gulp.task('less', () => {
-    gulp.src(ROOT_DEV_PATH + 'less/master.less')
-        .pipe(less())
-        .pipe(gulp.dest(ROOT_PROD_PATH + 'css'));
+  gulp.src(ROOT_DEV_PATH + 'less/master.less')
+    .pipe(less())
+    .pipe(gulp.dest(ROOT_PROD_PATH + 'css'));
 });
 
 gulp.task('font', () => {
-    return gulp.src(ROOT_DEV_PATH + 'fonts/**/*')
-        .pipe(gulp.dest(ROOT_PROD_PATH + 'fonts/'));
+  return gulp.src(ROOT_DEV_PATH + 'fonts/**/*')
+    .pipe(gulp.dest(ROOT_PROD_PATH + 'fonts/'));
 });
 
 gulp.task('copy', () => {
-    gulp.src(ROOT_DEV_PATH + 'robots.txt')
-        .pipe(gulp.dest(ROOT_PROD_PATH))
+  gulp.src(ROOT_DEV_PATH + 'robots.txt')
+    .pipe(gulp.dest(ROOT_PROD_PATH))
 });
 
 gulp.task('clear', () => {
-    return del('./lib');
+  return del('./lib');
 });
 
 /* SASS TASKS  */
@@ -110,8 +110,8 @@ gulp.task('clear', () => {
     directory.*/
 gulp.task('sass', () => {
   return gulp.src('./src/public/scss/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./lib/public/css'));
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./lib/public/css'));
 });
 
 /*  -----------------------  */
@@ -142,7 +142,7 @@ gulp.task('minify-xml-transfer', () => {
     found in the .eslintrc file, this test is being called from 'npm test' */
 gulp.task('lint', () => {
   return gulp.src(['**/**/*.js', '!node_modules/**', '!lib/**', '!src/public/js/bundle.js', '!src/public/vendor/*.js'])
-        .pipe(eslint()).pipe(eslint.format()).pipe(eslint.failAfterError());
+    .pipe(eslint()).pipe(eslint.format()).pipe(eslint.failAfterError());
 });
 
 /*  -----------------------  */
@@ -162,10 +162,10 @@ gulp.task('minify-js-vendor', () => {
 /*  The purpose of this task is to minify CSS code that the project uses. */
 gulp.task('minify-css-vendor', () => {
   return gulp.src('src/public/vendor/*.css')
-        .pipe(cleanCSS({
-          compatibility: 'ie8',
-        }))
-        .pipe(gulp.dest('lib/public/vendor'));
+    .pipe(cleanCSS({
+      compatibility: 'ie8',
+    }))
+    .pipe(gulp.dest('lib/public/vendor'));
 });
 
 gulp.task('minify-css-styles', () => {
@@ -195,7 +195,7 @@ gulp.task('minify-js', () => {
 /*  This is the default task and watches any folder / file which changes.
     The structure goes: ([Folders / Files to Watch], [Gulp Task]) */
 gulp.task('watch', () => {
-   gulp.watch(['./src/**/*.js', '!./src/public/**/*.js'], ['babelify']);
+  gulp.watch(['./src/**/*.js', '!./src/public/**/*.js'], ['babelify']);
   gulp.watch(['./src/routes/*.js'], ['babelify-routes']);
   gulp.watch(['./src/web/*.js'], ['babelify-web']);
   gulp.watch(['./src/public/img/*'], ['image']);

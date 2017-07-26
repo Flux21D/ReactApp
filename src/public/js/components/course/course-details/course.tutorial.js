@@ -64,7 +64,7 @@ class CourseTutorial extends React.Component {
                     <div className="modal-wrapper" id="modal-thanks">
                         <div className="window cv">
                             <div className="close aw close_window" onClick={this.clearFields}><img className="svg svgR  " src="img/icons/close.svg" title="Icono" /></div>
-                            <div className="title">Gracias por la sumisi�n!</div>
+                            <div className="title">Gracias por la sumisión!</div>
                             <div className="links center">
                                 <a title="Aceptar" className="button close_window" id="link-ok" target="_blank" onClick={this.clearFields}>Bueno</a>
                             </div>

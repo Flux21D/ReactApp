@@ -205,11 +205,24 @@ const getIcal = (req, res) => {
     {
     res.send('Data Missing'); 
   }
-}
+};
 
+const getCountryCity = (req, res) => {
+  contenthelp.getCountry(function(data, error){
+    let countryCity = {};
+    if (data !== null && error === null) {
+      data.items.map(function(item){
+        countryCity[item.fields.country] = item.fields.cities;
+        return;
+      });
+    }
+    res.send(countryCity);
+  });
+};
 
 module.exports = {
   getContent,
   getSubContent,
-  getIcal
-}
+  getIcal,
+  getCountryCity
+};

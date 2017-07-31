@@ -36,5 +36,26 @@ module.exports = {
     } else {
       callback(pageData, null);
     }
+  },
+
+  getCountry : (callback) => {
+    const url = `https://${cdomain}/spaces/${cspaceid}/entries?access_token=${caccessToken}&content_type=countryCity&include=4`;
+    request.get({
+      url,
+      json: true,
+      headers: { 'User-Agent': 'request' },
+    }, (err, res, data) => {
+      if (err) {
+        callback(null, err);
+      } else if (res.statusCode !== 200) {
+        callback(null, res.statusCode);
+      } else if (data.items.length === 0) {
+        // data is already parsed as JSON:
+        console.log('Not found');
+        callback(null, 'Page not found');
+      } else { // Time is in ms
+        callback(data, null);
+      }
+    });
   }
 };

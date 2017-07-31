@@ -54,7 +54,7 @@ class MyProfile extends React.Component {
                     
                     {
                         this.state.showEditProfile ?
-                        <EditForm />
+                        <EditForm setEditProfile={this.setEditProfile}/>
                         : null
                     }
                 </div>

@@ -7,17 +7,25 @@ export default (nextState, replace, callback) => {
   const accessToken = JSON.parse(sessionStorage.getItem('auth')) ? JSON.parse(sessionStorage.getItem('auth')).accessToken : null;
   const req = axios.get("/api/validate?AuthToken="+accessToken);
   //console.log("/api/validate?AuthToken= " + accessToken);
-  req.then(resp => {
-  	if(!resp.data.success)
-  	{
-  		replace('/');
+  req.then((resp) => {
+  	if (!resp.data.success)  	{
+  		replace({ pathname: '/', query: { return_url: nextState.location.pathname } });
   		callback();
+    if(janrain && janrain.capture.ui)
+      janrain.capture.ui.endCaptureSession();
     logout();
-  	}
-  	else
-  	{
-  		callback();
-  	}
+  	}  	
+    else if(sessionStorage.getItem('auth') && JSON.parse(sessionStorage.getItem('auth')).user.professionalContactData_emailAddress==='none'){
+      //if not compared with myprofile then routing enters into loop.
+      if(nextState.location.pathname !== "/myprofile")
+        replace('/myprofile');
+      callback();
+    }
+    else{
+      callback();
+    }
   	
-  }).catch(err => {});
+  }).catch((err) => {
+    console.log(err);
+  });
 }

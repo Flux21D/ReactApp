@@ -23,6 +23,7 @@ class EditForm extends React.Component {
     if ($('body').find('#capture_editProfile_saveButton').length > 0 && !$('.capture_save_success').attr('style')) {
       console.log("found");
       that.saveChanges();
+      that.props.setEditProfile();
     } else {
       setTimeout(that.checkForChanges, 500);
     }
@@ -33,20 +34,34 @@ class EditForm extends React.Component {
     $.ajax({url: "/api/getuserinfo?AccessToken="+that.props.auth.accessToken, 
       method: "GET",
       success: function(result){
-        var obj = JSON.parse(result);
-        console.dir(obj);
-        const user = {
-          uuid: obj.result.uuid,
-          personalData_title: obj.result.personalData.title,
-          personalData_firstName: obj.result.personalData.firstName,
-          personalData_lastName: obj.result.personalData.lastName,
-          professionalContactData_emailAddress: obj.result.professionalContactData.emailAddress,
-          professionalContactData_phone: obj.result.professionalContactData.phone,
-          professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
-          professionalData_specialty: obj.result.professionalData.specialty,
-          professionalData_postalCode: obj.result.professionalData.postalCode,
-          termsAndCondition_contactConsent: obj.result.termsAndCondition.contactConsent
-        };
+        const obj = JSON.parse(result);
+        let user = {};
+        if (obj.result.controlFields.notes === 'Lilly') {
+          user = {
+            uuid: obj.result.uuid,
+            personalData_firstName: obj.result.personalData.firstName,
+            personalData_lastName: obj.result.personalData.lastName,
+            professionalContactData_emailAddress: obj.result.professionalContactData.emailAddress || 'none',
+            professionalContactData_phone: obj.result.professionalContactData.phone,
+            professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
+            professionalData_specialty: obj.result.professionalData.professionalGroup,
+            isdelegate: true,
+          };
+        } else {
+          user = {
+            uuid: obj.result.uuid,
+            personalData_title: obj.result.personalData.title,
+            personalData_firstName: obj.result.personalData.firstName,
+            personalData_lastName: obj.result.personalData.lastName,
+            professionalContactData_emailAddress: obj.result.professionalContactData.emailAddress,
+            professionalContactData_phone: obj.result.professionalContactData.phone,
+            professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
+            professionalData_specialty: obj.result.professionalData.specialty,
+            professionalData_postalCode: obj.result.professionalData.postalCode,
+            termsAndCondition_contactConsent: obj.result.termsAndCondition.contactConsent,
+            isdelegate: false,
+          };
+        }
 
 
         const authData = {

@@ -53,7 +53,11 @@ class PreLoginBody extends React.Component {
   onSubmit() {
         // event.preventDefault();
        // const formData = this.state.formData;
-    this.context.router.push("/home");
+    let contxt = this.context.router;
+    if(contxt.location.query.return_url)
+      contxt.push(contxt.location.query.return_url);
+    else  
+      contxt.push('/home');
   }
 
   componentWillUnmount() {}

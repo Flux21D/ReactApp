@@ -48,7 +48,7 @@ class CourseCertificate extends React.Component {
 
     this.getCanvas(cloneArea).then(function(canvas) {
       let img = canvas.toDataURL("image/png"),
-        doc = new JSPDF({
+        doc = new jsPDF({
                     //l => landscape, p => portroit
           orientation: 'l',
           unit: 'px',

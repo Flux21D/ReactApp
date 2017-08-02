@@ -56,7 +56,7 @@ class MixedCourseDetails extends React.Component {
                         moduleInfo.moduleDetailContent ?
                         <a title={'Módulo ' + moduleInfo.sequence} className="entrar" onClick={() => visualizarFunc(moduleInfo.moduleDetailContent)}><span className="cv"><span className="aw"><img className="svg svgW svg25" src="img/icons/file-text-o.svg" title="Icono"/></span>visualizar</span></a>
                         :
-                        <a title={'Módulo ' + moduleInfo.sequence} className="entrar" href={moduleInfo.asset} download><span className="cv"><span className="aw"><img className="svg svgW svg25" src="img/icons/cloud-download.svg" title="Icono"/></span>descargar <br/><small>(PDF)</small></span></a>
+                        <a target="_blank" title={'Módulo ' + moduleInfo.sequence} className="entrar" href={moduleInfo.asset} download><span className="cv"><span className="aw"><img className="svg svgW svg25" src="img/icons/cloud-download.svg" title="Icono"/></span>descargar <br/><small>(PDF)</small></span></a>
                     }
 
                     <div className="num">{moduleInfo.sequence}</div>

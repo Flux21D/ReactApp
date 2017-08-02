@@ -47,8 +47,10 @@ class CourseCertificate extends React.Component {
     let cache_width = downloadArea.width();
 
     this.getCanvas(cloneArea).then(function(canvas) {
+      /*eslint new-cap: ["error", { "capIsNew": false }]*/
+
       let img = canvas.toDataURL("image/png"),
-        doc = new jsPDF({
+        doc = new JSPDF({
                     //l => landscape, p => portroit
           orientation: 'l',
           unit: 'px',

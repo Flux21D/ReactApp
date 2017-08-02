@@ -40,15 +40,20 @@ class TopProfileContainer extends React.Component {
     let userInfo = JSON.parse(sessionStorage.getItem('auth'));
     let userName = userInfo.user.personalData_firstName + ' ' + userInfo.user.personalData_lastName;
 
-    let myCourses;
+    let myCourses = [];
+    let chkDuplicateCourse = [];
     if(profile.specialityCourses.length > 0)
       myCourses = profile.specialityCourses.map(function(item, i) {
-        return (
-                    <Link id={i} title={item.name} className="curso"  onClick={() => courseDetailsFunc(item)} key={i}>{item.name}</Link>
-        )
+
+        if(chkDuplicateCourse.indexOf(item.id) < 0 && chkDuplicateCourse.length < 3) {
+          chkDuplicateCourse.push(item.id);
+          return (
+                      <Link id={i} title={item.name} className="curso"  onClick={() => courseDetailsFunc(item)} key={i}>{item.name}</Link>
+          )
+        }
       });
     else
-            myCourses = [<p key='msg'>Todavía no has completado ningún curso</p>];
+      myCourses = [<p key='msg'>Todavía no has completado ningún curso</p>];
 
     let myCalender = '';
     let locale = "en-us";
@@ -64,7 +69,7 @@ class TopProfileContainer extends React.Component {
         }
       });
     else
-            myCalender = '<a href="/calendario" class="title">Calendario</a>';
+      myCalender = '<a href="/calendario" class="title">Calendario</a>';
 
     const myCalenderElement = htmlToReactParser.parse(myCalender);
 

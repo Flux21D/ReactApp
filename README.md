@@ -25,9 +25,7 @@
 
 **Prefix (short name):** BUIT_EUCAN
 
-**Author:**
-
-	"Needs to be updated by development team"
+**Author:** Indegene Team
 
 **Support Team:** Osiris TCS Support
 
@@ -44,14 +42,14 @@
 
 **Blueprint:** Web Application
 
-	Development Language(s): Node.js
+	Development Language(s): Node.js, React.js
 	Development Framework(s):
-	Development Add-Ons: Redis, PaperTrail, New Relic
+	Development Add-Ons: Redis, PaperTrail, New Relic, Postgres SQL, Sendgrid
 	Development Standards:  esLint
-	Content Management System:
+	Content Management System: 
 	Analytics:** Google Analytics
 	Tag Management Tool: Google Tag Manager
-	Customer Authentication: N/A
+	Customer Authentication: Janrain
 
 **Code Package(s):**
 
@@ -74,7 +72,7 @@
 
 7. Run the application by command 'npm start'
 
-8. The application will be available on localhost:3000
+8. The application will be available on localhost:8080
 
 <a name="configuration"></a>
 ## Configuration
@@ -98,7 +96,8 @@
 
 <a name="cookie-banner-details"></a>
 #### Cookie Banner Details
-	"Awaiting Details"
+	Country ID – ES
+	Website ID – 434
 
 <a name="analytics"></a>
 #### Analytics
@@ -114,13 +113,33 @@
 
 **Tag Manager Code Version (if applicable):**
 
-	"Awaiting Details"
+**Tag Manager Code Version (if applicable):**
+
+	```javascript
+<!-- Google Tag Manager -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', '', 'auto');
+	  ga('set', 'anonymizeIp', true);
+	  ga('send', 'pageview');
+	</script>
+<!-- End Google Tag Manager -->
+
 #### Active Directory Name
 	N/A
 
 <a name="janrain-configuration"></a>
 #### Janrain Configuration:
-"Awaiting Details"
+
+For DEV
+
+	Client ID: qcsq9zp6pnzg5zb6pcwk2shsx2t6a32f
+	Application ID: m2uqcsxt5rmhjqf7dbqxbgsbzn
+
 
 <a name="folder-structure"></a>
 #### Folder Structure:

@@ -22,7 +22,7 @@ class CourseTutorial extends React.Component {
   sendMail() {
     let userInfo = JSON.parse(sessionStorage.getItem('auth'));
     let fromail = userInfo.user.professionalContactData_emailAddress;
-    let toMail = this.props.courseInfo.tutorEmailId;
+    let toMail = this.props.courseInfo.tutorEmailId ? this.props.courseInfo.tutorEmailId : null;
     let msgSub = this.refs.txtSub.value;
     let msgBody = this.refs.txtBody.value;
     this.props.sendTutorialsMail(fromail, toMail, msgSub, msgBody);

@@ -66,7 +66,7 @@ export function sortCalenderEvents (sortBy, calEvents) {
     } else if(sortBy === 'Fecha') {
       var dateA = new Date(a['startDate']);
       var dateB = new Date(b['startDate']);
-      return dateB - dateA;
+      return dateA - dateB;
     }
   });
 

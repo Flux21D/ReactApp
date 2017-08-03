@@ -14,8 +14,18 @@ class UpcomingEventContainer extends React.Component {
   }
 
   state = {
-    isFavouriteLocal: []
+    isFavouriteLocal: [],
+    isCrappyIE: false
   };
+
+  componentWillMount() {
+    let isCrappyIE = false;
+
+    if (typeof window !== "undefined" && window.navigator.msSaveOrOpenBlob && window.Blob) {
+      isCrappyIE = true;
+    }
+    this.setState({ isCrappyIE: isCrappyIE });
+  }
 
   componentDidMount() {
     this.props.getHomeCalendarioInfo(true).then(function() {
@@ -62,15 +72,32 @@ class UpcomingEventContainer extends React.Component {
   calEvents(eve) {
     let userInfo = JSON.parse(sessionStorage.getItem('auth'));
     let eventId = eve.sysid;
+    const that = this;
     this.props.downloadICSFile(userInfo.user.uuid, eve, function(err, resp) {
       if(!err) {
-        var icselement = document.createElement('a');
-        icselement.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(resp));
-        icselement.setAttribute('download', "dsds.ics");
-        icselement.style.display = 'none';
-        document.body.appendChild(icselement);
-        icselement.click();
-        document.body.removeChild(icselement);
+        if (encodeURIComponent(resp).startsWith("data") ||encodeURIComponent(resp).startsWith("BEGIN")){
+          let filename = "dsds.ics";
+          let blob = new Blob([encodeURIComponent(resp)], { type: "text/calendar;charset=utf-8" });
+          if (that.state.isCrappyIE) {
+            window.navigator.msSaveOrOpenBlob(blob, filename);
+          }
+          else{
+            /****************************************************************
+            // many browsers do not properly support downloading data URIs
+            // (even with "download" attribute in use) so this solution
+            // ensures the event will download cross-browser
+            ****************************************************************/
+            let icselement = document.createElement('a');
+            icselement.href = window.URL.createObjectURL(blob);
+            icselement.setAttribute("download", filename);
+            document.body.appendChild(icselement);
+            icselement.click();
+            document.body.removeChild(icselement);
+          }
+        }
+        else{
+          window.open(url, "_blank");
+        }
       }
     });
   };

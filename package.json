@@ -4,16 +4,16 @@
   "private": true,
   "license": "MIT",
   "scripts":{
+    "start": "node ./bin/www",
     "test": "./tests/codecheck gulp mocha && gulp lint",
     "gulp": "./gulpfile.js",
+    "build": "gulp",
+    "lint": "gulp lint",
     "unit-test": "gulp mocha",
     "prestart-parallel": "npm run unit-test",
     "start-parallel": "npm-run-all --parallel build start",
     "ci_test": "gulp mocha && gulp lint",
-    "start": "node ./bin/www",
-    "start:dev": "nodemon app.js --ignore 'src/public/js/**/*.js' --ignore 'lib/**/*.js'",
-    "build:dev": "webpack --watch --progress",
-    "build:prod": "node ./node_modules/gulp/bin/gulp.js build && node ./node_modules/webpack/bin/webpack.js -p --progress"
+    "prod_test": "tests/codecheck"
   },
   "author": "Nick Liffen <liffen_nicholas@lilly.com>",
   "contributors": [

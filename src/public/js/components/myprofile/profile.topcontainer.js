@@ -48,7 +48,7 @@ class TopProfileContainer extends React.Component {
         if(chkDuplicateCourse.indexOf(item.id) < 0 && chkDuplicateCourse.length < 3) {
           chkDuplicateCourse.push(item.id);
           return (
-                      <Link id={i} title={item.name} className="curso"  onClick={() => courseDetailsFunc(item)} key={i}>{item.name}</Link>
+                      <Link title={item.name} className="curso"  onClick={() => courseDetailsFunc(item)} key={i}>{item.name}</Link>
           )
         }
       });

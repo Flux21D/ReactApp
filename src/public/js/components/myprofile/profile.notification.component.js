@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router";
 import Pagination from "../shared/pagination/pagination.component";
 import { getProfileNotifications, clearProfileNotifications } from "../../actions/myprofile";
+import { replaceSVGIcons } from "../../utils/custom.jquery";
 
 let HtmlToReactParser = require('html-to-react').Parser;
 let htmlToReactParser = new HtmlToReactParser();
@@ -20,7 +21,9 @@ class ProfileNotifications extends React.Component {
   }
 
   pageNumber(pageNo) {
-    this.props.getProfileNotifications(pageNo);
+    this.props.getProfileNotifications(pageNo).then(function() {
+      replaceSVGIcons();
+    });
   };
 
   render() {

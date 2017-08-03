@@ -45,8 +45,8 @@ class Pagination extends React.Component {
 
   componentDidMount() {
     this.updateState(this.props.totalRecords);
-    for (var i = this.state.firstPage; i <= this.state.lastPage; i++) {
-      var a = document.getElementById(i);
+    for (let i = this.state.firstPage; i <= this.state.lastPage; i++) {
+      let a = document.getElementById(i);
       a.addEventListener('click', this.pageValue.bind(this));
     };
 
@@ -56,8 +56,8 @@ class Pagination extends React.Component {
   };
 
   componentDidUpdate() {
-    for (var i = this.state.firstPage; i <= this.state.lastPage; i++) {
-      var a = document.getElementById(i);
+    for (let i = this.state.firstPage; i <= this.state.lastPage; i++) {
+      let a = document.getElementById(i);
       a.addEventListener('click', this.pageValue.bind(this));
     };
   };
@@ -102,7 +102,7 @@ class Pagination extends React.Component {
 
   render() {
     let paginationElement = '';
-    for (var i = this.state.firstPage; i <= this.state.lastPage; i++) {
+    for (let i = this.state.firstPage; i <= this.state.lastPage; i++) {
       let activeClass = this.props.activePageNo === i ? "page active" : "page";
       paginationElement = paginationElement + '<a id="' + i + '" title="Página ' + i + '" className="' + activeClass + '">' + i + '</a>';
     }

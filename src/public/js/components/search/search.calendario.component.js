@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
-import { getCalendarioInfo } from "../../actions/calendario";
+import { getCalendarioInfo, getCountryCity } from "../../actions/calendario";
 import {selectDropdown, replaceSVGIcons} from "../../utils/custom.jquery";
 /* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
 /* eslint-env es6 */
@@ -18,10 +18,13 @@ class SearchPanel extends React.Component {
     pageNo: 1,
     openEventDP: false,
     openCityDP: false,
-    openCountryDP: false
+    openCountryDP: false,
+    currentCountry: ''
   };
 
-  componentDidMount() { };
+  componentDidMount() {
+    this.props.getCountryCity();
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.calendario.searchPanel !== this.props.calendario.searchPanel) {
@@ -40,7 +43,9 @@ class SearchPanel extends React.Component {
   };
 
   countryHandleChange(eve) {
+    this.refs.txtCity.value = '';
     this.refs.txtCountry.value = eve;
+    this.setState({currentCountry: eve});
   };
 
   toggleDP(eve) {
@@ -65,13 +70,13 @@ class SearchPanel extends React.Component {
       )
     });
 
-    let cityTypeDP = calendario.searchPanel.city && calendario.searchPanel.city.map(function(item, i) {
+    let cityTypeDP = this.state.currentCountry && calendario.countryCityObj[this.state.currentCountry].map(function(item, i) {
       return (
                 <div onClick={that.cityHandleChange.bind(that, item)} key={i}>{item}</div>
       )
     });
 
-    let countryTypeDP = calendario.searchPanel.country && calendario.searchPanel.country.map(function(item, i) {
+    let countryTypeDP = calendario.countryCityObj && Object.keys(calendario.countryCityObj).map(function(item, i) {
       return (
                 <div onClick={that.countryHandleChange.bind(that, item)} key={i}>{item}</div>
       )
@@ -98,17 +103,17 @@ class SearchPanel extends React.Component {
                             <div className="input zindex1">
                                 <input id="dateTo" type="text" placeholder="Fecha hasta" name="hasta" className="text" ref="datePicTo" readOnly/>
                             </div>
-                            <div className="input zindex4" onClick={() => this.toggleDP('openCityDP')}>
-                                <div className="select-values" style={{display: (this.state.openCityDP ? 'block' : 'none')}}>
-                                    {cityTypeDP}
-                                </div>
-                                <input className="text select" type="text" placeholder="Ciudad" name="tipo" ref="txtCity" readOnly/>
-                            </div>
                             <div className="input zindex3" onClick={() => this.toggleDP('openCountryDP')}>
                                 <div className="select-values" style={{display: (this.state.openCountryDP ? 'block' : 'none')}}>
                                     {countryTypeDP}
                                 </div>
                                 <input className="text select" type="text" placeholder="País" name="tipo" ref="txtCountry" readOnly/>
+                            </div>
+                            <div className="input zindex4" onClick={() => this.toggleDP('openCityDP')}>
+                                <div className="select-values" style={{display: (this.state.openCityDP ? 'block' : 'none')}}>
+                                    {cityTypeDP}
+                                </div>
+                                <input className="text select" type="text" placeholder="Ciudad" name="tipo" ref="txtCity" readOnly/>
                             </div>
                             <div className="input nmr">
                                 <input type="button" value="Buscar" className="submit" onClick={this.searchEvents}/>
@@ -123,7 +128,8 @@ class SearchPanel extends React.Component {
 }
 
 const actionCreators = {
-  getCalendarioInfo
+  getCalendarioInfo,
+  getCountryCity
 };
 
 const mapStateToProps = (state) => {

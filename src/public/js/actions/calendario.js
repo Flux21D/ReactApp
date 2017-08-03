@@ -1,9 +1,16 @@
 import axios from "axios";
-import {SET_CALENDARIO} from "../actions/types";
+import { SET_CALENDARIO, SET_COUNTRY_CITY } from "../actions/types";
 
 export function setCalendarioInfo (content) {
   return {
     type: SET_CALENDARIO,
+    content
+  };
+}
+
+export function setCountryCity (content) {
+  return {
+    type: SET_COUNTRY_CITY,
     content
   };
 }
@@ -114,4 +121,18 @@ export function downloadICSFile (uid, eve, callback) {
     });
   };
 
+}
+
+
+export function getCountryCity () {
+
+  return dispatch => {
+    return axios.get('/api/getCountyCity').then(response => {
+
+      dispatch(setCountryCity({
+        countryCityObj: response.data
+      }));
+
+    }).catch (error => {});
+  };
 }

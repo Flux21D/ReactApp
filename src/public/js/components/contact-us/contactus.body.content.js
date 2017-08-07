@@ -1,7 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
-import marked from "marked";
 import { openHerramientasPopup, closeHerramientasPopup } from "../../utils/custom.jquery";
 
 let HtmlToReactParser = require('html-to-react').Parser;
@@ -12,19 +11,6 @@ class ContactBodyContent extends React.Component {
     super(props);
 
     this.clickHandler = this.clickHandler.bind(this);
-  }
-
-  componentWillMount() {
-    marked.setOptions({
-      renderer: new marked.Renderer(),
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false
-    });
   }
 
   componentDidUpdate(){
@@ -49,18 +35,18 @@ class ContactBodyContent extends React.Component {
       contentLeft = contentLeft + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + item.someLongText+ '</p>';
     });
     this.props.contactus.bodyContentRight.map(function(item) {
-      contentRight = contentRight + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + marked(item.someLongText) + '</p>';
+      contentRight = contentRight + '<h2 className="title-big nmt">' + item.someShortText + '</h2><p>' + item.someLongText + '</p>';
     });
         
-    const leftElement = htmlToReactParser.parse(contentLeft);
-    const rightElement = htmlToReactParser.parse(contentRight);
+    const leftElement = htmlToReactParser.parse(this.context.marked(contentLeft));
+    const rightElement = htmlToReactParser.parse(this.context.marked(contentRight));
 
     return (
             <div className="cols">
                 <div className="col-left">
                     <div className="half-content">
                         {leftElement}
-                        <p className="al-right"><a title="Realizar consulta" className="button" href="mailto:ejemplo@ejemplo.com"><span className="aw"><img className="svg svgW  " src="img/icons/envelope.svg" title="Icono"/></span> Realizar consulta</a></p>
+                        <p className="al-right"><a title="Realizar consulta" className="button" href="mailto:info@auladiabetes.com"><span className="aw"><img className="svg svgW  " src="img/icons/envelope.svg" title="Icono"/></span> Realizar consulta</a></p>
                     </div>
                 </div>
                 <div className="col-right" onClick={this.clickHandler}>
@@ -91,6 +77,10 @@ class ContactBodyContent extends React.Component {
     );
   }
 }
+
+ContactBodyContent.contextTypes = {
+  marked: React.PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

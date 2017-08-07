@@ -552,9 +552,11 @@ const modifyCourseData = (typeObj,courses,popularity,fav,reg,options = {},search
             }
             if(options.accredted && ((options.accredted.toLowerCase() === 'yes' && !c.officialAccreditation) || (options.accredted.toLowerCase() === 'no' && c.officialAccreditation) ))
               filter = true;
-            if(options.city && c.city && options.city.toLowerCase() !== c.city.toLowerCase())
-              filter = true;
-            if(options.country && c.country && options.country.toLowerCase() !== c.country.toLowerCase())
+            if (c.country && c.country.toLowerCase()!== 'all'){
+              if (options.country && c.country && options.country.toLowerCase() !== c.country.toLowerCase()) filter = true;
+              if (options.city && c.city && options.city.toLowerCase() !== 'all' && options.city.toLowerCase() !== c.city.toLowerCase()) filter = true;
+            }
+            if(options.country && c.country && c.country.toLowerCase()!== 'all' && options.country.toLowerCase() !== c.country.toLowerCase())
               filter = true;
             if(options.startDate && new Date(options.startDate).toISOString() >  new Date(c.startDate).toISOString())
               filter = true;

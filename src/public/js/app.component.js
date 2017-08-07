@@ -7,6 +7,7 @@ import HeaderComponent from "./components/shared/header/header.component";
 import FooterComponent from "./components/shared/footer/footer.component";
 import {customClick} from "./utils/gtm";
 import Modal from "./components/shared/modal/modal";
+import marked from 'marked';
 
 const webTab = [ '/:Login:Home',
   '/home:Home',
@@ -40,6 +41,22 @@ class AppComponent extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  getChildContext() {
+    return {
+      marked: marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+      }),
+    };
+  }
+
   componentDidMount () {
         // customClick({
         //   'test' : 'abc'
@@ -60,6 +77,10 @@ class AppComponent extends React.Component {
     );
   }
 }
+
+AppComponent.childContextTypes = {
+  marked: React.PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

@@ -17,7 +17,7 @@ class AboutUsContent extends React.Component {
       bodyText = bodyText + '<h2 className="title-big nmt">' + item.title + '</h2><p>' + item.someLongText + '</p>';
     });
     leftImagePath = this.props.aboutus.bodyContentLeft? this.props.aboutus.bodyContentLeft : ''
-    const reactElement = htmlToReactParser.parse(bodyText);
+    const reactElement = htmlToReactParser.parse(this.context.marked(bodyText));
         
     return (
             <div className="cols" style={{backgroundImage: 'url(' + leftImagePath + ')'}}>
@@ -32,6 +32,10 @@ class AboutUsContent extends React.Component {
     );
   }
 }
+
+AboutUsContent.contextTypes = {
+  marked: React.PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

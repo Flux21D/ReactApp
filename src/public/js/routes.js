@@ -36,8 +36,13 @@ export default (
 		<Route path="register" component={IndexComponent}>
             <IndexRoute component={RegisterComponent}/>
         </Route>
-        <Route path="reset-password" component={IndexComponent}>
+		
+        <Route path="forgot-password" component={IndexComponent}>
             <IndexRoute component={ForgotPassword}/>
+        </Route>
+
+        <Route path="reset-password" component={IndexComponent}>
+            <IndexRoute component={ResetPassword}/>
         </Route>
 
         <Route path="success" component={IndexComponent}>

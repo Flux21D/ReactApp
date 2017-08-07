@@ -90,31 +90,31 @@ class ResetPassword extends React.Component {
 
                         {this.state.screen === "success" ?
                             <div id="password-changed">
-                                <h3 className="title">Your password has been changed</h3>
+                                <h3 className="title">Tu contraseña ha sido cambiada</h3>
 
-                                <p>Password has been successfully updated.</p>
+                                <p>La contraseña se ha actualizado correctamente.</p>
 
                                 <div>
-                                    <Link className="btn btn-orange" to="/login">LOGIN</Link>
+                                    <Link className="btn btn-orange" to="/">INICIAR SESIÓN</Link>
                                 </div>
                             </div> : null}
 
                         {this.state.screen === "forgot-password" ?
                             <form id="login" onSubmit={this.handleSubmit}>
-                                <h3 className="title">Reset password</h3>
+                                <h3 className="title">Restablecer la contraseña</h3>
 
                                 <div className="input-group">
                                     <span className="input-group-addon">
                                         <img src="svg/icons/icon_lock.svg" />
                                     </span>
-                                    <input name="newPassword" type="password" onChange={this.handleFormChange} defaultValue={this.state.formData.newPassword} className="form-control" placeholder="Password" />
+                                    <input name="newPassword" type="password" onChange={this.handleFormChange} defaultValue={this.state.formData.newPassword} className="form-control" placeholder="contraseña" />
                                 </div>
 
                                 <div className="input-group">
                                     <span className="input-group-addon">
                                         <img src="svg/icons/icon_lock.svg" />
                                     </span>
-                                    <input name="newPasswordConfirm" type="password" onChange={this.handleFormChange} defaultValue={this.state.formData.newPasswordConfirm} className="form-control" placeholder="Confirm password" />
+                                    <input name="newPasswordConfirm" type="password" onChange={this.handleFormChange} defaultValue={this.state.formData.newPasswordConfirm} className="form-control" placeholder="Confirmar contraseña" />
                                 </div>
 
                                 {this.state.errorMsg ? <p className="text-orange">{this.state.errorMsg}</p> : null}
@@ -122,10 +122,10 @@ class ResetPassword extends React.Component {
 
                                 <div className="wrp-buttons">
                                     <div className="pull-left">
-                                        <Link className="btn btn-white btn-cancel" to="/">CANCEL</Link>
+                                        <Link className="btn btn-white btn-cancel" to="/">CANCELAR</Link>
                                     </div>
                                     <div className="pull-right">
-                                        <input type="submit" className="btn btn-orange btn-login" value="SAVE" />
+                                        <input type="submit" className="btn btn-orange btn-login" value="SALVAR" />
                                     </div>
                                 </div>
                             </form> : null}

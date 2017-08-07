@@ -17,14 +17,14 @@ class ThanksComponent extends React.Component {
     return (
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
-                    <h3 className="title">Thank you for your registration</h3>
+                    <h3 className="title">Gracias por su registro</h3>
 
                     <p className="reg-confirmed">
-                        We have sent a confirmation email
+                        Hemos enviado un correo electrónico de confirmación
                         <br />
-                        Please check your email and click on the link to
+                        Por favor revise su correo electrónico y haga clic en el enlace a
                         <br />
-                        activate your account.
+                        activa tu cuenta.
                     </p>
                 </div>
             </div>

@@ -18,8 +18,10 @@ import Questions from "./components/faq/faq.component";
 import CourseCertificate from "./components/course/course-details/course.certificate";
 import WebmapComponent from "./components/web-map/webmap.component";
 import Error404 from "./components/errors/404";
+import ForgotPassword from './components/forgot-password/forgot-password';
 import ResetPassword from './components/forgot-password/reset-password';
 import CongratsComponent from "./components/register/congrats.component";
+import SuccessComponent from "./components/register/success.component";
 
 export default (
 	<Route path="/" component={AppComponent}>
@@ -35,7 +37,11 @@ export default (
             <IndexRoute component={RegisterComponent}/>
         </Route>
         <Route path="reset-password" component={IndexComponent}>
-            <IndexRoute component={ResetPassword}/>
+            <IndexRoute component={ForgotPassword}/>
+        </Route>
+
+        <Route path="success" component={IndexComponent}>
+            <IndexRoute component={SuccessComponent}/>
         </Route>
         <Route path="verify-email" component={IndexComponent}>
             <IndexRoute component={CongratsComponent}/>

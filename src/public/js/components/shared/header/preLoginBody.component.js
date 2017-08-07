@@ -262,7 +262,7 @@ class PreLoginBody extends React.Component {
                       '<div class="capture_signin">{* #userInformationForm *}{* traditionalSignIn_emailAddress *}{* traditionalSignIn_password *}'+
                       '<div class="capture_footer"><div class="capture_left"><a href="#" id="back-btn" onclick="{this.backBtnFunc.bind(this)}"> Cancel </a></div>'+
                       '<div class="capture_right">{* traditionalSignIn_signInButton *}</div>'+
-                      '</div>{* /userInformationForm *}</div><p class="register">Not a member yet? <a href="/register" id="reg-btn" onClick="{this.loadPage}">Register now</a></p>'+
+                      '</div>{* /userInformationForm *}</div><p class="register"><a href="/register" id="reg-btn" onClick="{this.loadPage}">Aún no estoy registrado</a></p>'+
                       '<div class="capture_form_item forgotpwd"><a href="#" data-capturescreen="forgotPassword" id="forgotpwd-link" onclick="{this.forgotPasswordClick.bind(this)}">{* page_signin_signin_forgot *}</a>'+
                       '</div></div>'+
                       '<div style="display:none;" id="forgotPassword">'+

@@ -44,18 +44,18 @@ class RegisterFormComponent extends React.Component {
   onSubmit() {
         //event.preventDefault();
     let formData = this.state.formData;
-    this.context.router.push("/");
+    this.context.router.push("/success");
 
         //Open this for custom thanks message
-    this.props.openModal({
-      Component: ThanksComponent,
-      dialogSettings: {
-        classes: "welcome-box index-modal-box"
-      },
-      onBeforeClose: () => {
-                //this.props.removeNewUser();
-      }
-    });
+    // this.props.openModal({
+    //   Component: ThanksComponent,
+    //   dialogSettings: {
+    //     classes: "welcome-box index-modal-box"
+    //   },
+    //   onBeforeClose: () => {
+    //             //this.props.removeNewUser();
+    //   }
+    // });
   }
 
   componentWillUnmount() {

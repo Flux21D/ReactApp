@@ -3102,12 +3102,12 @@ media all and (min-width:1100px){
     transform: translate(-50%, 0);
 
     z-index: 2;
-    background: #ffffff;
+    // background: #ffffff;
 
-    margin: 30px auto;
+    // margin: 30px auto;
 
-    max-width: ~"calc(100% - 120px)";
-    min-height: 100px;
+    // max-width: ~"calc(100% - 120px)";
+    // min-height: 100px;
 
     &.full-screen {
       width: 100%;
@@ -3149,8 +3149,9 @@ media all and (min-width:1100px){
 
   .my-modal-close {
     position: absolute;
-    top: 0;
-    right: -40px;
+    top: 150px;
+    right: -220px;
+    z-index: 10;
     cursor: pointer;
 
     img {
@@ -3441,4 +3442,9 @@ ul#janrainProviders_1 {
 }
 input#capture_changePassword_saveButton {
   margin-top: 30px !important;
+}
+
+.accept-sec {
+    display: block;
+    clear: both;
 }

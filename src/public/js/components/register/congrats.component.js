@@ -17,34 +17,39 @@ class Congrats extends React.Component {
 
   componentDidMount() {
 
-    const {verification_code} = this.props.location.query;
+    // const {verification_code} = this.props.location.query;
 
-    if (verification_code) {
-      this.props.verifyEmail({
-        verificationCode: verification_code
-      }).then(resp => {
+    // if (verification_code) {
+    //   this.props.verifyEmail({
+    //     verificationCode: verification_code
+    //   }).then(resp => {
 
-        if (resp.data.stat === 'ok') {
-          this.setState({
-            success: true,
-            title: "Congratulations!",
-            description: "Your registration has been confirmed and now you have a profile."
-          });
-        } else if (resp.data.stat === 'error') {
-          this.setState({
-            success: false,
-            title: "Error",
-            description: "Verification code not recognized."
-          });
-        }
-      });
-    } else {
-      this.setState({
-        success: false,
-        title: "Error",
-        description: "Verification link is broken."
-      });
-    }
+    //     if (resp.data.stat === 'ok') {
+    //       this.setState({
+    //         success: true,
+    //         title: "Congratulations!",
+    //         description: "Your registration has been confirmed and now you have a profile."
+    //       });
+    //     } else if (resp.data.stat === 'error') {
+    //       this.setState({
+    //         success: false,
+    //         title: "Error",
+    //         description: "Verification code not recognized."
+    //       });
+    //     }
+    //   });
+    // } else {
+    //   this.setState({
+    //     success: false,
+    //     title: "Error",
+    //     description: "Verification link is broken."
+    //   });
+    // }
+    this.setState({
+      success: true,
+      title: "Congratulations!",
+      description: "Your registration has been confirmed and now you have a profile."
+    });
   }
 
   render() {

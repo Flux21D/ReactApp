@@ -19,8 +19,8 @@ class SuccessComponent extends React.Component {
         classes: "welcome-box index-modal-box"
       },
       onBeforeClose: () => {
-          this.context.router.push("/");
-                //this.props.removeNewUser();
+        this.context.router.push("/");
+        //this.props.removeNewUser();
       }
     });
   }

@@ -1,0 +1,91 @@
+<svg id="box" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="14" viewBox="0 0 12 14">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c138 79.159824, 2016/09/14-01:09:01        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        font-size: 18px;
+        opacity: 0.65;
+        fill: #425464;
+      }
+
+      .cls-2, .cls-6 {
+        font-family: "Apex New";
+      }
+
+      .cls-3 {
+        filter: url(#filter);
+      }
+
+      .cls-4 {
+        fill: none;
+        stroke: #f36c00;
+        stroke-width: 1px;
+      }
+
+      .cls-4, .cls-5 {
+        opacity: 0.3;
+      }
+
+      .cls-5, .cls-6 {
+        fill: #f36c00;
+      }
+
+      .cls-6 {
+        font-size: 36px;
+        text-anchor: middle;
+        font-weight: 300;
+      }
+    </style>
+    <filter id="filter" filterUnits="userSpaceOnUse">
+      <feFlood result="flood" flood-color="#425464"/>
+      <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+      <feBlend result="blend" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g>
+    <path id="_" data-name="" class="cls-1" d="M3.978,5.982V4.009c0-1.4.48-2.048,1.949-2.048A1.775,1.775,0,0,1,8,4.009V5.982H3.978Zm8.013,0.955a0.979,0.979,0,0,0-1-.955H10V4.009A3.7,3.7,0,0,0,5.99-.012,3.7,3.7,0,0,0,1.978,4.009V5.982H0.988a0.979,0.979,0,0,0-1,.955v6.107a0.979,0.979,0,0,0,1,.955h10a0.979,0.979,0,0,0,1-.955V6.938Z"/>
+    <text id="Password" class="cls-2" x="49.293" y="12.746">Password</text>
+  </g>
+  <g>
+    <g class="cls-3">
+      <rect id="Rectangle_2_copy" data-name="Rectangle 2 copy" class="cls-4" x="-19" y="-108" width="450" height="50"/>
+      <rect class="cls-5" x="-18" y="-107" width="48" height="48"/>
+    </g>
+    <path id="_2" data-name="" class="cls-1" d="M12.509-77.344c0-2.641-.653-5.693-3.283-5.693a4.483,4.483,0,0,1-3.143,1.285,4.483,4.483,0,0,1-3.143-1.285c-2.631,0-3.283,3.052-3.283,5.693A2.45,2.45,0,0,0,1.8-74.684h8.574A2.45,2.45,0,0,0,12.509-77.344ZM9.939-86.25a3.857,3.857,0,0,0-3.855-3.856A3.857,3.857,0,0,0,2.228-86.25a3.857,3.857,0,0,0,3.855,3.856A3.857,3.857,0,0,0,9.939-86.25Z"/>
+    <text id="User_name" data-name="User name" class="cls-2" x="49.293" y="-77.254">User name</text>
+  </g>
+  <text id="Login" class="cls-6" x="-194" y="-183.289"><tspan x="-194">Login</tspan></text>
+  <path id="close" class="cls-1" d="M646-312.034L684.762-351l7.994,8.036L654-304Zm0.242-30.928L654.238-351,693-312.034,685-304Z"/>
+</svg>

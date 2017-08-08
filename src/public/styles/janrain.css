@@ -255,7 +255,7 @@ $GENERAL
 {
     background-color: transparent;
     color: #666;
-    font-family: 'ApexNew-Book' !important;
+    font-family: 'DIN', Arial, Helvetica, sans-serif !important;
     font-size: 13px;
     line-height: inherit;
 }
@@ -432,7 +432,7 @@ $FORM ELEMENTS
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0,0,0,0.2) inset;
     color: #b3b3b3;
-    font-family: 'ApexNew-Book' !important;
+    font-family: 'DIN', Arial, Helvetica, sans-serif !important;
     font-size: 14px;
     khtml-border-radius: 5px;
     margin-left: 0;

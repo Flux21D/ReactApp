@@ -83,7 +83,7 @@ class ResetPassword extends React.Component {
     return (
             <div className="fixed-box">
                 <div className="fix-box-inner">
-                    <div className="page-box login-box">
+                    <div className="page-box login-box success-block">
                         <Link to="/" className="page-box-close">
                             <img src="svg/icons/icon_close_white.svg" alt="Close" />
                         </Link>
@@ -94,7 +94,7 @@ class ResetPassword extends React.Component {
 
                                 <p>La contraseña se ha actualizado correctamente.</p>
 
-                                <div>
+                                <div className="success-btn">
                                     <Link className="btn btn-orange" to="/">INICIAR SESIÓN</Link>
                                 </div>
                             </div> : null}

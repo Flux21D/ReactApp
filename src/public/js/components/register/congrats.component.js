@@ -28,7 +28,7 @@ class Congrats extends React.Component {
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
                     <Link to="/" className="close-sd-modal">
-                        <img src="svg/icons/icon_close_white.svg" alt="Close"/>
+                        <span className="janrain-icon-16 janrain-icon-ex2"></span>
                     </Link>
 
                     {this.state.description ?

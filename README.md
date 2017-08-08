@@ -109,7 +109,7 @@
 
 	| Name  |  Contact Email |
 	|---|---|
-	"Needs to be updated by development team"
+	|Edward Wearing| |
 
 **Tag Manager Code Version (if applicable):**
 

@@ -1,9 +1,9 @@
 {
-  "name": "CIRR_WEB_ACCELERATOR",
+  "name": "AULA Diabetes",
   "description": "A Node.js web accelerator created by Cirrus, a blueprint for getting development team in Lilly up-and-running.",
-  "repository": "https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR",
+  "repository": "https://github.com/EliLillyCo/BUIT_EUCAN_AULA_ES_DIABETES",
   "logo": "https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png",
-  "template": "https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR",
+  "template": "https://github.com/EliLillyCo/BUIT_EUCAN_AULA_ES_DIABETES",
   "keywords": [
     "node",
     "express",

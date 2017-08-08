@@ -59,7 +59,7 @@ class ForgotPassword extends React.Component {
                 <div className="fix-box-inner">
                     <div className="page-box login-box">
                         <Link to="/" className="page-box-close">
-                            <img src="svg/icons/icon_close_white.svg" alt="Close" />
+                            <span className="janrain-icon-16 janrain-icon-ex2"></span>
                         </Link>
                         <form id="login" onSubmit={this.handleSubmit}>
                             <h3 className="title">Forgot password</h3>

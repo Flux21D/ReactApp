@@ -85,7 +85,7 @@ class ResetPassword extends React.Component {
                 <div className="fix-box-inner">
                     <div className="page-box login-box success-block">
                         <Link to="/" className="page-box-close">
-                            <img src="svg/icons/icon_close_white.svg" alt="Close" />
+                            <span className="janrain-icon-16 janrain-icon-ex2"></span>
                         </Link>
 
                         {this.state.screen === "success" ?

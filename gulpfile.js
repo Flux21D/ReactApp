@@ -188,8 +188,9 @@ gulp.task('minify-js', () => {
 });
 
 gulp.task('svg', () => {
-    return gulp.src('./src/public/svg/**/*')
-        .pipe(gulp.dest('./lib/public/svg/'));
+  return gulp.src('./src/public/svg/**/*').pipe(
+    gulp.dest('./lib/public/svg/')
+  );
 });
 
 /*  -----------------------  */

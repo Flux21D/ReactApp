@@ -16,8 +16,7 @@ class SuccessComponent extends React.Component {
     $('#janrainModalOverlay').css('display', 'none !important');
   }
   componentDidMount() {
-    document.title = 'Registration Success';
-        //Open this for custom thanks message
+    //Open this for custom thanks message
     this.props.openModal({
       Component: ThanksComponent,
       dialogSettings: {

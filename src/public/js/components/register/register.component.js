@@ -11,7 +11,7 @@ class RegistrationComponent extends React.Component {
   }
 
   render () {
-    document.title = 'Registration Page';
+    document.title = 'Aula Diabetes - Registration Page';
 
     return (
             <div className="fixed-box">

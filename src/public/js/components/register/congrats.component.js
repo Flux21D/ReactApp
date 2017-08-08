@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router";
 import {connect} from "react-redux";
-import {verifyEmail} from "../../actions/auth";
 
 class Congrats extends React.Component {
 
@@ -16,35 +15,6 @@ class Congrats extends React.Component {
   }
 
   componentDidMount() {
-
-    // const {verification_code} = this.props.location.query;
-
-    // if (verification_code) {
-    //   this.props.verifyEmail({
-    //     verificationCode: verification_code
-    //   }).then(resp => {
-
-    //     if (resp.data.stat === 'ok') {
-    //       this.setState({
-    //         success: true,
-    //         title: "Congratulations!",
-    //         description: "Your registration has been confirmed and now you have a profile."
-    //       });
-    //     } else if (resp.data.stat === 'error') {
-    //       this.setState({
-    //         success: false,
-    //         title: "Error",
-    //         description: "Verification code not recognized."
-    //       });
-    //     }
-    //   });
-    // } else {
-    //   this.setState({
-    //     success: false,
-    //     title: "Error",
-    //     description: "Verification link is broken."
-    //   });
-    // }
     this.setState({
       success: true,
       title: "Felicitaciones!",
@@ -53,6 +23,7 @@ class Congrats extends React.Component {
   }
 
   render() {
+    document.title = "Aula Diabetes - Registered successfully";
     return (
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
@@ -78,8 +49,5 @@ class Congrats extends React.Component {
 
 }
 
-const actionCreators = {
-  verifyEmail
-};
 
-export default connect(null, actionCreators)(Congrats);
+export default Congrats;

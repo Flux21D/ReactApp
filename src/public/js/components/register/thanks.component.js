@@ -10,16 +10,16 @@ class ThanksComponent extends React.Component {
 
   
   render () {
-    document.title = 'Thanks for Register';
+    document.title = 'Aula Diabetes - Verify Email';
     return (
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
                     <h3 className="title">Gracias por su registro</h3>
 
                     <p className="reg-confirmed">
-                        Hemos enviado un correo electrónico de confirmación
+                        Hemos enviado un correo electrï¿½nico de confirmaciï¿½n
                         <br />
-                        Por favor revise su correo electrónico y haga clic en el enlace a
+                        Por favor revise su correo electrï¿½nico y haga clic en el enlace a
                         <br />
                         activa tu cuenta.
                     </p>

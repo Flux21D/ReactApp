@@ -125,7 +125,7 @@ class PreLoginBody extends React.Component {
               uuid: capture_user.uuid,
               personalData_firstName: obj.result.personalData.firstName,
               personalData_lastName: obj.result.personalData.lastName,
-              professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress || 'sunil.shetty@indegene.com',
+              professionalContactData_emailAddress: capture_user.professionalContactData.emailAddress || 'none',
               professionalContactData_phone: obj.result.professionalContactData.phone,
               professionalData_professionalGroup: obj.result.professionalData.professionalGroup,
               professionalData_specialty: obj.result.professionalData.professionalGroup,

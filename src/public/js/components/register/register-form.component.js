@@ -157,23 +157,15 @@ class RegisterFormComponent extends React.Component {
   }
 
   render() {
-        //'<h1>{* page_register_verification_header *}</h1></div>' +
-        //'<p>{* page_register_verification_message *}</p>' +
-        //'<div class="capture_footer"><a href="#" onclick="" class="capture_btn capture_primary">Close</a></div>' +
-        
     let htmlInput = '<div id="register-panel">' +
                             '<a href="/" class="janrain_modal_closebutton" id="reg-close-btn" onclick="{this.regclosePopup.bind(this)}">' +
                                 '<span class="janrain-icon-16 janrain-icon-ex2"></span>' +
                             '</a>' +
                             '<div class="object-container">' +
-                                '<div style="display:none;" id="registrationNewVerification">' +
-                                    '<div class="capture_header">' +
-                                        '<h1>{* page_register_verification_header *}</h1></div>' +
-                                '</div>' +
                                 '<div style="display:block;" id="traditionalRegistration">' +
                                     '<div class="capture_header">' +
                                         '<h1>{* page_register_traditional_header *}</h1></div>' +
-                                    '<p>{* page_register_traditional_message *} <a href="sign-in.html">{* page_register_signin *}</a></p>{* #registrationForm *}' +
+                                    '<p>{* page_register_traditional_message *} <a href="/">{* page_register_signin *}</a></p>{* #registrationForm *}' +
                                     '<div class="col-2 form-control-row">' +
                                         '<div class="col">{* personalData_firstName *}</div>' +
                                         '<div class="col">{* personalData_lastName *}</div>' +
@@ -196,7 +188,6 @@ class RegisterFormComponent extends React.Component {
                                         '</div>' +
                                     '</div>' +
                                     '<div class="capture_footer">' +
-                                        '<div class="capture_left">{* backButton *}</div>' +
                                         '<div class="capture_right">{* createAccountButton *}</div>' +
                                     '</div>' +
                                     '{* /registrationForm *}</div>' +

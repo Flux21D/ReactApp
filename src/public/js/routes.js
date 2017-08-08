@@ -46,10 +46,10 @@ export default (
         </Route>
 
         <Route path="success" component={IndexComponent}>
-            <IndexRoute component={SuccessComponent}/>
+            <IndexRoute component={CongratsComponent}/>
         </Route>
         <Route path="verify-email" component={IndexComponent}>
-            <IndexRoute component={CongratsComponent}/>
+            <IndexRoute component={SuccessComponent}/>
         </Route>
 		<Route path="coursedetail" component={CourseDetailsComponent} onEnter={requireAuth} />
 		<Route path="contact" component={ContactUs} onEnter={requireAuth} />

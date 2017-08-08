@@ -47,8 +47,8 @@ class Congrats extends React.Component {
     // }
     this.setState({
       success: true,
-      title: "Congratulations!",
-      description: "Your registration has been confirmed and now you have a profile."
+      title: "Felicitaciones!",
+      description: "Tu registro se ha confirmado y ahora tienes un perfil."
     });
   }
 

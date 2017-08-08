@@ -10,11 +10,9 @@ class RegistrationComponent extends React.Component {
     super (props);
   }
 
-  componentWillUnmount() {
-        
-  }
-
   render () {
+    document.title = 'Registration Page';
+
     return (
             <div className="fixed-box">
                 <div className="fix-box-inner">

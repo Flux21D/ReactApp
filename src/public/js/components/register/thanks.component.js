@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router";
-
 import {connect} from "react-redux";
 
 class ThanksComponent extends React.Component {
@@ -9,11 +8,9 @@ class ThanksComponent extends React.Component {
     super (props);
   }
 
+  
   render () {
-
-    // const {auth} = this.props;
-    // const {user} = auth;
-        
+    document.title = 'Thanks for Register';
     return (
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
@@ -32,19 +29,5 @@ class ThanksComponent extends React.Component {
   }
 
 }
-
-// function mapStateToProps (state) {
-
-//   return {
-//     auth: state.auth
-//   };
-
-// }
-
-// const actionCreators = {
-
-// };
-
-//export default connect(mapStateToProps, actionCreators)(ThanksComponent);
 
 export default connect(null)(ThanksComponent);

@@ -5,13 +5,18 @@ import {openModal,closeModal} from "../../actions/modal";
 import {register, removeAuthErrors} from "../../actions/auth";
 import ThanksComponent from './thanks.component';
 import {removeNewUser} from "../../actions/auth";
+import $ from "jquery";
 
 class SuccessComponent extends React.Component {
 
   constructor(props) {
     super(props);
   }
+  componentWillMount(){
+    $('#janrainModalOverlay').css('display', 'none !important');
+  }
   componentDidMount() {
+    document.title = 'Registration Success';
         //Open this for custom thanks message
     this.props.openModal({
       Component: ThanksComponent,

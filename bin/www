@@ -5,6 +5,7 @@
 */
 
 const app = require('../app');
+const newrelic = require('newrelic');
 const debug = require('debug')('CIRR_PATTERN_EXPRESS_AUTH:server');
 const http = require('http');
 

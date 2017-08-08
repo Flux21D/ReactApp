@@ -1,5 +1,5 @@
 {
-  "name": "cirr-web-accelerator",
+  "name": "AULA Diabetes",
   "version": "2.1.2",
   "private": true,
   "license": "MIT",
@@ -15,7 +15,7 @@
     "ci_test": "gulp mocha && gulp lint",
     "prod_test": "tests/codecheck"
   },
-  "author": "Nick Liffen <liffen_nicholas@lilly.com>",
+  "author": "Indegene",
   "contributors": [
     {
       "name": "Matt Bull",
@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR"
+    "url": "https://github.com/EliLillyCo/BUIT_EUCAN_AULA_ES_DIABETES"
   },
   "bugs": {
-    "url": "https://github.com/EliLillyCo/CIRR_WEB_ACCELERATOR/issues"
+    "url": "https://github.com/EliLillyCo/BUIT_EUCAN_AULA_ES_DIABETES/issues"
   },
   "dependencies": {
     "async": "^2.4.0",

@@ -187,6 +187,10 @@ gulp.task('minify-js', () => {
   ]);
 });
 
+gulp.task('svg', () => {
+    return gulp.src('./src/public/svg/**/*')
+        .pipe(gulp.dest('./lib/public/svg/'));
+});
 
 /*  -----------------------  */
 
@@ -215,7 +219,7 @@ gulp.task('watch', () => {
 /* START TASK */
 
 // Make my default task to watch both folders
-//gulp.task('default', ['watch']);
-gulp.task('build', ['less', 'image', 'font','babelify','babelify-web','minify-js-vendor','minify-js', 'minify-css-styles','minify-xml-transfer']);
+gulp.task('default', ['watch']);
+// gulp.task('build', ['less', 'image', 'font','babelify','babelify-web','minify-js-vendor','minify-js', 'minify-css-styles','minify-xml-transfer','svg']);
 
 /*  -----------------------  */

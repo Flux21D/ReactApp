@@ -17,9 +17,9 @@ class ThanksComponent extends React.Component {
                     <h3 className="title">Gracias por su registro</h3>
 
                     <p className="reg-confirmed">
-                        Hemos enviado un correo electr�nico de confirmaci�n
+                        Hemos enviado un correo electrónico de confirmación
                         <br />
-                        Por favor revise su correo electr�nico y haga clic en el enlace a
+                        Por favor revise su correo electrónico y haga clic en el enlace a
                         <br />
                         activa tu cuenta.
                     </p>

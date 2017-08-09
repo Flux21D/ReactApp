@@ -2936,6 +2936,12 @@ media all and (min-width:1100px) div.slider-header div.paginator div:hover .svg 
   top: -50px;
   right: -50px;
 }
+#congrats .sd-modal .close-sd-modal {
+  color: #ffffff;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
 #main-content .fixed-box .fix-box-inner .page-box-close {
   position: absolute;
   top: 7px;
@@ -3006,7 +3012,7 @@ media all and (min-width:1100px) div.slider-header div.paginator div:hover .svg 
 #congrats .register-info-box {
   width: 530px;
   min-height: 200px;
-  top: 110px;
+  top: -435px;
   left: 50%;
   margin-left: -265px;
   padding: 38px 0 53px;

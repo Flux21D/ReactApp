@@ -165,7 +165,7 @@ $MODAL SCREENS
   left: 0;
   height: 35px;
   width: 100%;
-  z-index: 5;
+  z-index: 1;
   padding: 10px 0;
   *zoom: 1;
   -moz-box-shadow: 0 9px 9px -9px rgba(0, 0, 0, 0.1) inset;
@@ -417,4 +417,9 @@ $MEDIA QUERIES
   {
     margin-top:auto
   }
+}
+@media screen and (max-width : 1100px){
+#congrats .register-info-box {
+    top: -505px !important;
+}
 }

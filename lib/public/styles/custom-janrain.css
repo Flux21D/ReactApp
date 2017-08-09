@@ -444,3 +444,16 @@ select{
 @media all and (max-width: 767px) and (orientation: landscape){
 	#register-panel.show{height: 300px;}
 }
+@media only screen and (max-width: 380px) {
+#janrainModal .janrain_modal_closebutton {
+    right: 3px !important;
+}
+#traditionalRegistration input, #traditionalRegistration select {
+    font-size: 12px !important;
+    
+}
+#congrats .register-info-box {
+    top: -256px !important;
+
+}
+}

@@ -3239,7 +3239,9 @@ media all and (min-width:1100px){
     left: 0;
     overflow-y: scroll;
     padding: 0 50px;
-
+    @media only screen and (max-width: 767px) {
+        padding: 0 !important;
+    }
     .page-box-close {
         img {
             width: 30px;
@@ -3265,6 +3267,11 @@ media all and (min-width:1100px){
   padding: 26px 53px 95px;
   background: #ffffff;
   margin: 150px auto 0;
+
+  @media only screen and (max-width: 767px) {
+    width: 96%;
+    max-width: 100%;
+  }
 }
 
 #password-changed {

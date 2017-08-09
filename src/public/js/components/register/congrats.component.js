@@ -27,10 +27,6 @@ class Congrats extends React.Component {
     return (
             <div id="congrats" className="sd-modal">
                 <div className="sd-modal-content register-info-box">
-                    <Link to="/" className="close-sd-modal">
-                        <span className="janrain-icon-16 janrain-icon-ex2"></span>
-                    </Link>
-
                     {this.state.description ?
                         <div>
                             <h3 className="title">{this.state.title}</h3>

@@ -143,7 +143,7 @@ class PreLoginBody extends React.Component {
               professionalData_specialty: obj.result.professionalData.specialty,
               professionalData_postalCode: obj.result.professionalData.postalCode,
               termsAndCondition_contactConsent: obj.result.termsAndCondition.contactConsent,
-              isdelegate: true
+              isdelegate: false
             };
           }          
 

@@ -58,8 +58,8 @@ For more information about these settings, see the following documents:
 
     janrain.settings.capture.federate = true;
     janrain.settings.capture.federateServer = 'https://elililly-dev.janrainsso.com';
-    janrain.settings.capture.federateXdReceiver = 'https://buit-eucan-aula-es-diab-dev.herokuapp.com/';
-    janrain.settings.capture.federateLogoutUri = 'https://buit-eucan-aula-es-diab-dev.herokuapp.com/';
+    janrain.settings.capture.federateXdReceiver = 'http://buit-eucan-aula-es-diab-dev.herokuapp.com/';
+    janrain.settings.capture.federateLogoutUri = 'http://buit-eucan-aula-es-diab-dev.herokuapp.com/';
     janrain.settings.capture.federateLogoutCalllback = function() {};
     janrain.settings.capture.federateEnableSafari = false;
 

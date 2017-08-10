@@ -107,9 +107,8 @@
 
 **Power Users:**
 
-	| Name  |  Contact Email |
-	|---|---|
-	|Edward Wearing| |
+	| Name			|	Contact Email 			|
+	|Edward Wearing	| wearing_edward@lilly.com 	|
 
 **Tag Manager Code Version (if applicable):**
 

@@ -23,7 +23,9 @@ class TopBannerImage extends React.Component {
             <div className="section-header" style={{backgroundImage: 'url(img/backgrounds/perfil.jpg)'}}>
                 <div className="content">
                     <h1 className="size1">Mi perfil</h1>
-                    <div className="size3">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</div>
+                    <div className="size3">Aquí encontrarás tus datos personales y todos los cursos, eventos y herramientas que
+has marcado como favoritos.
+</div>
                 </div>
             </div>
     );

@@ -35,6 +35,11 @@ class ToolBoxContainer extends React.Component {
     });
   };
 
+  divClickHandler(url, eve) {
+    window.open(url, '_blank');     
+    eve.preventDefault();
+  }
+
   render() {
     const {herramientas} = this.props;
     let that = this;
@@ -44,9 +49,17 @@ class ToolBoxContainer extends React.Component {
       let favClass = (item.isFavourite || (that.state.isFavouriteLocal.indexOf(item.sysid) !== -1)) ? 'favHeherramientas' : '';
       return (
                 <div className="event" key={i}>
-                    <div className="date-modalidad external_link" title={item.externalUrl}>
-                        <div className="icon aw nmt"><img className="svg svgG" src="img/icons/external-link-square.svg" title="Icono" /></div>
-                    </div>
+                    {
+                      item.isExternal ?
+                      <div className="date-modalidad external_link" title={item.externalUrl}>
+                          <div className="icon aw nmt"><img className="svg svgG" src="img/icons/external-link-square.svg" title="Icono" /></div>
+                      </div>
+                      :
+                      <div onClick={that.divClickHandler.bind(that, item.externalUrl)} className="date-modalidad" title={item.externalUrl}>
+                          <div className="icon aw nmt" ><img className="svg svgG" src="img/icons/external-link-square.svg" title="Icono" /></div>
+                      </div>
+                    }
+
                     <div className="txt">
                         <h3 className="title nmt">{item.title}</h3>
                         <p className="info">{item.description}</p>

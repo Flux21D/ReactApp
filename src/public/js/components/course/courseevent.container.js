@@ -7,6 +7,9 @@ import {replaceSVGIcons} from "../../utils/custom.jquery";
 /* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
 /* eslint-env es6 */
 
+let HtmlToReactParser = require('html-to-react').Parser;
+let htmlToReactParser = new HtmlToReactParser();
+
 class CourseEventContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -83,7 +86,7 @@ class CourseEventContainer extends React.Component {
                                 <div className="txt">
                                     <div className="place"><Link title="Curso" to={{ pathname: '/coursedetail', state: item }}>{item.firstLine}</Link></div>
                                     <h3 className="title"><Link title={item.courseTitle} to={{ pathname: '/coursedetail', state: item }}>{item.courseTitle}</Link></h3>
-                                    <p className="info"><Link title={item.courseTitle} to={{ pathname: '/coursedetail', state: item }}>{item.courseDescription}</Link></p>
+                                    <p className="info"><Link title={item.courseTitle} to={{ pathname: '/coursedetail', state: item }}>{htmlToReactParser.parse(that.context.marked(item.courseDescription ? item.courseDescription : null))}</Link></p>
                                     <div className="more"><Link title="Ver más" to={{ pathname: '/coursedetail', state: item }}>Ver más <span className="aw"><img className="svg svgR" src="img/icons/angle-right.svg" title="Icono"/></span></Link></div>
                                 </div>
                                 <div className="clear"></div>
@@ -125,6 +128,10 @@ const actionCreators = {
   getCursosInfo,
   sortCursos,
   setFavCursos
+};
+
+CourseEventContainer.contextTypes = {
+  marked: React.PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

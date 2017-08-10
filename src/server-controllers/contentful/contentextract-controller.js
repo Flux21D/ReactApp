@@ -5,6 +5,7 @@ let hyperlinks = {};
 let questions = {};
 let courseModules = {};
 let shortList = {};
+//let downloadPdf = [];
 let temPage = {
   includes:{
     Entry:[]
@@ -16,6 +17,7 @@ module.exports = function (slug, data) {
   assets = {};
   hyperlinks = {};
   questions = {};
+  downloadPdf = [];
   temPage = {
     includes:{
       Entry:[]
@@ -38,6 +40,7 @@ module.exports = function (slug, data) {
       else if (item.sys.contentType.sys.id === "qchoices") questions[item.sys.id] = item.fields;
       else if (item.sys.contentType.sys.id === "courseModule") courseModules[item.sys.id] = item.fields;
       else if (item.sys.contentType.sys.id === "list") shortList[item.sys.id] = item.fields.text;
+      // else if (item.sys.contentType.sys.id === "fileUpload") downloadPdf[item.sys.id] = item.fields.fileName;
       else temPage.includes.Entry.push(item);
     });
     if (slug !== 'subcontent' && slug !== 'profileCourse')
@@ -229,6 +232,7 @@ const getCourseValues = function(item , includes) {
     couserMainBannerImage : "",
     courseModules : [],
     courseEvaluators : []
+    // downloadPdf : []
   };
 
   let cBannerId = item.fields.couserMainBannerImage ? item.fields.couserMainBannerImage.sys.id: "";
@@ -253,6 +257,13 @@ const getCourseValues = function(item , includes) {
         obj.courseModules.push({ sysid: item.sys.id, fields: tempContent });
       }
     });
+
+  // if(item.fields['downloadPdf'])
+  //   item.fields['downloadPdf'].forEach(function(pdf){
+  //     if(downloadPdf[pdf.sys.id]){
+  //       obj.downloadPdf.push(downloadPdf[pdf.sys.id]);
+  //     }
+  //   });
 
   return obj;
 }

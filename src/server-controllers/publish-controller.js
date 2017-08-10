@@ -461,11 +461,11 @@ const setScore = (req , res) => {
         let mailObj = {
           fromail: process.env.NOREPLY_EMAIL,
           tomail: evalObj.toEmail,
-          subject: 'Course '+req.body.courseTitle+' completed',
-          message: "Subjected course has been sucessfully completed"
+          subject: 'Curso '+req.body.courseTitle+' completado',
+          message: "Curso supuesto ha sido completado con éxito"
         }
         send.contactSalesRepresentative(mailObj,function(){});
-        profile.addNotification(evalObj.uid,evalObj.cid,'course','complete','Course completed',function(){
+        profile.addNotification(evalObj.uid,evalObj.cid,'course','complete','Curso completado',function(){
           loadUserNotification(evalObj.uid,function(){});
         });
       }    

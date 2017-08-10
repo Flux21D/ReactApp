@@ -6,6 +6,10 @@ import { getCursosModulo } from "../../../actions/cursos.details";
 import {replaceSVGIcons} from "../../../utils/custom.jquery";
 /* eslint arrow-body-style: ["error", "as-needed", { "requireReturnForObjectLiteral": true }] */
 /* eslint-env es6 */
+
+let HtmlToReactParser = require('html-to-react').Parser;
+let htmlToReactParser = new HtmlToReactParser();
+
 class MixedCourseDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -41,8 +45,20 @@ class MixedCourseDetails extends React.Component {
     });
   };
 
+  clickHandler(eve) {
+    debugger;
+    if(eve.target.tagName.toLowerCase() === 'a') {
+      let isExternalLink = eve.target.getAttribute("class");
+      if(!isExternalLink) {
+        window.open(eve.target.getAttribute("href"), '_blank');     
+      }
+    }
+    eve.preventDefault();
+  }
+
   render() {
     const {courseInfo} = this.props;
+    let that = this;
     let visualizarFunc = this.courseVisualizar;
     courseInfo.courseModules = courseInfo.courseModules.sort(function(a, b) {
       return a.fields.sequence - b.fields.sequence;
@@ -70,7 +86,7 @@ class MixedCourseDetails extends React.Component {
 
                     <div className="clear"></div>
                     <div className="img"><img src="img/curso/modulo-1.jpg" alt="Módulo 1" /></div>
-                    <div className="title">{moduleInfo.title}</div>
+                    <div className="title">{htmlToReactParser.parse(that.context.marked(moduleInfo.title ? moduleInfo.title : ''))}</div>
                 </div>
       )
     });
@@ -84,7 +100,7 @@ class MixedCourseDetails extends React.Component {
 
                         {/* <!-- intro --> */}
                         <div className="title-big nmt">Descripción del curso</div>
-                        <div>{courseInfo.courseDescription}</div>
+                        <div>{htmlToReactParser.parse(this.context.marked(courseInfo.courseDescription ? courseInfo.courseDescription : ''))}</div>
                         <div className="title-big">Módulos del curso</div>
 
                         {/* <!-- list of modules of the course --> */}
@@ -95,16 +111,19 @@ class MixedCourseDetails extends React.Component {
 
                         {/* <!-- authors of the course --> */}
                         <div className="title-big nmt">Autores del curso</div>
-                        <div dangerouslySetInnerHTML={{__html:courseInfo.authorDescription}}/>
+                        {htmlToReactParser.parse(this.context.marked(courseInfo.authorDescription ? courseInfo.authorDescription : ''))}
+
+                        {/* <!-- bibliography of the course --> */}
+                        <div className="title-big" onClick={this.clickHandler}>{htmlToReactParser.parse(this.context.marked(courseInfo.downloadAttachment ? courseInfo.downloadAttachment : ''))}</div>
 
                         {/* <!-- disclaimer of the course --> */}
-                        <div className="title-big">Disclaimer</div>
-                        <div>{courseInfo.disclaimer}</div>
+                        <div className="title-big">Renuncia</div>
+                        <div>{htmlToReactParser.parse(this.context.marked(courseInfo.disclaimer ? courseInfo.disclaimer : ''))}</div>
 
                         {/* <!-- zinc code of the course --> */}
-                        <div className="title-big">ZINC Code</div>
+                        <div className="title-big">Código ZINC</div>
                         <div>{courseInfo.zincCode}</div>
-                    </div> 
+                    </div>
                     : <CursoModulo showModulo={this.toggelModule}/>
                 }
                 
@@ -112,6 +131,10 @@ class MixedCourseDetails extends React.Component {
     );
   }
 }
+
+MixedCourseDetails.contextTypes = {
+  marked: React.PropTypes.func,
+};
 
 const actionCreators = {
   getCursosModulo

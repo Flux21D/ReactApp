@@ -70,8 +70,8 @@ const poll_schedule = () => {
       mailObj = {
         tomail:item.email,
         fromail:process.env.FROM_MAIL,
-        subject:'event reminder',
-        message:'This mail is reminder for event: '+item.description+' date: '+item.start_date+""
+        subject:'Recordatorio de eventos',
+        message:'Este correo es un recordatorio para el evento: '+item.description+' fecha: '+item.start_date+""
       }
     			send.contactSalesRepresentative(mailObj,function(err,done){
       track = track+1;

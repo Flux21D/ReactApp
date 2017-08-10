@@ -46,7 +46,7 @@
 	Development Framework(s):
 	Development Add-Ons: Redis, PaperTrail, New Relic, Postgres SQL, Sendgrid
 	Development Standards:  esLint
-	Content Management System: 
+	Content Management System: Contentful
 	Analytics:** Google Analytics
 	Tag Management Tool: Google Tag Manager
 	Customer Authentication: Janrain

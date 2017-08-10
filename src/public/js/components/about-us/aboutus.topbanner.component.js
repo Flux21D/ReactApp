@@ -23,7 +23,7 @@ class TopBannerSlider extends React.Component {
     const {aboutus} = this.props;
     if(aboutus.bannerContent.topBanner) {
       aboutus.bannerContent.topBanner.map(function(item, i) {
-        bannerSlider = bannerSlider + '<div className="slide" style="background-image: url(' + item.imagePath + ')"><div className="content cv"><div className="size2"><img src="img/ux/logo-lilly.png" alt="Lilly" /></div><h1 className="size1">' + (item.title ? item.title : '') + '</h1><div className="size3">' + item.description +'</div></div></div>';
+        bannerSlider = bannerSlider + '<div className="slide" style="background-image: url(' + item.imagePath + ')"><div className="content cv"><div className="size2"><img src="img/ux/logo-lilly.png" alt="Lilly" /></div><h1 className="size1">' + (item.title ? item.title : '') + '</h1><div className="size3 fontStyle">' + item.description +'</div></div></div>';
         pagination = pagination + '<div><img className="svg svgW " src="img/icons/circle.svg" title="Icono"/></div>';
       });
 

@@ -17,7 +17,7 @@ module.exports = function (slug, data) {
   assets = {};
   hyperlinks = {};
   questions = {};
-  downloadPdf = [];
+  // downloadPdf = [];
   temPage = {
     includes:{
       Entry:[]

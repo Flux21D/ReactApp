@@ -46,7 +46,7 @@
 	Development Framework(s):
 	Development Add-Ons: Redis, PaperTrail, New Relic, Postgres SQL, Sendgrid
 	Development Standards:  esLint
-	Content Management System: 
+	Content Management System: Contentful
 	Analytics:** Google Analytics
 	Tag Management Tool: Google Tag Manager
 	Customer Authentication: Janrain
@@ -107,9 +107,8 @@
 
 **Power Users:**
 
-	| Name  |  Contact Email |
-	|---|---|
-	|Edward Wearing| |
+	| Name			|	Contact Email 			|
+	|Edward Wearing	| wearing_edward@lilly.com 	|
 
 **Tag Manager Code Version (if applicable):**
 

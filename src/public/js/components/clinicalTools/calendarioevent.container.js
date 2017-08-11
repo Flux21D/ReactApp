@@ -56,7 +56,7 @@ class CalendarioEventContainer extends React.Component {
     this.props.downloadICSFile(userInfo.user.uuid, eve, function(err, resp) {
       if(!err) {
         if (encodeURIComponent(resp).startsWith("data") ||encodeURIComponent(resp).startsWith("BEGIN")){
-          let filename = "dsds.ics";
+          let filename = "calendar.ics";
           let blob = new Blob([encodeURIComponent(resp)], { type: "text/calendar;charset=utf-8" });
           if (that.state.isCrappyIE) {
             window.navigator.msSaveOrOpenBlob(blob, filename);
@@ -67,9 +67,10 @@ class CalendarioEventContainer extends React.Component {
             // (even with "download" attribute in use) so this solution
             // ensures the event will download cross-browser
             ****************************************************************/
-            let icselement = document.createElement('a');
-            icselement.href = window.URL.createObjectURL(blob);
-            icselement.setAttribute("download", filename);
+            var icselement = document.createElement('a');
+            icselement.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(resp));
+            icselement.setAttribute('download', "calendar.ics");
+            icselement.style.display = 'none';
             document.body.appendChild(icselement);
             icselement.click();
             document.body.removeChild(icselement);

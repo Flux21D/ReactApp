@@ -193,7 +193,7 @@ const getIcal = (req, res) => {
       end: eveObj.endDate || '2016-05-30 15:00',
       title: eveObj.mainTitle || 'Diabetes',
       description: eveObj.description || 'Event Invitation',
-      organizer: {name : "sunil" , email: process.env.NOREPLY_EMAIL},
+      organizer: {name : "Lilly" , email: process.env.NOREPLY_EMAIL},
       url: 'https://buit-eucan-aula-es-diab-dev.herokuapp.com',
       status: 'confirmed',
       categories: ['event', 'course'],

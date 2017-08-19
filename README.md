@@ -1,8 +1,5 @@
-· Name of application : BUIT_EUCAN
-· Description of application : N/A 
-· Prefix : N/A  
-· Author : ROHIT MANI (C180889) 
-· IT Responsible Org : BUIT - Diabetes
-· Information classification : N/A
-· Development language(s) (if uknown, leave blank) : N/A
-· ALM Record URL : N/A 
+Download and unzip the attached package file.
+Install NodeJS
+Run npm install (node_modules folder will be created and all dependency modules will be install)
+Run npm run build (lib folder will be create and bundle all the reactjs component into minified JS file and placed it in lib folder)
+Run npm run start (This will start the server)
